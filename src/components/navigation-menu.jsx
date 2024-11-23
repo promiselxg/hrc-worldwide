@@ -72,24 +72,6 @@ export function NavigationMenuDemo() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-transparent hover:bg-transparent active:bg-transparent text-[25px] md:text-[17px]">
-            Resources
-          </NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-full gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
-                <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
-                >
-                  {component.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );

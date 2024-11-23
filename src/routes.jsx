@@ -23,7 +23,7 @@ const routes = createBrowserRouter([
         element: <Resources />,
       },
       {
-        path: "/",
+        path: "/contact-us",
         element: <ContactUs />,
       },
     ],
