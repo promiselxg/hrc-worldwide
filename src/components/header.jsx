@@ -56,7 +56,7 @@ const Header = () => {
               )}
             >
               <li>
-                <Link to="/about">About us</Link>
+                <Link to="/">About us</Link>
               </li>
               <NavigationMenuDemo />
               <li>
@@ -123,37 +123,37 @@ const Header = () => {
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link to="/about" onClick={handleToggle}>
+                <Link to="/" onClick={handleToggle}>
                   About us
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link to="/about" onClick={handleToggle}>
+                <Link to="/" onClick={handleToggle}>
                   Resources
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link to="/about" onClick={handleToggle}>
+                <Link to="/" onClick={handleToggle}>
                   Ministries
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px]  border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link href="#about" onClick={handleToggle}>
+                <Link href="/" onClick={handleToggle}>
                   Events
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link href="#events" onClick={handleToggle}>
+                <Link href="/" onClick={handleToggle}>
                   RBTI
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px]  border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link href="#services" onClick={handleToggle}>
+                <Link href="/" onClick={handleToggle}>
                   Blog
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link href="#discography" onClick={handleToggle}>
+                <Link href="/" onClick={handleToggle}>
                   Contact us
                 </Link>
               </li>
