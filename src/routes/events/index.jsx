@@ -1,7 +1,6 @@
 import BgWrapper from "@/components/bg-wrapper";
 import Banner from "../../assets/images/banner/banner-5.png";
 import { FiClock } from "react-icons/fi";
-import { Separator } from "@/components/ui/separator";
 import Card from "@/components/card";
 import ServiceBanner from "@/components/service-banner";
 

@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-"use client";
 
 import React, { forwardRef } from "react";
 
@@ -14,17 +13,18 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { Link } from "react-router-dom";
 
 const components = [
   {
     title: "Sermons",
-    href: "/docs/primitives/alert-dialog",
+    href: "/resources",
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
     title: "Audio Messages",
-    href: "/docs/primitives/hover-card",
+    href: "/resources",
     description:
       "For sighted users to preview content available behind a link.",
   },
@@ -99,12 +99,13 @@ const ListItem = forwardRef(({ className, title, children, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
-        <a
+        <Link
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
           )}
+          to={props.href}
           {...props}
         >
           <div className="text-[14px] font-lato font-[600] capitalize">
@@ -113,7 +114,7 @@ const ListItem = forwardRef(({ className, title, children, ...props }, ref) => {
           <p className="line-clamp-2 text-[12px] capitalize leading-snug text-[rgba(0,0,0,0.7)]">
             {children}
           </p>
-        </a>
+        </Link>
       </NavigationMenuLink>
     </li>
   );

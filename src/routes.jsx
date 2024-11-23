@@ -3,6 +3,7 @@ import Home from "./routes/home";
 import ContactUs from "./routes/contact-us";
 import Layout from "./layouts/default.layout";
 import Events from "./routes/events";
+import Resources from "./routes/resources";
 
 const routes = createBrowserRouter([
   {
@@ -18,7 +19,11 @@ const routes = createBrowserRouter([
         element: <Events />,
       },
       {
-        path: "/contact",
+        path: "/resources",
+        element: <Resources />,
+      },
+      {
+        path: "/",
         element: <ContactUs />,
       },
     ],
