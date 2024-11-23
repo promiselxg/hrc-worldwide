@@ -58,7 +58,7 @@ const Header = () => {
               )}
             >
               <li>
-                <Link to="/">About us</Link>
+                <Link to="/about-us">About us</Link>
               </li>
               <NavigationMenuDemo />
               <li>
@@ -128,7 +128,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link to="/" onClick={handleToggle}>
+                <Link to="/about-us" onClick={handleToggle}>
                   About us
                 </Link>
               </li>

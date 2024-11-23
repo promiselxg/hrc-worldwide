@@ -4,6 +4,7 @@ import ContactUs from "./routes/contact-us";
 import Layout from "./layouts/default.layout";
 import Events from "./routes/events";
 import Resources from "./routes/resources";
+import AboutUs from "./routes/about-us";
 
 const routes = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const routes = createBrowserRouter([
       {
         path: "/contact-us",
         element: <ContactUs />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
       },
     ],
     errorElement: <div>404, page not found</div>,

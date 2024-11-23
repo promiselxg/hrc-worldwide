@@ -130,7 +130,7 @@ const ContactUs = () => {
                     id=""
                     placeholder="Your message"
                     rows={6}
-                    className="w-full border border-[--text-black] p-2 rounded-[5px] text-[--primary-bg] outline-none"
+                    className="w-full border border-[--text-black] p-2 rounded-[5px] text-[--primary-bg] outline-none resize-none"
                   ></textarea>
                 </div>
                 <Button className="w-full rounded-[5px] border-none outline-none">
