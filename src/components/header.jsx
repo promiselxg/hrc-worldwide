@@ -4,7 +4,7 @@ import Logo from "../assets/images/logo.png";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { NavigationMenuDemo } from "./navigation-menu";
-import { FiAlignRight, FiMenu, FiX } from "react-icons/fi";
+import { FiAlignRight, FiX } from "react-icons/fi";
 
 const Header = () => {
   const location = useLocation();
@@ -34,7 +34,9 @@ const Header = () => {
         className={cn(
           `flex w-full h-[80px] text-[rgba(0,0,0,0.7)]  top-0 left-0 transition-colors duration-300 z-50 ${
             scrolled ? "bg-[#f5f5f5] shadow-md" : "bg-transparent"
-          } ${location.pathname === "/" ? "fixed" : "sticky bg-[red]"}`
+          } ${
+            location.pathname === "/" ? "fixed" : "sticky bg-[--primary-bg] "
+          } `
         )}
       >
         <div className="container mx-[30px] flex items-center justify-between">
@@ -52,7 +54,7 @@ const Header = () => {
               className={cn(
                 `flex gap-6 text-[16px] uppercase font-lato font-[600] text-white transition-all duration-300 ${
                   scrolled && "text-[#000]"
-                }`
+                } ${location.pathname !== "/" && scrolled && "text-white"}`
               )}
             >
               <li>
@@ -60,7 +62,7 @@ const Header = () => {
               </li>
               <NavigationMenuDemo />
               <li>
-                <Link to="/">events</Link>
+                <Link to="/events">events</Link>
               </li>
               <li>
                 <Link to="/">RBTI</Link>
@@ -77,9 +79,9 @@ const Header = () => {
             <Button
               variant="outline"
               className={cn(
-                `bg-transparent border border-[rgba(255,255,255,.3)] text-white rounded-full px-5 py-2 text-[12px] font-normal ${
+                `bg-transparent border border-[rgba(255,255,255,.3)] text-white rounded-full px-5 py-2 text-[12px] font-normal transition-all delay-300 duration-300 ${
                   scrolled && "text-[#000] border-[#ccc]"
-                }`
+                } ${location.pathname !== "/" && scrolled && "text-white"}`
               )}
             >
               Give
@@ -87,9 +89,9 @@ const Header = () => {
             <Button
               variant="outline"
               className={cn(
-                `bg-transparent border border-[rgba(255,255,255,.3)] text-white px-5 py-2 text-[12px] font-normal rounded-full ${
+                `bg-transparent border border-[rgba(255,255,255,.3)] text-white px-5 py-2 text-[12px] font-normal rounded-full transition-all delay-300 duration-300 ${
                   scrolled && "text-[#000] border-[#ccc]"
-                }`
+                } ${location.pathname !== "/" && scrolled && "text-white"}`
               )}
             >
               live stream
@@ -99,7 +101,7 @@ const Header = () => {
             className={cn(
               `flex md:hidden text-[40px]  rounded-[5px] cursor-pointer  text-white hover:text-[--text-hover] transition-all delay-75 duration-300 ${
                 scrolled && "bg-[--primary-bg] px-[5px]"
-              }`
+              } `
             )}
             onClick={handleToggle}
           />
@@ -138,22 +140,22 @@ const Header = () => {
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px]  border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link href="/" onClick={handleToggle}>
+                <Link to="/events" onClick={handleToggle}>
                   Events
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link href="/" onClick={handleToggle}>
+                <Link to="/" onClick={handleToggle}>
                   RBTI
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px]  border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link href="/" onClick={handleToggle}>
+                <Link to="/" onClick={handleToggle}>
                   Blog
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link href="/" onClick={handleToggle}>
+                <Link to="/" onClick={handleToggle}>
                   Contact us
                 </Link>
               </li>

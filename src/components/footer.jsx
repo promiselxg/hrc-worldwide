@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import { SendIcon } from "lucide-react";
 import { FiFacebook, FiYoutube } from "react-icons/fi";
+import Scroll_To_Top from "./scroll-to-top";
 
 const Footer = () => {
   return (
@@ -14,7 +15,7 @@ const Footer = () => {
             </div>
 
             <div className="md:border-r-[1px] md:border-[rgba(255,255,255,.3)] flex  flex-col justify-center text-center items-center">
-              <h1 className="font-lato md:text-[20px] font-[400] mb-1 uppercase">
+              <h1 className="font-lato text-[18px] md:text-[20px] font-[600] mb-1 uppercase">
                 Quick links
               </h1>
               <ul className="text-[#d9d9d9] flex flex-col gap-2 mt-2">
@@ -35,7 +36,7 @@ const Footer = () => {
 
             <div className="flex flex-col items-center ">
               <div className="w-full max-w-[70%] flex flex-col md:items-start items-center">
-                <h1 className="font-lato md:text-[20px] font-[400] text-left uppercase">
+                <h1 className="font-lato text-[18px] md:text-[20px] font-[600] text-left uppercase">
                   Join our mailing list
                 </h1>
                 <div className="w-full flex px-3 py-1 border border-[rgba(255,255,255,.3)] rounded-[5px] items-center my-3">
@@ -84,6 +85,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+      <Scroll_To_Top />
     </>
   );
 };

@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import BlogImg from "../assets/images/event/event1.png";
 import { Badge } from "./ui/badge";
 
-const Card = ({ imgUrl, title, tags, date }) => {
+const Card = ({ imgUrl, title, tags, date, url }) => {
   return (
     <>
       <div className="w-full flex flex-col">
-        <Link to="/">
+        <Link to={url}>
           <div className="h-[250px] w-full overflow-hidden">
             <img
               src={imgUrl ?? BlogImg}
