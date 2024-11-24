@@ -44,7 +44,18 @@ const Card = ({ imgUrl, title, tags, date, url, data }) => {
                 ))}
               </div>
             ) : null}
-
+            {data && (
+              <div className="flex gap-2 items-center">
+                <h1 className="text-[16px]  md:text-sm italic">
+                  Ministering:{" "}
+                </h1>
+                {data?.ministering.map((minister, index) => (
+                  <p key={index} className="text-[16px]  md:text-sm italic">
+                    {minister},
+                  </p>
+                ))}
+              </div>
+            )}
             {date ||
               (data?.date && (
                 <p className="text-[12px] my-2 ml-1 italic">

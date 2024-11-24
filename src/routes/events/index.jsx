@@ -1,17 +1,19 @@
 import BgWrapper from "@/components/bg-wrapper";
 import Banner from "../../assets/images/banner/banner-5.png";
-import { FiClock } from "react-icons/fi";
+import { FiClock, FiX } from "react-icons/fi";
 import Card from "@/components/card";
 import ServiceBanner from "@/components/service-banner";
 import Modal from "@/components/modal";
 import { useModal } from "@/context/modal-context";
+import { Button } from "@/components/ui/button";
 
 const Events = () => {
-  const { isModalOpen, closeModal, toggleModal } = useModal();
+  const { closeModal, toggleModal } = useModal();
   const data = {
     title: "this is a title",
     date: "20/12/2024",
     tags: "spiritual,cleansing",
+    ministering: ["Pastor1", "Pastor 2"],
   };
   return (
     <>
@@ -91,9 +93,17 @@ const Events = () => {
         </div>
         <ServiceBanner />
       </div>
-      <Modal width="400px">
-        <div className="w-full flex bg-[whitesmoke] text-[--primary-bg] p-6 shadow-md rounded-[10px]">
+      <Modal width="400px" height="100%">
+        <div className="w-full flex bg-[whitesmoke] text-[--primary-bg] shadow-md rounded-[10px] overflow-hidden relative">
           <Card data={data} />
+          <Button
+            className="absolute top-3 right-3 bg-[--primary-bg] text-white transition-all delay-100 duration-300 border-0"
+            size="icon"
+            variant="outline"
+            onClick={() => closeModal()}
+          >
+            <FiX size={20} />
+          </Button>
         </div>
       </Modal>
     </>
