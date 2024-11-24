@@ -3,8 +3,16 @@ import Banner from "../../assets/images/banner/banner-5.png";
 import { FiClock } from "react-icons/fi";
 import Card from "@/components/card";
 import ServiceBanner from "@/components/service-banner";
+import Modal from "@/components/modal";
+import { useModal } from "@/context/modal-context";
 
 const Events = () => {
+  const { isModalOpen, closeModal, toggleModal } = useModal();
+  const data = {
+    title: "this is a title",
+    date: "20/12/2024",
+    tags: "spiritual,cleansing",
+  };
   return (
     <>
       <div className="w-full flex flex-col">
@@ -57,8 +65,15 @@ const Events = () => {
               </div>
               <div className="w-full flex mt-8">
                 <div className="grid md:w-full w-[90%] mx-auto md:grid-cols-4 gap-4 text-[--text-black]">
-                  <div className="shadow-md rounded-sm overflow-hidden">
-                    <Card title="Event title" date="26th November, 2024" />
+                  <div
+                    className="shadow-md rounded-sm overflow-hidden"
+                    onClick={() => toggleModal()}
+                  >
+                    <Card
+                      title="Event title"
+                      date="26th November, 2024"
+                      tags="crusade"
+                    />
                   </div>
                   <div className="shadow-md rounded-sm overflow-hidden">
                     <Card title="Event title" date="26th November, 2024" />
@@ -76,6 +91,11 @@ const Events = () => {
         </div>
         <ServiceBanner />
       </div>
+      <Modal width="400px">
+        <div className="w-full flex bg-[whitesmoke] text-[--primary-bg] p-6 shadow-md rounded-[10px]">
+          <Card data={data} />
+        </div>
+      </Modal>
     </>
   );
 };
