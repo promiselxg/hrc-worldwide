@@ -5,6 +5,8 @@ import Layout from "./layouts/default.layout";
 import Events from "./routes/events";
 import Resources from "./routes/resources";
 import AboutUs from "./routes/about-us";
+import Blog from "./routes/blog";
+import BlogDetails from "./routes/blog/details";
 
 const routes = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const routes = createBrowserRouter([
       {
         path: "/about-us",
         element: <AboutUs />,
+      },
+      {
+        path: "/blog",
+        element: <Blog />,
+      },
+      {
+        path: "/blog/:id",
+        element: <BlogDetails />,
       },
     ],
     errorElement: <div>404, page not found</div>,

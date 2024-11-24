@@ -20,7 +20,7 @@ const Card = ({ imgUrl, title, tags, date, url }) => {
               {title}
             </h1>
             {tags && (
-              <div className="flex gap-1 my-1">
+              <div className="flex gap-1 my-1 flex-wrap">
                 {tags.split(",").map((tag, index) => (
                   <Badge
                     variant="outline"

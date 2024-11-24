@@ -71,7 +71,7 @@ const Header = () => {
                 <Link to="/">RBTI</Link>
               </li>
               <li>
-                <Link to="/">blog</Link>
+                <Link to="/blog">blog</Link>
               </li>
               <li>
                 <Link to="/contact-us">contact us</Link>
@@ -153,7 +153,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px]  border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
-                <Link to="/" onClick={handleToggle}>
+                <Link to="/blog" onClick={handleToggle}>
                   Blog
                 </Link>
               </li>

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import { SendIcon } from "lucide-react";
 import { FiFacebook, FiYoutube } from "react-icons/fi";
-import Scroll_To_Top from "./scroll-to-top";
 
 const Footer = () => {
   return (
@@ -85,7 +84,6 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <Scroll_To_Top />
     </>
   );
 };
