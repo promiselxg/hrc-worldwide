@@ -7,6 +7,8 @@ import Resources from "./routes/resources";
 import AboutUs from "./routes/about-us";
 import Blog from "./routes/blog";
 import BlogDetails from "./routes/blog/details";
+import Ministries from "./routes/ministries";
+import MinistryDetails from "./routes/ministries/details";
 
 const routes = createBrowserRouter([
   {
@@ -40,6 +42,14 @@ const routes = createBrowserRouter([
       {
         path: "/blog/:id",
         element: <BlogDetails />,
+      },
+      {
+        path: "/ministry",
+        element: <Ministries />,
+      },
+      {
+        path: "/ministry/:id",
+        element: <MinistryDetails />,
       },
     ],
     errorElement: <div>404, page not found</div>,

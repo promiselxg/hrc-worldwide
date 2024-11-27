@@ -1,14 +1,7 @@
 import BgWrapper from "@/components/bg-wrapper";
 import { BreadCrumb } from "@/components/breadcrumb";
 import Banner from "../../../assets/images/banner/banner-1.png";
-import {
-  FiCalendar,
-  FiFacebook,
-  FiLinkedin,
-  FiMail,
-  FiTwitter,
-  FiUser,
-} from "react-icons/fi";
+import { FiCalendar, FiMail, FiUser } from "react-icons/fi";
 import { FaXTwitter } from "react-icons/fa6";
 
 import { FaWhatsapp, FaFacebook, FaLinkedin } from "react-icons/fa";

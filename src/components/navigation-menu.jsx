@@ -44,12 +44,12 @@ export function NavigationMenuDemo() {
                 <NavigationMenuLink asChild>
                   <a
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
+                    href="/ministry"
                   >
                     <div className="mb-2 mt-4 text-[16px] font-[600] font-lato">
                       MINISTRIES
                     </div>
-                    <p className="text-[12px] leading-tight text-black">
+                    <p className="text-[12px] leading-tight text-[--primary-bg] capitalize">
                       Beautifully designed components that you can copy and
                       paste into your apps. Accessible. Customizable. Open
                       Source.
@@ -57,16 +57,13 @@ export function NavigationMenuDemo() {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="Children Ministry">
+              <ListItem href="/ministry/:id" title="Children Ministry">
                 Re-usable components built using Radix UI and Tailwind CSS.
               </ListItem>
-              <ListItem href="/docs/installation" title="Youth Ministry">
+              <ListItem href="/ministry/:id" title="Youth Ministry">
                 How to install dependencies and structure your app.
               </ListItem>
-              <ListItem
-                href="/docs/primitives/typography"
-                title="Music Ministry"
-              >
+              <ListItem href="/ministry/:id" title="Music Ministry">
                 Styles for headings, paragraphs, lists...etc
               </ListItem>
             </ul>
