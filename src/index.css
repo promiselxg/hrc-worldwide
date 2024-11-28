@@ -11,6 +11,7 @@
   --footer-bg: rgba(45, 45, 45, 1);
   --primary-bg: #212136;
   --secondary-bg: #171726;
+  --active: #ff9e60;
 }
 header {
   background-color: transparent; /* Or any desired color */
@@ -19,6 +20,27 @@ header {
   line-height: 1.25;
   font-family: "Lato";
   margin-bottom: 5px;
+}
+
+.vid-bg {
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 8%,
+    rgba(255, 191, 0, 1) 47%,
+    rgba(0, 0, 0, 1) 89%
+  );
+}
+
+.showHiddenText {
+  transition: all 0.3s ease-in;
+}
+.showHiddenText:hover .hiddenText {
+  display: block;
+}
+.hiddenText {
+  transition: all 0.3s ease-in;
+  display: none;
 }
 @media (prefers-color-scheme: light) {
   :root {
