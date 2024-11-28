@@ -9,6 +9,8 @@ import Blog from "./routes/blog";
 import BlogDetails from "./routes/blog/details";
 import Ministries from "./routes/ministries";
 import MinistryDetails from "./routes/ministries/details";
+import Give from "./routes/give";
+import Livestream from "./routes/livestream";
 
 const routes = createBrowserRouter([
   {
@@ -50,6 +52,14 @@ const routes = createBrowserRouter([
       {
         path: "/ministry/:id",
         element: <MinistryDetails />,
+      },
+      {
+        path: "/give",
+        element: <Give />,
+      },
+      {
+        path: "/livestream",
+        element: <Livestream />,
       },
     ],
     errorElement: <div>404, page not found</div>,

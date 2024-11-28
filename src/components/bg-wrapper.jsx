@@ -2,12 +2,12 @@
 import { cn } from "@/lib/utils";
 import NewsletterBg from "../assets/images/church-bg.png";
 
-const BgWrapper = ({ children, height }) => {
+const BgWrapper = ({ children, height, className }) => {
   return (
     <>
       <div
         className={cn(
-          `flex w-full bg-cover bg-left relative items-center text-[--primary-bg] ${
+          `flex w-full bg-cover bg-left relative items-center text-[--primary-bg] ${className} ${
             height ? `h-[${height}]` : "h-[200px]"
           }`
         )}

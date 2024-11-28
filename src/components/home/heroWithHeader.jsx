@@ -5,8 +5,10 @@ import "swiper/css/navigation";
 
 import HeroSectionSlider from "../slider/heroSection.slider";
 import Header from "../header";
+import { useLocation } from "react-router-dom";
 
 const HeroWithHeader = () => {
+  const location = useLocation();
   return (
     <div
       className="h-full bg-cover"
@@ -18,7 +20,7 @@ const HeroWithHeader = () => {
       <Header />
 
       {/* Hero Section */}
-      <HeroSectionSlider />
+      {location.pathname !== "/livestream" && <HeroSectionSlider />}
     </div>
   );
 };

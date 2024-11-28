@@ -24,7 +24,7 @@ const HeroSectionSlider = () => {
     >
       <SwiperSlide>
         <div
-          className="h-full bg-cover relative bg-center bg-center"
+          className="h-full bg-cover relative bg-center"
           style={{
             backgroundImage: `url(${Banner1})`,
           }}
