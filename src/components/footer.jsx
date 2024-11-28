@@ -9,8 +9,9 @@ const Footer = () => {
       <footer className="flex w-full bg-[--footer-bg]  h-fit items-center py-10 ">
         <div className="container md:w-[1200px] mx-auto text-white">
           <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
-            <div className="md:border-r-[1px] md:border-[rgba(255,255,255,.3)] flex justify-center items-center">
+            <div className="md:border-r-[1px] md:border-[rgba(255,255,255,.3)] flex justify-center items-center flex-col">
               <img src={Logo} alt="logo" className="w-[120px] h-[80px]" />
+              <h1 className="text-[50px] font-gothic">hrc worldwide</h1>
             </div>
 
             <div className="md:border-r-[1px] md:border-[rgba(255,255,255,.3)] flex  flex-col justify-center text-center items-center">

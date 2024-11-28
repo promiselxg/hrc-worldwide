@@ -176,7 +176,7 @@ const Header = () => {
       </header>
       {toggle && (
         <>
-          <div className="flex w-full bg-[--secondary-bg] fixed top-0 z-50 justify-center text-center h-screen items-center transition-all delay-100 duration-300">
+          <div className="flex-col flex w-full bg-[--secondary-bg] fixed top-0 z-50 justify-center text-center h-screen items-center transition-all delay-100 duration-300">
             <div className="absolute top-[20px] right-8">
               <FiX
                 className="text-[40px] bg-[--primary-bg] rounded-[5px] p-2 cursor-pointer text-white hover:text-[--text-hover] transition-all delay-75"
@@ -186,7 +186,7 @@ const Header = () => {
             <ul
               className={`font-lato items-center leading-loose uppercase tracking-wide text-white font-[500]`}
             >
-              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[20px]">
+              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[18px]">
                 <Link
                   to="/"
                   onClick={handleToggle}
@@ -197,7 +197,7 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[20px]">
+              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[18px] capitalize">
                 <Link
                   to="/about-us"
                   onClick={handleToggle}
@@ -208,7 +208,7 @@ const Header = () => {
                   About us
                 </Link>
               </li>
-              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[20px]">
+              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[18px] capitalize">
                 <Link
                   to="/resources"
                   onClick={handleToggle}
@@ -219,7 +219,7 @@ const Header = () => {
                   Resources
                 </Link>
               </li>
-              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[20px]">
+              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[18px] capitalize">
                 <Link
                   to="/ministry"
                   onClick={handleToggle}
@@ -234,7 +234,7 @@ const Header = () => {
                   Ministries
                 </Link>
               </li>
-              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px]  border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
+              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px]  border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[18px] capitalize">
                 <Link
                   to="/events"
                   onClick={handleToggle}
@@ -245,7 +245,7 @@ const Header = () => {
                   Events
                 </Link>
               </li>
-              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
+              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[18px] capitalize">
                 <Link
                   to="/rbti"
                   onClick={handleToggle}
@@ -256,7 +256,7 @@ const Header = () => {
                   RBTI
                 </Link>
               </li>
-              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px]  border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
+              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px]  border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[18px] capitalize">
                 <Link
                   to="/blog"
                   onClick={handleToggle}
@@ -267,7 +267,7 @@ const Header = () => {
                   Blog
                 </Link>
               </li>
-              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[20px]">
+              <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2 hover:border-b-[--text-hover] my-[2px] text-[18px] capitalize">
                 <Link
                   to="/contact-us"
                   onClick={handleToggle}
@@ -281,6 +281,42 @@ const Header = () => {
                 </Link>
               </li>
             </ul>
+            <div className="flex items-center gap-4 w-fit mt-2">
+              <Link to="/give">
+                <Button
+                  variant="outline"
+                  className={cn(
+                    `bg-transparent border border-[rgba(255,255,255,.3)] text-white rounded-full px-5 py-2 text-[12px] font-normal transition-all delay-200 duration-200 ${
+                      scrolled && "text-[#000] border-[#ccc]"
+                    } ${
+                      location.pathname !== "/" && scrolled && "text-white"
+                    } ${
+                      location.pathname === "/give" &&
+                      "bg-[#fff] text-[--active] font-bold"
+                    }`
+                  )}
+                >
+                  Give
+                </Button>
+              </Link>
+              <Link to="/livestream">
+                <Button
+                  variant="outline"
+                  className={cn(
+                    `bg-transparent border border-[rgba(255,255,255,.3)] text-white px-5 py-2 text-[12px] font-normal rounded-full transition-all delay-200 duration-200 ${
+                      scrolled && "text-[#000] border-[#ccc]"
+                    } ${
+                      location.pathname !== "/" && scrolled && "text-white"
+                    } ${
+                      location.pathname === "/livestream" &&
+                      "bg-[#fff] text-[--active] font-bold"
+                    }`
+                  )}
+                >
+                  live stream
+                </Button>
+              </Link>
+            </div>
           </div>
         </>
       )}
