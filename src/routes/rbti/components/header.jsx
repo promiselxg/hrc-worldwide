@@ -95,10 +95,10 @@ const RBTI_Header = () => {
               >
                 <li className="hover:text-[--text-hover] transition-all delay-75 duration-300 border-b-[1px] border-b-transparent pb-2  hover:border-b-[--text-hover] my-[2px] text-[18px]">
                   <Link
-                    to="/"
+                    to="/rbti"
                     onClick={handleToggle}
                     className={cn(
-                      `${location.pathname === "/" && "text-[--active]"}`
+                      `${location.pathname === "/rbti" && "text-[--active]"}`
                     )}
                   >
                     Home
@@ -111,10 +111,12 @@ const RBTI_Header = () => {
                     key={index}
                   >
                     <Link
-                      to="/"
+                      to={nav?.link}
                       onClick={handleToggle}
                       className={cn(
-                        `${location.pathname === "/" && "text-[--active]"}`
+                        `${
+                          location.pathname === nav?.link && "text-[--active]"
+                        }`
                       )}
                     >
                       {nav?.name}

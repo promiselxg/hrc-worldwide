@@ -13,6 +13,7 @@ import Give from "./routes/give";
 import Livestream from "./routes/livestream";
 import RBTI_Layout from "./layouts/rbti.layout";
 import RBTI_Home from "./routes/rbti";
+import PageNotFound from "./routes/404";
 
 const routes = createBrowserRouter([
   {
@@ -64,7 +65,7 @@ const routes = createBrowserRouter([
         element: <Livestream />,
       },
     ],
-    errorElement: <div>404, page not found</div>,
+    errorElement: <PageNotFound />,
   },
   {
     path: "/rbti",

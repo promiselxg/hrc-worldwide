@@ -287,12 +287,12 @@ const Header = () => {
                   variant="outline"
                   className={cn(
                     `bg-transparent border border-[rgba(255,255,255,.3)] text-white rounded-full px-5 py-2 text-[12px] font-normal transition-all delay-200 duration-200 ${
-                      scrolled && "text-[#000] border-[#ccc]"
+                      scrolled && "text-[#000] border-[#ccc] "
                     } ${
                       location.pathname !== "/" && scrolled && "text-white"
                     } ${
                       location.pathname === "/give" &&
-                      "bg-[#fff] text-[--active] font-bold"
+                      "bg-[#fff] text-[--active] font-bold text-white"
                     }`
                   )}
                 >

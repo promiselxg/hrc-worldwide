@@ -3,27 +3,27 @@ import { Link } from "react-router-dom";
 const navigation = [
   {
     name: "about rbti",
-    link: "/rbti/",
+    link: "/rbti/about",
   },
   {
     name: "objectives of rbti",
-    link: "/rbti/",
+    link: "/rbti/objectives",
   },
   {
     name: "financial requirement",
-    link: "/rbti/",
+    link: "/rbti/financial-requirement",
   },
   {
     name: "spiritual formation",
-    link: "/rbti/",
+    link: "/rbti/spiritual-formation",
   },
   {
     name: "candidate responsiblity",
-    link: "/rbti/",
+    link: "/rbti/candidate-responsiblity",
   },
   {
     name: "organogram",
-    link: "/rbti/",
+    link: "/rbti/organogram",
   },
 ];
 const SideNav = () => {
@@ -37,7 +37,7 @@ const SideNav = () => {
                 className="w-full bg-[white] p-5 text-[--primary-bg] uppercase font-lato font-[600] cursor-pointer hover:bg-[rgba(255,255,255,0.8)] transition-all delay-100 duration-200"
                 key={index}
               >
-                <Link to="/">{nav.name}</Link>
+                <Link to={nav?.link}>{nav.name}</Link>
               </li>
             ))}
           </ul>
