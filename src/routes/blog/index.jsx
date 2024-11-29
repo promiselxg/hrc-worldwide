@@ -1,10 +1,17 @@
 import BgWrapper from "@/components/bg-wrapper";
 import Card from "@/components/card";
+import SEO from "@/lib/seo";
 import { FiSearch } from "react-icons/fi";
 
 const Blog = () => {
   return (
     <>
+      <SEO
+        title="House of Restoration Church of Christ Int'l | Our Blog"
+        description="About House of Restoration Church of Christ Int'l"
+        name="House of Restoration Church of Christ Int'l"
+        type="error page"
+      />
       <div className="flex w-full flex-col">
         <BgWrapper>
           <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">

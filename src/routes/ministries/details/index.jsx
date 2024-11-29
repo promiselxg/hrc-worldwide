@@ -9,10 +9,17 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Link } from "react-router-dom";
+import SEO from "@/lib/seo";
 
 const MinistryDetails = () => {
   return (
     <>
+      <SEO
+        title="House of Restoration Church of Christ Int'l | Ministries"
+        description="House of Restoration Church of Christ Int'l"
+        name="House of Restoration Church of Christ Int'l"
+        type="ministry"
+      />
       <div className="flex w-full flex-col">
         <BgWrapper>
           <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">

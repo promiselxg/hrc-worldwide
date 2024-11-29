@@ -3,10 +3,17 @@ import Bg from "../../assets/images/banner/banner-1.png";
 import Fb from "../../assets/images/icons/fb.png";
 import Yt from "../../assets/images/icons/yt.png";
 import Tg from "../../assets/images/icons/tg.png";
+import SEO from "@/lib/seo";
 
 const Livestream = () => {
   return (
     <>
+      <SEO
+        title="House of Restoration Church of Christ Int'l | Join our Live stream"
+        description="Join our live stream"
+        name="House of Restoration Church of Christ Int'l"
+        type="error page"
+      />
       <div className="w-full flex flex-col">
         <div className="relative" style={{ backgroundImage: `${Bg}` }}>
           <div className="w-full flex h-screen">

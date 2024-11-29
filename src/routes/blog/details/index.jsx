@@ -6,10 +6,17 @@ import { FaXTwitter } from "react-icons/fa6";
 
 import { FaWhatsapp, FaFacebook, FaLinkedin } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
+import SEO from "@/lib/seo";
 
 const BlogDetails = () => {
   return (
     <>
+      <SEO
+        title="House of Restoration Church of Christ Int'l | Our Blog"
+        description="About House of Restoration Church of Christ Int'l"
+        name="House of Restoration Church of Christ Int'l"
+        type="error page"
+      />
       <div className="flex w-full flex-col">
         <BgWrapper>
           <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">

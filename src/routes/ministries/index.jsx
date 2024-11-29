@@ -1,9 +1,16 @@
 import BgWrapper from "@/components/bg-wrapper";
 import MinistryCard from "./ministry-card";
+import SEO from "@/lib/seo";
 
 const Ministries = () => {
   return (
     <>
+      <SEO
+        title="House of Restoration Church of Christ Int'l | Our Ministries"
+        description="House of Restoration Church of Christ Int'l"
+        name="House of Restoration Church of Christ Int'l"
+        type="ministries"
+      />
       <div className="flex w-full flex-col">
         <BgWrapper>
           <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">

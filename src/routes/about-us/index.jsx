@@ -8,9 +8,16 @@ import Music from "../../assets/images/banner/music.jpeg";
 
 import ServiceBanner from "@/components/service-banner";
 import MinistryCard from "../ministries/ministry-card";
+import SEO from "@/lib/seo";
 const AboutUs = () => {
   return (
     <>
+      <SEO
+        title="About House of Restoration Church of Christ Int'l "
+        description="About House of Restoration Church of Christ Int'l"
+        name="House of Restoration Church of Christ Int'l"
+        type="error page"
+      />
       <div className="flex w-full flex-col">
         <BgWrapper>
           <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">

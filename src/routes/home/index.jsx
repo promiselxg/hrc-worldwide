@@ -1,14 +1,20 @@
 import SectionAbout from "@/components/home/section/about";
 import BlogSection from "@/components/home/section/blog";
-import EventSection from "@/components/home/section/event";
 import NewsletterSection from "@/components/home/section/newsletter";
 import { EventSlider } from "@/components/slider/eventSection.slider";
 import { Button } from "@/components/ui/button";
 import BgWrapper from "@/components/bg-wrapper";
+import SEO from "@/lib/seo";
 
 const Home = () => {
   return (
     <>
+      <SEO
+        title="House of Restoration Church of Christ Int'l"
+        description="Welcome to House of Restoration Church of Christ Int'l"
+        name="House of Restoration Church of Christ Int'l"
+        type="error page"
+      />
       <SectionAbout />
       {/* <EventSection /> */}
       <EventSlider />

@@ -1,5 +1,6 @@
 import BgWrapper from "@/components/bg-wrapper";
 import { Button } from "@/components/ui/button";
+import SEO from "@/lib/seo";
 import {
   FiFacebook,
   FiMail,
@@ -12,6 +13,12 @@ import {
 const ContactUs = () => {
   return (
     <>
+      <SEO
+        title="House of Restoration Church of Christ Int'l | Contact Us"
+        description="About House of Restoration Church of Christ Int'l"
+        name="House of Restoration Church of Christ Int'l"
+        type="contact us"
+      />
       <div className="flex w-full flex-col">
         <BgWrapper>
           <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">

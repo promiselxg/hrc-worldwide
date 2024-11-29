@@ -6,6 +6,7 @@ import ServiceBanner from "@/components/service-banner";
 import Modal from "@/components/modal";
 import { useModal } from "@/context/modal-context";
 import { Button } from "@/components/ui/button";
+import SEO from "@/lib/seo";
 
 const Events = () => {
   const { closeModal, toggleModal } = useModal();
@@ -17,6 +18,12 @@ const Events = () => {
   };
   return (
     <>
+      <SEO
+        title="House of Restoration Church of Christ Int'l | Events"
+        description="About House of Restoration Church of Christ Int'l"
+        name="House of Restoration Church of Christ Int'l"
+        type="events"
+      />
       <div className="w-full flex flex-col">
         <BgWrapper>
           <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">

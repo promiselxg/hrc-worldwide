@@ -2,10 +2,17 @@ import BgWrapper from "@/components/bg-wrapper";
 import { FiSearch } from "react-icons/fi";
 import ResourceCard from "./resource-card";
 import ServiceBanner from "@/components/service-banner";
+import SEO from "@/lib/seo";
 
 const Resources = () => {
   return (
     <>
+      <SEO
+        title="House of Restoration Church of Christ Int'l | Resources"
+        description="House of Restoration Church of Christ Int'l"
+        name="House of Restoration Church of Christ Int'l"
+        type="resources"
+      />
       <div className="flex w-full flex-col">
         <BgWrapper>
           <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">

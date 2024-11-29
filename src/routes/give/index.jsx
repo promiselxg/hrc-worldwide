@@ -1,10 +1,17 @@
 import BgWrapper from "@/components/bg-wrapper";
 import UBA_LOGO from "../../assets/images/UBA_United_Bank_for_Africa_Logo.png";
 import { FiCopy } from "react-icons/fi";
+import SEO from "@/lib/seo";
 
 const Give = () => {
   return (
     <>
+      <SEO
+        title="House of Restoration Church of Christ Int'l | Give"
+        description="About House of Restoration Church of Christ Int'l"
+        name="House of Restoration Church of Christ Int'l"
+        type="give"
+      />
       <div className="w-full flex flex-col">
         <BgWrapper height="50px" className="hidden md:flex" />
         <div className="container mx-auto w-[90%] md:w-[1000px]">
