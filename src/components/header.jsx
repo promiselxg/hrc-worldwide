@@ -285,6 +285,7 @@ const Header = () => {
               <Link to="/give">
                 <Button
                   variant="outline"
+                  onClick={handleToggle}
                   className={cn(
                     `bg-transparent border border-[rgba(255,255,255,.3)] text-white rounded-full px-5 py-2 text-[12px] font-normal transition-all delay-200 duration-200 ${
                       scrolled && "text-[#000] border-[#ccc] "
@@ -302,6 +303,7 @@ const Header = () => {
               <Link to="/livestream">
                 <Button
                   variant="outline"
+                  onClick={handleToggle}
                   className={cn(
                     `bg-transparent border border-[rgba(255,255,255,.3)] text-white px-5 py-2 text-[12px] font-normal rounded-full transition-all delay-200 duration-200 ${
                       scrolled && "text-[#000] border-[#ccc]"
