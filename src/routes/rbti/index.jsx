@@ -1,8 +1,16 @@
+import SEO from "@/lib/seo";
 import SideNav from "./components/side-nav";
 
 const RBTI_Home = () => {
   return (
     <>
+      <SEO
+        title="Welcome to Restorer Bible training Institute."
+        description="Our mission is to provide deep spiritual enlightenment, as well as mental empowerment for a lifestyle of dominion and Christ-like exploits in ministry"
+        name="House of Restoration Church of Christ Int'l"
+        type="Church"
+      />
+
       <div className="w-full flex z-20">
         <div className="container mx-auto w-[90%] md:w-[1200px]">
           <div className="flex w-full text-white md:h-screen h-full py-20 md:py-0">
