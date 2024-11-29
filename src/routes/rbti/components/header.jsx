@@ -29,27 +29,27 @@ const RBTI_Header = () => {
   const navigation = [
     {
       name: "about rbti",
-      link: "/rbti/",
+      link: "/rbti/about",
     },
     {
       name: "objectives of rbti",
-      link: "/rbti/",
+      link: "/rbti/objectives",
     },
     {
       name: "financial requirement",
-      link: "/rbti/",
+      link: "/rbti/financial-requirement",
     },
     {
       name: "spiritual formation",
-      link: "/rbti/",
+      link: "/rbti/spiritual-formation",
     },
     {
       name: "candidate responsiblity",
-      link: "/rbti/",
+      link: "/rbti/candidate-responsiblity",
     },
     {
       name: "organogram",
-      link: "/rbti/",
+      link: "/rbti/organogram",
     },
   ];
 
