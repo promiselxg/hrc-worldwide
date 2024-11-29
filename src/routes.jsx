@@ -11,6 +11,8 @@ import Ministries from "./routes/ministries";
 import MinistryDetails from "./routes/ministries/details";
 import Give from "./routes/give";
 import Livestream from "./routes/livestream";
+import RBTI_Layout from "./layouts/rbti.layout";
+import RBTI_Home from "./routes/rbti";
 
 const routes = createBrowserRouter([
   {
@@ -63,6 +65,16 @@ const routes = createBrowserRouter([
       },
     ],
     errorElement: <div>404, page not found</div>,
+  },
+  {
+    path: "/rbti",
+    element: <RBTI_Layout />,
+    children: [
+      {
+        path: "/rbti",
+        element: <RBTI_Home />,
+      },
+    ],
   },
   {
     path: "/login",
