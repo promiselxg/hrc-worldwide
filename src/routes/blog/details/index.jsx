@@ -19,7 +19,7 @@ const BlogDetails = () => {
       />
       <div className="flex w-full flex-col">
         <BgWrapper>
-          <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">
+          <div className="container md:w-[1200px] mx-auto w-[90%]">
             <div>
               <BreadCrumb label="blog title" />
               <h1 className="text-[--primary-bg] font-gothic font-[400] text-[50px] leading-tight mt-1">

@@ -23,6 +23,11 @@ header {
   font-family: "Lato";
   margin-bottom: 5px;
 }
+.rbti p {
+  line-height: 1.5;
+  font-family: "Lato";
+  margin-bottom: 5px;
+}
 
 .vid-bg {
   background: rgb(0, 0, 0);

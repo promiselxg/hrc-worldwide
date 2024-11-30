@@ -13,7 +13,7 @@ const Ministries = () => {
       />
       <div className="flex w-full flex-col">
         <BgWrapper>
-          <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">
+          <div className="container md:w-[1200px] mx-auto w-[90%]">
             <div>
               <p className="text-[--primary-bg] font-[400] font-lato text-sm">
                 Ministeries

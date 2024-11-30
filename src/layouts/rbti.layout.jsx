@@ -6,6 +6,8 @@ import { Outlet, useLocation } from "react-router-dom";
 
 const RBTI_Layout = () => {
   const location = useLocation();
+  const backgroundImage =
+    location.pathname === "/rbti" ? `url(${Overlay})` : undefined;
 
   return (
     <>
@@ -13,10 +15,12 @@ const RBTI_Layout = () => {
         <div
           className="h-full bg-cover relative bg-center"
           style={{
-            backgroundImage: `url(${Overlay})`,
+            backgroundImage,
           }}
         >
-          <div className="absolute top-0 left-0 bg-[rgba(0,0,0,0.6)] w-full h-full"></div>
+          {location.pathname === "/rbti" && (
+            <div className="absolute top-0 left-0 bg-[rgba(0,0,0,0.6)] w-full h-full"></div>
+          )}
           <div className="relative z-20">
             <RBTI_Header />
             <main>

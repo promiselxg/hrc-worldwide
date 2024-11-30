@@ -14,6 +14,11 @@ import Livestream from "./routes/livestream";
 import RBTI_Layout from "./layouts/rbti.layout";
 import RBTI_Home from "./routes/rbti";
 import PageNotFound from "./routes/404";
+import About_RBTI from "./routes/rbti/about";
+import Objective from "./routes/rbti/objective";
+import Spiritual_Formation from "./routes/rbti/spiritual-formation";
+import Candidate_Responsibility from "./routes/rbti/candidate-responsibility";
+import Organogram from "./routes/rbti/organogram";
 
 const routes = createBrowserRouter([
   {
@@ -74,6 +79,26 @@ const routes = createBrowserRouter([
       {
         path: "/rbti",
         element: <RBTI_Home />,
+      },
+      {
+        path: "/rbti/about",
+        element: <About_RBTI />,
+      },
+      {
+        path: "/rbti/objectives",
+        element: <Objective />,
+      },
+      {
+        path: "/rbti/spiritual-formation",
+        element: <Spiritual_Formation />,
+      },
+      {
+        path: "/rbti/candidate-responsiblity",
+        element: <Candidate_Responsibility />,
+      },
+      {
+        path: "/rbti/organogram",
+        element: <Organogram />,
       },
     ],
   },

@@ -26,7 +26,7 @@ const Events = () => {
       />
       <div className="w-full flex flex-col">
         <BgWrapper>
-          <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">
+          <div className="container md:w-[1200px] mx-auto  w-[90%]">
             <div>
               <h1 className="text-[--primary-bg] font-gothic font-[400] text-[50px] leading-tight">
                 Upcoming Events.

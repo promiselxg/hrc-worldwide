@@ -57,8 +57,12 @@ const RBTI_Header = () => {
     <>
       <header
         className={cn(
-          `h-[120px] flex items-center  md:bg-transparent sticky md:relative top-0 transition-all delay-75 duration-300 ${
-            scrolled && "bg-[whitesmoke]"
+          `h-[120px] flex items-center ${
+            location.pathname === "/rbti"
+              ? "md:bg-transparent"
+              : "bg-[white] shadow-sm"
+          } sticky md:relative top-0 transition-all delay-75 duration-300 ${
+            scrolled && "bg-[white] z-50"
           }`
         )}
       >
@@ -74,7 +78,9 @@ const RBTI_Header = () => {
             <FiAlignRight
               className={cn(
                 `flex md:hidden text-[40px] -mt-3 rounded-[5px] cursor-pointer  text-white hover:text-[--text-hover] transition-all delay-75 duration-300 ${
-                  scrolled && "bg-[--primary-bg] px-[5px]"
+                  scrolled
+                    ? "bg-[--primary-bg] px-[5px]"
+                    : "text-[--text-black]  bg-white"
                 } `
               )}
               onClick={handleToggle}
