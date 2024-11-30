@@ -35,10 +35,10 @@ const RBTI_Header = () => {
       name: "objectives of rbti",
       link: "/rbti/objectives",
     },
-    {
-      name: "financial requirement",
-      link: "/rbti/financial-requirement",
-    },
+    // {
+    //   name: "financial requirement",
+    //   link: "/rbti/financial-requirement",
+    // },
     {
       name: "spiritual formation",
       link: "/rbti/spiritual-formation",
