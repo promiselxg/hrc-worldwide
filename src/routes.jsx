@@ -19,6 +19,9 @@ import Objective from "./routes/rbti/objective";
 import Spiritual_Formation from "./routes/rbti/spiritual-formation";
 import Candidate_Responsibility from "./routes/rbti/candidate-responsibility";
 import Organogram from "./routes/rbti/organogram";
+import Login from "./routes/admin";
+import AdminLayout from "./layouts/admin.layout";
+import Dashboard from "./routes/admin/routes/dashboard";
 
 const routes = createBrowserRouter([
   {
@@ -70,7 +73,7 @@ const routes = createBrowserRouter([
         element: <Livestream />,
       },
     ],
-    errorElement: <PageNotFound />,
+    errorElement: <PageNotFound />, // Global error handler for the root routes
   },
   {
     path: "/rbti",
@@ -101,10 +104,23 @@ const routes = createBrowserRouter([
         element: <Organogram />,
       },
     ],
+    errorElement: <PageNotFound />, // Error handler for all RBTI routes
   },
   {
-    path: "/login",
-    element: <div>Login page</div>,
+    path: "/admin/dashboard",
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "",
+        element: <Dashboard />,
+      },
+    ],
+    errorElement: <PageNotFound />, // Error handler for admin dashboard
+  },
+  {
+    path: "/admin",
+    element: <Login />,
+    errorElement: <PageNotFound />, // Error handler for admin login
   },
 ]);
 
