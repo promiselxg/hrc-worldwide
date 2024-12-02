@@ -1,4 +1,4 @@
-export const events = [
+export const blog = [
   {
     event_title: "Event title goes here",
     id: "728ed52f",

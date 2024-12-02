@@ -30,7 +30,7 @@ const formSchema = z.object({
   transaction_id: z.string().min(8),
 });
 
-export function EventTable({ columns, data }) {
+export function BlogTable({ columns, data }) {
   const [columnFilters, setColumnFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
   const [transactionID, setTransactionID] = useState("");

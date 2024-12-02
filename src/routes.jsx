@@ -22,6 +22,8 @@ import Organogram from "./routes/rbti/organogram";
 import Login from "./routes/admin";
 import AdminLayout from "./layouts/admin.layout";
 import Dashboard from "./routes/admin/routes/dashboard";
+import EventPage from "./routes/admin/routes/event";
+import BlogPage from "./routes/admin/routes/blog";
 
 const routes = createBrowserRouter([
   {
@@ -107,18 +109,35 @@ const routes = createBrowserRouter([
     errorElement: <PageNotFound />, // Error handler for all RBTI routes
   },
   {
-    path: "/admin/dashboard",
+    path: "/admin",
     element: <AdminLayout />,
     children: [
       {
         path: "",
         element: <Dashboard />,
       },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+
+      {
+        path: "event",
+        element: <EventPage />,
+      },
+      {
+        path: "blog",
+        element: <BlogPage />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
     ],
     errorElement: <PageNotFound />, // Error handler for admin dashboard
   },
   {
-    path: "/admin",
+    path: "",
     element: <Login />,
     errorElement: <PageNotFound />, // Error handler for admin login
   },

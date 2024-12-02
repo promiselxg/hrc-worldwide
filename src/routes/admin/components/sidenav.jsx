@@ -29,17 +29,52 @@ const SideNav = () => {
               <li
                 className={cn(
                   `${
-                    currentRoute.pathname !== "/admin/dashboard/" && "active"
+                    currentRoute.pathname === "/admin/dashboard" ||
+                    currentRoute.pathname === "/admin"
+                      ? "active"
+                      : ""
                   } my-[2px] h-10 nav`
                 )}
               >
                 <Link
-                  to="/"
+                  to="/admin/dashboard"
                   className="flex gap-2 items-center py-2  h-8 leading-tight relative"
                 >
                   <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
                   <LayoutDashboard size={18} />
                   Dashboard
+                </Link>
+              </li>
+              <li
+                className={cn(
+                  `${
+                    currentRoute.pathname === "/admin/event" && "active"
+                  } my-[2px] h-10 nav`
+                )}
+              >
+                <Link
+                  to="/admin/event"
+                  className="flex gap-2 items-center py-2  h-8 leading-tight relative"
+                >
+                  <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
+                  <LayoutDashboard size={18} />
+                  Events
+                </Link>
+              </li>
+              <li
+                className={cn(
+                  `${
+                    currentRoute.pathname === "/admin/blog" && "active"
+                  } my-[2px] h-10 nav`
+                )}
+              >
+                <Link
+                  to="/admin/blog"
+                  className="flex gap-2 items-center py-2  h-8 leading-tight relative"
+                >
+                  <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
+                  <LayoutDashboard size={18} />
+                  Blog
                 </Link>
               </li>
             </ul>

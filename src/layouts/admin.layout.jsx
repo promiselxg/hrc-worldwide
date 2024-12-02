@@ -1,13 +1,14 @@
 import { cn } from "@/lib/utils";
 import SideNav from "@/routes/admin/components/sidenav";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const AdminLayout = () => {
+  const location = useLocation();
   return (
     <>
       <section className={cn(`w-full h-fit flex md:h-screen overflow-hidden`)}>
-        <SideNav />
-        <div className="bg-[whitesmoke] h-screen w-full overflow-hidden relative py-2">
+        {location.pathname !== "/admin/login" ? <SideNav /> : ""}
+        <div className="bg-[whitesmoke] h-screen w-full overflow-hidden relative">
           <Outlet />
         </div>
       </section>
