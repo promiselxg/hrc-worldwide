@@ -24,6 +24,8 @@ import AdminLayout from "./layouts/admin.layout";
 import Dashboard from "./routes/admin/routes/dashboard";
 import EventPage from "./routes/admin/routes/event";
 import BlogPage from "./routes/admin/routes/blog";
+import AddEventPage from "./routes/admin/routes/event/add";
+import EditEventPage from "./routes/admin/routes/event/edit";
 
 const routes = createBrowserRouter([
   {
@@ -124,6 +126,14 @@ const routes = createBrowserRouter([
       {
         path: "event",
         element: <EventPage />,
+      },
+      {
+        path: "event/add",
+        element: <AddEventPage />,
+      },
+      {
+        path: "event/:id/edit",
+        element: <EditEventPage />,
       },
       {
         path: "blog",

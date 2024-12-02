@@ -42,7 +42,7 @@ const EventPage = () => {
           <h1 className={cn(`text-[16px] uppercase font-[600] my-4 md:my-0`)}>
             Event Management
           </h1>
-          <Link to="/admin/drivers/add">
+          <Link to="/admin/event/add">
             <Button className="flex gap-2 items-center border-none outline-none bg-[--primary-bg] hover:bg-[--secondary-bg] text-white transition-all delay-75 rounded-[5px]">
               <Cross size={13} /> create new event
             </Button>

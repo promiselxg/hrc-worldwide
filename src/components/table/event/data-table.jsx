@@ -60,9 +60,9 @@ export function EventTable({ columns, data }) {
       <div className="flex items-center  py-4 justify-between w-full flex-col md:flex-row space-y-3">
         <Input
           placeholder="Search Table"
-          value={table.getColumn("status")?.getFilterValue() ?? ""}
+          value={table.getColumn("event_title")?.getFilterValue() ?? ""}
           onChange={(event) =>
-            table.getColumn("status")?.setFilterValue(event.target.value)
+            table.getColumn("event_title")?.setFilterValue(event.target.value)
           }
           className="md:w-2/6 w-full"
         />

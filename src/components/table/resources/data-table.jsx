@@ -71,48 +71,14 @@ export function ResourcesTable({ columns, data }) {
       <div className="flex items-center  py-4 justify-between w-full flex-col md:flex-row space-y-3">
         <Input
           placeholder="Search Table"
-          value={table.getColumn("status")?.getFilterValue() ?? ""}
+          value={table.getColumn("resource_title")?.getFilterValue() ?? ""}
           onChange={(event) =>
-            table.getColumn("status")?.setFilterValue(event.target.value)
+            table
+              .getColumn("resource_title")
+              ?.setFilterValue(event.target.value)
           }
           className="md:w-2/6 w-full"
         />
-        <div className="flex items-center gap-2 flex-col md:flex-row pb-3 md:w-1/2 w-full justify-end">
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex items-center gap-2 flex-col md:flex-row w-full"
-            >
-              <FormField
-                control={form.control}
-                name="transaction_id"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        placeholder="Search using Transaction ID"
-                        {...field}
-                        className="form-input"
-                        id="transaction_id"
-                        onChange={(e) => {
-                          field.onChange(e);
-                          setTransactionID(e?.target?.value?.toUpperCase());
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button id="filterBtn" type="button" className="md:w-fit w-full">
-                Search
-              </Button>
-              <Button onClick="" className="md:w-fit w-full" disabled={loading}>
-                <RefreshCw />
-              </Button>
-            </form>
-          </Form>
-        </div>
       </div>
       <Table className="border w-full">
         <TableHeader>

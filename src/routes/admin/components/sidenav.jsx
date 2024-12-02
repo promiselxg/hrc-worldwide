@@ -30,7 +30,7 @@ const SideNav = () => {
                 className={cn(
                   `${
                     currentRoute.pathname === "/admin/dashboard" ||
-                    currentRoute.pathname === "/admin"
+                    currentRoute.pathname === "/admin/"
                       ? "active"
                       : ""
                   } my-[2px] h-10 nav`
@@ -48,7 +48,10 @@ const SideNav = () => {
               <li
                 className={cn(
                   `${
-                    currentRoute.pathname === "/admin/event" && "active"
+                    currentRoute.pathname === "/admin/event" ||
+                    currentRoute.pathname.startsWith("/admin/event")
+                      ? "active"
+                      : ""
                   } my-[2px] h-10 nav`
                 )}
               >
