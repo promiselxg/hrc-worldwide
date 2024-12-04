@@ -26,6 +26,20 @@ import EventPage from "./routes/admin/routes/event";
 import BlogPage from "./routes/admin/routes/blog";
 import AddEventPage from "./routes/admin/routes/event/add";
 import EditEventPage from "./routes/admin/routes/event/edit";
+import BannerPage from "./routes/admin/routes/banner";
+import AddBanner from "./routes/admin/routes/banner/add";
+import EditBannerPage from "./routes/admin/routes/banner/edit";
+import Setting from "./routes/admin/routes/setting";
+import EditMinistyPage from "./routes/admin/routes/ministry/edit";
+import MinistryPage from "./routes/admin/routes/ministry";
+import AddBlogPage from "./routes/admin/routes/blog/add";
+import EditBlogPost from "./routes/admin/routes/blog/edit";
+import AboutUsPage from "./routes/admin/routes/about-us";
+import EditAboutUs from "./routes/admin/routes/about-us/edit";
+import TeamPage from "./routes/admin/routes/team";
+import EditTeam from "./routes/admin/routes/team/edit";
+import ResourcesPage from "./routes/admin/routes/resource";
+import EditResouce from "./routes/admin/routes/resource/edit";
 
 const routes = createBrowserRouter([
   {
@@ -136,8 +150,64 @@ const routes = createBrowserRouter([
         element: <EditEventPage />,
       },
       {
+        path: "banner",
+        element: <BannerPage />,
+      },
+      {
+        path: "banner/add",
+        element: <AddBanner />,
+      },
+      {
+        path: "banner/:id/edit",
+        element: <EditBannerPage />,
+      },
+      {
+        path: "setting",
+        element: <Setting />,
+      },
+      {
+        path: "ministry",
+        element: <MinistryPage />,
+      },
+      {
+        path: "ministry/:id/edit",
+        element: <EditMinistyPage />,
+      },
+      {
         path: "blog",
         element: <BlogPage />,
+      },
+      {
+        path: "blog/add",
+        element: <AddBlogPage />,
+      },
+      {
+        path: "blog/:id/edit",
+        element: <EditBlogPost />,
+      },
+      {
+        path: "about-us",
+        element: <AboutUsPage />,
+      },
+      {
+        path: "about-us/:id/edit",
+        element: <EditAboutUs />,
+      },
+      {
+        path: "team",
+        element: <TeamPage />,
+      },
+      {
+        path: "team/:id/edit",
+        element: <EditTeam />,
+      },
+      {
+        path: "resource",
+        element: <ResourcesPage />,
+      },
+      {
+        path: "resource/:id/edit",
+        element: <EditResouce />,
       },
       {
         path: "login",

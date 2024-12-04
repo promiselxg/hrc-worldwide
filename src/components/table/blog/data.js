@@ -1,10 +1,11 @@
 export const blog = [
   {
-    event_title: "Event title goes here",
+    blog_title: "Event title goes here",
     id: "728ed52f",
-    minister: ["video", "Salvation"],
-    event_bg: "pending",
+    blog_content: "blog content goes here",
+    blog_banner: "pending",
     tags: ["m@example.com"],
-    event_date: "02/12/2024",
+    published_date: "02/12/2024",
+    author: "anuforo  okechukwu",
   },
 ];

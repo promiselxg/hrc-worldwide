@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import "../../admin.css";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,30 +11,47 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 
-import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CloudUpload, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import Editor from "@/components/editor/editor";
+
+import { Quill } from "react-quill";
 
 const formSchema = z.object({
-  event_title: z
-    .string({ required_error: "Give this event a title" })
-    .min(5, { message: "Event's title must be at least 5 characters long." }),
-  tag: z.string().optional(),
-  minister: z.string({ required_error: "This field is required" }),
+  about_category: z.string({
+    required_error: "Choose the about us section you wish to update.",
+  }),
+  about_us: z.string({ required_error: "This field is required" }),
 });
 
-const AddEventPage = () => {
+const Delta = Quill.import("delta");
+
+const AboutUs = () => {
   const [loading, setLoading] = useState(false);
   const [selectedImages, setselectedImages] = useState([]);
   const [files, setFiles] = useState([]);
+  const [content, setContent] = useState("");
+  const [lastChange, setLastChange] = useState("");
+  const [readOnly, setReadOnly] = useState(true);
+
+  const quillRef = useRef();
+
   const { toast } = useToast();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
@@ -91,12 +109,15 @@ const AddEventPage = () => {
   };
 
   async function onSubmit(values) {}
+  const data = "this is a default data";
+
+  console.log(lastChange);
   return (
     <>
       <div className="h-fit w-full flex flex-col pb-[100px] md:pb-20">
         <div className="w-full my-5 bg-[whitesmoke] px-5 flex flex-col h-screen ">
           <div className="p-5">
-            <h1 className={cn(`font-bold`)}>Create a new Event</h1>
+            <h1 className={cn(`font-bold`)}>About Us</h1>
           </div>
           <div className="p-5 bg-white container w-full">
             <Form {...form}>
@@ -106,70 +127,60 @@ const AddEventPage = () => {
               >
                 <FormField
                   control={form.control}
-                  name="event_title"
+                  name="about_category"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Event&apos;s Title</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Event's title"
-                          {...field}
-                          className="form-input"
-                        />
-                      </FormControl>
+                      <FormLabel>Category</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Choose the about us section you wish to update." />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="hrc">
+                            About HRC Worldwide
+                          </SelectItem>
+                          <SelectItem value="rbti">About RBTI</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormDescription className="text-[12px] text-[#333]">
-                        Give this event a title.
+                        Choose the about us section you wish to update.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="minister"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Ministering </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Ministers Name, seperated  by comma"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="tag"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Tag <span className="italic text-sm">(optional)</span>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Tag"
-                          {...field}
-                          className="form-input"
-                          id="tag"
-                          onKeyUp={() => {}}
-                        />
-                      </FormControl>
-                      <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="flex flex-col relative h-[330px]">
+                  <FormLabel className="mb-5">About Us</FormLabel>
+                  <Editor
+                    ref={quillRef}
+                    readOnly={readOnly}
+                    defaultValue={new Delta().insert(`${data}`)}
+                    onTextChange={setLastChange}
+                    className="h-[200px]"
+                  />
+                  <div className="flex absolute bottom-0 p-4 w-full border border-[#ccc]">
+                    <label htmlFor="checkbox">
+                      Edit:{" "}
+                      <input
+                        type="checkbox"
+                        name="checkbox"
+                        checked={readOnly}
+                        className=" cursor-pointer"
+                        onChange={(e) => setReadOnly(e.target.checked)}
+                      />
+                    </label>
+                  </div>
+                </div>
+
                 <div className="flex flex-col space-y-5">
-                  <span>Add Photo</span>
+                  <span>
+                    Add Photo <i className="italic text-sm">(optional)</i>
+                  </span>
                   <label htmlFor="files" className="w-fit ">
                     <CloudUpload
                       size={60}
@@ -203,4 +214,4 @@ const AddEventPage = () => {
   );
 };
 
-export default AddEventPage;
+export default AboutUs;

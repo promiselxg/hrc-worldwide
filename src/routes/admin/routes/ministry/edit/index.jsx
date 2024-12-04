@@ -10,7 +10,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
@@ -23,14 +29,13 @@ import { Link } from "react-router-dom";
 import { z } from "zod";
 
 const formSchema = z.object({
-  event_title: z
-    .string()
-    .min(5, { message: "Event's title must be at least 5 characters long." }),
-  tag: z.string().optional(),
-  minister: z.string({ required_error: "This field is required" }),
+  minsitry_description: z
+    .string({ required_error: "This field is required" })
+    .min(5, { message: "description must be at least 5 characters long." }),
+  minsitry_category: z.string({ required_error: "Choose ministry category" }),
 });
 
-const EditEventPage = () => {
+const EditMinistyPage = () => {
   const [loading, setLoading] = useState(false);
   const [selectedImages, setselectedImages] = useState([]);
   const [files, setFiles] = useState([]);
@@ -102,7 +107,7 @@ const EditEventPage = () => {
         <div className="w-full bg-white h-[60px] p-5 flex items-center border-[#eee] border-b-[1px]">
           <div className="w-fit flex  h-[60px]">
             <Link
-              to={`/admin/event`}
+              to={`/admin/ministry`}
               className="border-r-[1px] border-[#eee] w-fit flex items-center pr-5"
             >
               <ChevronLeft size={30} />
@@ -111,7 +116,7 @@ const EditEventPage = () => {
         </div>
         <div className="w-full my-5 bg-[whitesmoke] px-5 flex flex-col h-screen ">
           <div className="p-5">
-            <h1 className={cn(`font-bold`)}>Edit event details</h1>
+            <h1 className={cn(`font-bold`)}>Ministry</h1>
           </div>
           <div className="p-5 bg-white container w-full">
             <Form {...form}>
@@ -121,26 +126,36 @@ const EditEventPage = () => {
               >
                 <FormField
                   control={form.control}
-                  name="event_title"
+                  name="minsitry_category"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Event&apos;s Title</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Event's title"
-                          {...field}
-                          className="form-input"
-                        />
-                      </FormControl>
+                      <FormLabel>Ministry category</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="select banner position" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="youth">Youth Ministry</SelectItem>
+                          <SelectItem value="children">
+                            Children Ministry
+                          </SelectItem>
+                          <SelectItem value="music">Music Ministry</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormDescription className="text-[12px] text-[#333]">
-                        Give this event a title.
+                        Choose ministry category.
                       </FormDescription>
                       <Button
                         type="button"
                         disabled={!field.value}
-                        id="event_title"
+                        id="minsitry_category"
                         onClick={() =>
-                          handleFormUpdate("event_title", field?.value)
+                          handleFormUpdate("minsitry_category", field?.value)
                         }
                       >
                         Update
@@ -149,28 +164,31 @@ const EditEventPage = () => {
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
-                  name="minister"
+                  name="minsitry_description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Ministering </FormLabel>
+                      <FormLabel>Description</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Ministers Name, seperated  by comma"
-                          className="resize-none"
+                          placeholder="Description"
                           {...field}
-                        />
+                          className="form-input"
+                          id="minsitry_description"
+                          onKeyUp={() => {}}
+                        ></Textarea>
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
+                        brief description.
                       </FormDescription>
                       <Button
                         type="button"
                         disabled={!field.value}
-                        id="minister"
+                        id="minsitry_description"
                         onClick={() =>
-                          handleFormUpdate("minister", field?.value)
+                          handleFormUpdate("minsitry_description", field?.value)
                         }
                       >
                         Update
@@ -179,38 +197,7 @@ const EditEventPage = () => {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="tag"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Tag <span className="italic text-sm">(optional)</span>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Tag"
-                          {...field}
-                          className="form-input"
-                          id="tag"
-                          onKeyUp={() => {}}
-                        />
-                      </FormControl>
-                      <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
-                      </FormDescription>
-                      <Button
-                        type="button"
-                        disabled={!field.value}
-                        id="tag"
-                        onClick={() => handleFormUpdate("tag", field?.value)}
-                      >
-                        Update
-                      </Button>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+
                 <div className="flex flex-col space-y-5">
                   <span>Add Photo</span>
                   <label htmlFor="files" className="w-fit ">
@@ -252,4 +239,4 @@ const EditEventPage = () => {
   );
 };
 
-export default EditEventPage;
+export default EditMinistyPage;

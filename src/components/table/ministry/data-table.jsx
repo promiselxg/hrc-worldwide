@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,9 +30,10 @@ const formSchema = z.object({
   transaction_id: z.string().min(8),
 });
 
-export function ResourcesTable({ columns, data }) {
+export function MinistryTable({ columns, data }) {
   const [columnFilters, setColumnFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
+  const [transactionID, setTransactionID] = useState("");
   const [loading, setLoading] = useState(false);
 
   const table = useReactTable({
@@ -53,19 +55,15 @@ export function ResourcesTable({ columns, data }) {
     resolver: zodResolver(formSchema),
   });
 
-  async function onSubmit(values) {
-    // Handle form submission logic here
-  }
-
   return (
     <div className="rounded-md border my-5 p-5 mb-20">
       <div className="flex items-center  py-4 justify-between w-full flex-col md:flex-row space-y-3">
         <Input
           placeholder="Search Table"
-          value={table.getColumn("resource_title")?.getFilterValue() ?? ""}
+          value={table.getColumn("minsitry_category")?.getFilterValue() ?? ""}
           onChange={(event) =>
             table
-              .getColumn("resource_title")
+              .getColumn("minsitry_category")
               ?.setFilterValue(event.target.value)
           }
           className="md:w-2/6 w-full"

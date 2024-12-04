@@ -13,65 +13,50 @@ import { Link } from "react-router-dom";
 
 export const columns = [
   {
-    accessorKey: "blog_title",
+    accessorKey: "category",
     header: ({ column }) => {
       return (
         <span
           className="cursor-pointer flex items-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Blog title
+          Category
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </span>
       );
     },
     cell: ({ row }) => {
-      const { blog_title } = row.original;
+      const { category } = row.original;
       return (
         <>
           <div>
-            <h1 className={cn(`font-bold capitalize`)}>{blog_title}</h1>
+            <h1 className={cn(`font-bold capitalize`)}>{category}</h1>
           </div>
         </>
       );
     },
   },
   {
-    accessorKey: "blog_content",
-    header: "Blog Content",
+    accessorKey: "content",
+    header: "Content",
     cell: ({ row }) => {
-      const { blog_content } = row.original;
+      const { content } = row.original;
       return (
         <>
           <div>
-            <p className={cn(`text-sm font-lato`)}>{blog_content}</p>
+            <p className={cn(`text-sm font-lato`)}>{content}</p>
           </div>
         </>
       );
     },
   },
-  {
-    accessorKey: "blog_banner",
-    header: "Display Image",
-  },
-  {
-    accessorKey: "tags",
-    header: "Tags",
-  },
-  {
-    accessorKey: "published_date",
-    header: "Published Date",
-  },
-  {
-    accessorKey: "author",
-    header: "Published By",
-  },
+
   {
     id: "actions",
     cell: ({ row }) => {
       const { id } = row.original;
       return (
-        <DropdownMenu className="bg-[green] flex w-full">
+        <DropdownMenu className="flex w-full">
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
@@ -84,22 +69,24 @@ export const columns = [
           >
             <DropdownMenuItem className="flex items-center gap-2 cursor-pointer hover:outline-none">
               <Link
-                to={`/admin/blog/${id}/edit`}
+                to={`/admin/about-us/${id}/edit`}
                 className="w-full flex justify-start"
               >
                 <Button variant="ghost" className="w-full flex justify-start">
-                  <Edit2 size={16} /> Edit Post
+                  <Edit2 size={16} /> Edit Item
                 </Button>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => {
-                handleDeleteBtn(id, "");
-              }}
+              onClick={() => {}}
               className="text-red-400 flex items-center gap-2 cursor-pointer hover:outline-none"
             >
-              <Button variant="ghost" className="w-full flex justify-start">
-                <FiTrash2 /> Delete Post
+              <Button
+                variant="ghost"
+                className="w-full flex justify-start"
+                onClick={() => handleDeleteBtn()}
+              >
+                <FiTrash2 /> Delete Item
               </Button>
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
+//import RichTextEditor from "@/components/RichTextEditor";
+import RichTextEditor from "@/components/RichTextEditor";
 import "../../admin.css";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,7 +15,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,20 +25,21 @@ import { Link } from "react-router-dom";
 import { z } from "zod";
 
 const formSchema = z.object({
-  event_title: z
-    .string()
-    .min(5, { message: "Event's title must be at least 5 characters long." }),
+  blog_title: z
+    .string({ required_error: "This field is required" })
+    .min(5, { message: "post title must be at least 5 characters long." }),
   tag: z.string().optional(),
-  minister: z.string({ required_error: "This field is required" }),
 });
 
-const EditEventPage = () => {
+const EditBlogPost = () => {
   const [loading, setLoading] = useState(false);
   const [selectedImages, setselectedImages] = useState([]);
+  const [content, setContent] = useState("");
   const [files, setFiles] = useState([]);
   const [data, setData] = useState([]);
 
   const { toast } = useToast();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
@@ -61,7 +64,7 @@ const EditEventPage = () => {
         }
       });
       setFiles(selectedFiles);
-      const fileArray = selectedFiles.map((file) => URL.createObjectURL(file));
+      const fileArray = selectedFiles?.map((file) => URL.createObjectURL(file));
       setselectedImages((prevImages) => prevImages.concat(fileArray));
       selectedFiles.forEach((file) => URL.revokeObjectURL(file));
     }
@@ -92,26 +95,28 @@ const EditEventPage = () => {
       </div>
     ));
   };
+
   const handleFormUpdate = async (field, value) => {};
   const handleImageUpload = async (field, value) => {};
 
   async function onSubmit(values) {}
+
   return (
     <>
-      <div className="h-screen w-full flex flex-col  overflow-y-scroll pb-[100px] md:pb-20">
+      <div className="h-screen w-full flex flex-col pb-[100px] md:pb-20 overflow-y-scroll">
         <div className="w-full bg-white h-[60px] p-5 flex items-center border-[#eee] border-b-[1px]">
           <div className="w-fit flex  h-[60px]">
             <Link
-              to={`/admin/event`}
+              to={`/admin/blog`}
               className="border-r-[1px] border-[#eee] w-fit flex items-center pr-5"
             >
               <ChevronLeft size={30} />
             </Link>
           </div>
         </div>
-        <div className="w-full my-5 bg-[whitesmoke] px-5 flex flex-col h-screen ">
+        <div className="w-full my-5 bg-[whitesmoke] px-5 flex flex-col h-screen">
           <div className="p-5">
-            <h1 className={cn(`font-bold`)}>Edit event details</h1>
+            <h1 className={cn(`font-bold`)}>Edit blog post</h1>
           </div>
           <div className="p-5 bg-white container w-full">
             <Form {...form}>
@@ -121,57 +126,25 @@ const EditEventPage = () => {
               >
                 <FormField
                   control={form.control}
-                  name="event_title"
+                  name="blog_title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Event&apos;s Title</FormLabel>
+                      <FormLabel>Post&apos;s Title</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Event's title"
+                          placeholder="Post's title"
                           {...field}
                           className="form-input"
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
-                        Give this event a title.
+                        Give this blog a title.
                       </FormDescription>
                       <Button
                         type="button"
-                        disabled={!field.value}
-                        id="event_title"
-                        onClick={() =>
-                          handleFormUpdate("event_title", field?.value)
-                        }
-                      >
-                        Update
-                      </Button>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="minister"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Ministering </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Ministers Name, seperated  by comma"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
-                      </FormDescription>
-                      <Button
-                        type="button"
-                        disabled={!field.value}
-                        id="minister"
-                        onClick={() =>
-                          handleFormUpdate("minister", field?.value)
-                        }
+                        disabled={!content}
+                        id="blog_title"
+                        onClick={() => handleFormUpdate("blog_title", content)}
                       >
                         Update
                       </Button>
@@ -211,6 +184,23 @@ const EditEventPage = () => {
                     </FormItem>
                   )}
                 />
+                <div className="flex flex-col space-y-5 h-[400px]">
+                  <FormLabel>Blog Content</FormLabel>
+                  <RichTextEditor
+                    value={content}
+                    onChange={setContent}
+                    placeholder="Write something amazing..."
+                    className="h-[300px]"
+                  />
+                </div>
+                <Button
+                  type="button"
+                  disabled={!content}
+                  id="blog_content"
+                  onClick={() => handleFormUpdate("blog_content", content)}
+                >
+                  Update
+                </Button>
                 <div className="flex flex-col space-y-5">
                   <span>Add Photo</span>
                   <label htmlFor="files" className="w-fit ">
@@ -238,7 +228,7 @@ const EditEventPage = () => {
                 <Button
                   type="button"
                   id="submitBtn"
-                  disabled={selectedImages.length < 1}
+                  disabled={selectedImages?.length < 1}
                   onClick={() => handleImageUpload("image", data?.imageId)}
                 >
                   Update Photo
@@ -252,4 +242,4 @@ const EditEventPage = () => {
   );
 };
 
-export default EditEventPage;
+export default EditBlogPost;

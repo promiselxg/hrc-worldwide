@@ -11,8 +11,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,14 +28,13 @@ import { Link } from "react-router-dom";
 import { z } from "zod";
 
 const formSchema = z.object({
-  event_title: z
-    .string()
-    .min(5, { message: "Event's title must be at least 5 characters long." }),
-  tag: z.string().optional(),
-  minister: z.string({ required_error: "This field is required" }),
+  description: z
+    .string({ required_error: "Give this banner a description." })
+    .min(5, { message: "the description must be at least 5 characters long." }),
+  position: z.string({ required_error: "This field is required" }),
 });
 
-const EditEventPage = () => {
+const EditBannerPage = () => {
   const [loading, setLoading] = useState(false);
   const [selectedImages, setselectedImages] = useState([]);
   const [files, setFiles] = useState([]);
@@ -102,7 +106,7 @@ const EditEventPage = () => {
         <div className="w-full bg-white h-[60px] p-5 flex items-center border-[#eee] border-b-[1px]">
           <div className="w-fit flex  h-[60px]">
             <Link
-              to={`/admin/event`}
+              to={`/admin/banner`}
               className="border-r-[1px] border-[#eee] w-fit flex items-center pr-5"
             >
               <ChevronLeft size={30} />
@@ -111,7 +115,7 @@ const EditEventPage = () => {
         </div>
         <div className="w-full my-5 bg-[whitesmoke] px-5 flex flex-col h-screen ">
           <div className="p-5">
-            <h1 className={cn(`font-bold`)}>Edit event details</h1>
+            <h1 className={cn(`font-bold`)}>Edit Banner</h1>
           </div>
           <div className="p-5 bg-white container w-full">
             <Form {...form}>
@@ -121,49 +125,19 @@ const EditEventPage = () => {
               >
                 <FormField
                   control={form.control}
-                  name="event_title"
+                  name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Event&apos;s Title</FormLabel>
+                      <FormLabel>Description</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Event's title"
+                          placeholder="Description"
                           {...field}
                           className="form-input"
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
-                        Give this event a title.
-                      </FormDescription>
-                      <Button
-                        type="button"
-                        disabled={!field.value}
-                        id="event_title"
-                        onClick={() =>
-                          handleFormUpdate("event_title", field?.value)
-                        }
-                      >
-                        Update
-                      </Button>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="minister"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Ministering </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Ministers Name, seperated  by comma"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
+                        Give this banner a description.
                       </FormDescription>
                       <Button
                         type="button"
@@ -181,29 +155,41 @@ const EditEventPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="tag"
+                  name="position"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        Tag <span className="italic text-sm">(optional)</span>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Tag"
-                          {...field}
-                          className="form-input"
-                          id="tag"
-                          onKeyUp={() => {}}
-                        />
-                      </FormControl>
+                      <FormLabel>Position</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="select banner position" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="1">1</SelectItem>
+                          <SelectItem value="2">2</SelectItem>
+                          <SelectItem value="3">3</SelectItem>
+                          <SelectItem value="4">4</SelectItem>
+                          <SelectItem value="5">5</SelectItem>
+                          <SelectItem value="6">6</SelectItem>
+                          <SelectItem value="7">7</SelectItem>
+                          <SelectItem value="8">8</SelectItem>
+                          <SelectItem value="9">9</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
+                        this is the order the banner will appear on the website
                       </FormDescription>
                       <Button
                         type="button"
                         disabled={!field.value}
-                        id="tag"
-                        onClick={() => handleFormUpdate("tag", field?.value)}
+                        id="position"
+                        onClick={() =>
+                          handleFormUpdate("position", field?.value)
+                        }
                       >
                         Update
                       </Button>
@@ -252,4 +238,4 @@ const EditEventPage = () => {
   );
 };
 
-export default EditEventPage;
+export default EditBannerPage;

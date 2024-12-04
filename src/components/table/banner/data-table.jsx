@@ -19,6 +19,14 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { RefreshCw } from "lucide-react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,9 +37,10 @@ const formSchema = z.object({
   transaction_id: z.string().min(8),
 });
 
-export function ResourcesTable({ columns, data }) {
+export function BannerTable({ columns, data }) {
   const [columnFilters, setColumnFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
+  const [transactionID, setTransactionID] = useState("");
   const [loading, setLoading] = useState(false);
 
   const table = useReactTable({

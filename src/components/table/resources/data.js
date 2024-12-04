@@ -1,4 +1,4 @@
-export const payments = [
+export const resource = [
   {
     sn: 1,
     id: "728ed52f",

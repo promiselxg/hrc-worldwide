@@ -1,8 +1,17 @@
 import { cn } from "@/lib/utils";
-import { LayoutDashboard } from "lucide-react";
+import {
+  BookAIcon,
+  File,
+  LayoutDashboard,
+  SettingsIcon,
+  Users,
+} from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import AdminFooter from "./footer";
+import { FaQuestion } from "react-icons/fa";
+import { HiOutlineFilm } from "react-icons/hi";
+import { FiBookOpen, FiMic } from "react-icons/fi";
 
 const SideNav = () => {
   const currentRoute = useLocation();
@@ -22,7 +31,7 @@ const SideNav = () => {
             className="p-2 my-[2px] uppercase"
             onClick={() => setOpenNavBar(!openNavBar)}
           >
-            Dare Autos
+            HRC
           </h1>
           <div className="relative h-[calc(100vh-110px)]">
             <ul className="flex flex-col ">
@@ -48,6 +57,63 @@ const SideNav = () => {
               <li
                 className={cn(
                   `${
+                    currentRoute.pathname === "/admin/about-us" ||
+                    currentRoute.pathname.startsWith("/admin/about-us")
+                      ? "active"
+                      : ""
+                  } my-[2px] h-10 nav`
+                )}
+              >
+                <Link
+                  to="/admin/about-us"
+                  className="flex gap-2 items-center py-2  h-8 leading-tight relative"
+                >
+                  <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
+                  <FaQuestion size={18} />
+                  About us
+                </Link>
+              </li>
+              <li
+                className={cn(
+                  `${
+                    currentRoute.pathname === "/admin/resource" ||
+                    currentRoute.pathname.startsWith("/admin/resource")
+                      ? "active"
+                      : ""
+                  } my-[2px] h-10 nav`
+                )}
+              >
+                <Link
+                  to="/admin/resource"
+                  className="flex gap-2 items-center py-2  h-8 leading-tight relative"
+                >
+                  <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
+                  <File size={18} />
+                  Resource
+                </Link>
+              </li>
+              <li
+                className={cn(
+                  `${
+                    currentRoute.pathname === "/admin/team" ||
+                    currentRoute.pathname.startsWith("/admin/team")
+                      ? "active"
+                      : ""
+                  } my-[2px] h-10 nav`
+                )}
+              >
+                <Link
+                  to="/admin/team"
+                  className="flex gap-2 items-center py-2  h-8 leading-tight relative"
+                >
+                  <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
+                  <Users size={18} />
+                  Organogram (Team)
+                </Link>
+              </li>
+              <li
+                className={cn(
+                  `${
                     currentRoute.pathname === "/admin/event" ||
                     currentRoute.pathname.startsWith("/admin/event")
                       ? "active"
@@ -60,14 +126,55 @@ const SideNav = () => {
                   className="flex gap-2 items-center py-2  h-8 leading-tight relative"
                 >
                   <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
-                  <LayoutDashboard size={18} />
+                  <FiMic size={18} />
                   Events
                 </Link>
               </li>
               <li
                 className={cn(
                   `${
-                    currentRoute.pathname === "/admin/blog" && "active"
+                    currentRoute.pathname === "/admin/banner" ||
+                    currentRoute.pathname.startsWith("/admin/banner")
+                      ? "active"
+                      : ""
+                  } my-[2px] h-10 nav`
+                )}
+              >
+                <Link
+                  to="/admin/banner"
+                  className="flex gap-2 items-center py-2  h-8 leading-tight relative"
+                >
+                  <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
+                  <HiOutlineFilm size={18} />
+                  Banner
+                </Link>
+              </li>
+              <li
+                className={cn(
+                  `${
+                    currentRoute.pathname === "/admin/ministry" ||
+                    currentRoute.pathname.startsWith("/admin/ministry")
+                      ? "active"
+                      : ""
+                  } my-[2px] h-10 nav`
+                )}
+              >
+                <Link
+                  to="/admin/ministry"
+                  className="flex gap-2 items-center py-2  h-8 leading-tight relative"
+                >
+                  <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
+                  <FiBookOpen size={18} />
+                  Ministry
+                </Link>
+              </li>
+              <li
+                className={cn(
+                  `${
+                    currentRoute.pathname === "/admin/blog" ||
+                    currentRoute.pathname.startsWith("/admin/blog")
+                      ? "active"
+                      : ""
                   } my-[2px] h-10 nav`
                 )}
               >
@@ -76,8 +183,24 @@ const SideNav = () => {
                   className="flex gap-2 items-center py-2  h-8 leading-tight relative"
                 >
                   <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
-                  <LayoutDashboard size={18} />
+                  <BookAIcon size={18} />
                   Blog
+                </Link>
+              </li>
+              <li
+                className={cn(
+                  `${
+                    currentRoute.pathname === "/admin/setting" && "active"
+                  } my-[2px] h-10 nav`
+                )}
+              >
+                <Link
+                  to="/admin/setting"
+                  className="flex gap-2 items-center py-2  h-8 leading-tight relative"
+                >
+                  <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
+                  <SettingsIcon size={18} />
+                  Setting
                 </Link>
               </li>
             </ul>

@@ -11,98 +11,53 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeft, CloudUpload, X } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 
 const formSchema = z.object({
-  event_title: z
-    .string()
+  resource_title: z
+    .string({ required_error: "Give this resource a title" })
     .min(5, { message: "Event's title must be at least 5 characters long." }),
   tag: z.string().optional(),
   minister: z.string({ required_error: "This field is required" }),
+  resource_type: z.string({ required_error: "This field is required" }),
+  resource_author: z.string({ required_error: "This field is required" }),
 });
 
-const EditEventPage = () => {
+const EditResouce = () => {
   const [loading, setLoading] = useState(false);
-  const [selectedImages, setselectedImages] = useState([]);
-  const [files, setFiles] = useState([]);
-  const [data, setData] = useState([]);
+  const [selectedValue, setSelectedValue] = useState("");
 
   const { toast } = useToast();
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
 
-  //  Select File to Upload
-  const imageHandleChange = (e) => {
-    setselectedImages([]);
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const selectedFiles = [];
-      filesArray.forEach((file) => {
-        if (file.size > 5 * 1024 * 1024) {
-          // File size is bigger than 5MB
-          toast({
-            variant: "destructive",
-            title: "Selected File is > 5MB.",
-            description: `File "${file.name}" exceeds 5MB limit.`,
-          });
-        } else {
-          // File size is within the limit
-          selectedFiles.push(file);
-        }
-      });
-      setFiles(selectedFiles);
-      const fileArray = selectedFiles.map((file) => URL.createObjectURL(file));
-      setselectedImages((prevImages) => prevImages.concat(fileArray));
-      selectedFiles.forEach((file) => URL.revokeObjectURL(file));
-    }
-  };
-  //  Remove an Item from an Array
-  const removeSelectedImage = (index) => {
-    const updatedImages = selectedImages.filter((_, i) => i !== index);
-    setselectedImages(updatedImages);
-  };
-  //  Display the selected Item
-  const renderImages = (source) => {
-    return source?.map((image, i) => (
-      <div
-        className="w-full h-[60px] rounded-md relative mb-5   bg-contain"
-        key={i}
-      >
-        <X
-          className="absolute -top-2 -right-2 bg-[rgba(0,0,0,0.9)] rounded-full text-white p-[5px]  cursor-pointer"
-          onClick={() => removeSelectedImage(i)}
-        />
-        <img
-          src={image}
-          alt={`images ${i}`}
-          width={200}
-          height={100}
-          className="object-contain h-[60px]"
-        />
-      </div>
-    ));
-  };
   const handleFormUpdate = async (field, value) => {};
-  const handleImageUpload = async (field, value) => {};
-
   async function onSubmit(values) {}
+
   return (
     <>
       <div className="h-screen w-full flex flex-col  overflow-y-scroll pb-[100px] md:pb-20">
         <div className="w-full bg-white h-[60px] p-5 flex items-center border-[#eee] border-b-[1px]">
           <div className="w-fit flex  h-[60px]">
             <Link
-              to={`/admin/event`}
+              to={`/admin/resource`}
               className="border-r-[1px] border-[#eee] w-fit flex items-center pr-5"
             >
               <ChevronLeft size={30} />
@@ -111,7 +66,7 @@ const EditEventPage = () => {
         </div>
         <div className="w-full my-5 bg-[whitesmoke] px-5 flex flex-col h-screen ">
           <div className="p-5">
-            <h1 className={cn(`font-bold`)}>Edit event details</h1>
+            <h1 className={cn(`font-bold`)}>Create a new resource</h1>
           </div>
           <div className="p-5 bg-white container w-full">
             <Form {...form}>
@@ -121,26 +76,26 @@ const EditEventPage = () => {
               >
                 <FormField
                   control={form.control}
-                  name="event_title"
+                  name="resource_title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Event&apos;s Title</FormLabel>
+                      <FormLabel>Title</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Event's title"
+                          placeholder="title"
                           {...field}
                           className="form-input"
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
-                        Give this event a title.
+                        Give this resource a title.
                       </FormDescription>
                       <Button
                         type="button"
                         disabled={!field.value}
-                        id="event_title"
+                        id="resource_title"
                         onClick={() =>
-                          handleFormUpdate("event_title", field?.value)
+                          handleFormUpdate("resource_title", field?.value)
                         }
                       >
                         Update
@@ -151,7 +106,7 @@ const EditEventPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="minister"
+                  name="resource_author"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Ministering </FormLabel>
@@ -168,9 +123,9 @@ const EditEventPage = () => {
                       <Button
                         type="button"
                         disabled={!field.value}
-                        id="minister"
+                        id="resource_author"
                         onClick={() =>
-                          handleFormUpdate("minister", field?.value)
+                          handleFormUpdate("resource_author", field?.value)
                         }
                       >
                         Update
@@ -211,38 +166,80 @@ const EditEventPage = () => {
                     </FormItem>
                   )}
                 />
-                <div className="flex flex-col space-y-5">
-                  <span>Add Photo</span>
-                  <label htmlFor="files" className="w-fit ">
-                    <CloudUpload
-                      size={60}
-                      color="#171726"
-                      className="cursor-pointer"
-                    />
-                  </label>
-                  <input
-                    type="file"
-                    name="files"
-                    id="files"
-                    accept="image/png, image/gif, image/jpeg"
-                    multiple
-                    onChange={imageHandleChange}
-                    className="hidden"
-                  />
-                  <div className="w-full grid md:grid-cols-10 grid-cols-3 gap-3">
-                    {selectedImages.length > 0
-                      ? renderImages(selectedImages, "file")
-                      : renderImages(data?.imgUrl)}
-                  </div>
-                </div>
-                <Button
-                  type="button"
-                  id="submitBtn"
-                  disabled={selectedImages.length < 1}
-                  onClick={() => handleImageUpload("image", data?.imageId)}
-                >
-                  Update Photo
-                </Button>
+                <FormField
+                  control={form.control}
+                  name="resource_type"
+                  render={({ field }) => {
+                    // Handle the change of selected value
+                    const handleChange = (value) => {
+                      field.onChange(value);
+                      setSelectedValue(value);
+                    };
+
+                    return (
+                      <FormItem>
+                        <FormLabel>File type</FormLabel>
+                        <Select
+                          onValueChange={handleChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl className="w-full md:w-[20%] ">
+                            <SelectTrigger>
+                              <SelectValue placeholder="File type." />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value=" ">File type</SelectItem>
+                            <SelectItem value="video">Video File</SelectItem>
+                            <SelectItem value="audio">Audio File</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormDescription className="text-[12px] text-[#333]">
+                          Select file type.
+                        </FormDescription>
+                        <FormMessage />
+
+                        {/* Conditionally display text box based on selected value */}
+                        {selectedValue === "video" && (
+                          <FormItem>
+                            <FormLabel>Video Description</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Enter video description" />
+                            </FormControl>
+                            <Button
+                              type="button"
+                              disabled={!field.value}
+                              id="resource_title"
+                              onClick={() =>
+                                handleFormUpdate("resource_title", field?.value)
+                              }
+                            >
+                              Update
+                            </Button>
+                          </FormItem>
+                        )}
+                        {selectedValue === "audio" && (
+                          <FormItem>
+                            <FormLabel>Audio Notes</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Enter audio notes" />
+                            </FormControl>
+                            <Button
+                              type="button"
+                              disabled={!field.value}
+                              id="resource_title"
+                              onClick={() =>
+                                handleFormUpdate("resource_title", field?.value)
+                              }
+                            >
+                              Update
+                            </Button>
+                          </FormItem>
+                        )}
+                      </FormItem>
+                    );
+                  }}
+                />
               </form>
             </Form>
           </div>
@@ -252,4 +249,4 @@ const EditEventPage = () => {
   );
 };
 
-export default EditEventPage;
+export default EditResouce;

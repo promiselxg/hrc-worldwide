@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import RichTextEditor from "@/components/RichTextEditor";
 import "../../admin.css";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,7 +11,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
@@ -23,20 +31,21 @@ import { Link } from "react-router-dom";
 import { z } from "zod";
 
 const formSchema = z.object({
-  event_title: z
-    .string()
-    .min(5, { message: "Event's title must be at least 5 characters long." }),
-  tag: z.string().optional(),
-  minister: z.string({ required_error: "This field is required" }),
+  about_category: z.string({
+    required_error: "Choose the about us section you wish to update.",
+  }),
+  about_us: z.string({ required_error: "This field is required" }),
 });
 
-const EditEventPage = () => {
+const EditAboutUs = () => {
   const [loading, setLoading] = useState(false);
   const [selectedImages, setselectedImages] = useState([]);
   const [files, setFiles] = useState([]);
+  const [content, setContent] = useState("");
   const [data, setData] = useState([]);
 
   const { toast } = useToast();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
@@ -61,7 +70,7 @@ const EditEventPage = () => {
         }
       });
       setFiles(selectedFiles);
-      const fileArray = selectedFiles.map((file) => URL.createObjectURL(file));
+      const fileArray = selectedFiles?.map((file) => URL.createObjectURL(file));
       setselectedImages((prevImages) => prevImages.concat(fileArray));
       selectedFiles.forEach((file) => URL.revokeObjectURL(file));
     }
@@ -92,17 +101,18 @@ const EditEventPage = () => {
       </div>
     ));
   };
+
   const handleFormUpdate = async (field, value) => {};
   const handleImageUpload = async (field, value) => {};
 
   async function onSubmit(values) {}
   return (
     <>
-      <div className="h-screen w-full flex flex-col  overflow-y-scroll pb-[100px] md:pb-20">
+      <div className="w-full flex flex-col pb-[100px] md:pb-20 h-screen overflow-y-scroll">
         <div className="w-full bg-white h-[60px] p-5 flex items-center border-[#eee] border-b-[1px]">
           <div className="w-fit flex  h-[60px]">
             <Link
-              to={`/admin/event`}
+              to={`/admin/about-us`}
               className="border-r-[1px] border-[#eee] w-fit flex items-center pr-5"
             >
               <ChevronLeft size={30} />
@@ -111,7 +121,7 @@ const EditEventPage = () => {
         </div>
         <div className="w-full my-5 bg-[whitesmoke] px-5 flex flex-col h-screen ">
           <div className="p-5">
-            <h1 className={cn(`font-bold`)}>Edit event details</h1>
+            <h1 className={cn(`font-bold`)}>Edit About Us</h1>
           </div>
           <div className="p-5 bg-white container w-full">
             <Form {...form}>
@@ -121,26 +131,35 @@ const EditEventPage = () => {
               >
                 <FormField
                   control={form.control}
-                  name="event_title"
+                  name="about_category"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Event&apos;s Title</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Event's title"
-                          {...field}
-                          className="form-input"
-                        />
-                      </FormControl>
+                      <FormLabel>Category</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Choose the about us section you wish to update." />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="hrc">
+                            About HRC Worldwide
+                          </SelectItem>
+                          <SelectItem value="rbti">About RBTI</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormDescription className="text-[12px] text-[#333]">
-                        Give this event a title.
+                        Choose the about us section you wish to update.
                       </FormDescription>
                       <Button
                         type="button"
                         disabled={!field.value}
-                        id="event_title"
+                        id="about_category"
                         onClick={() =>
-                          handleFormUpdate("event_title", field?.value)
+                          handleFormUpdate("about_category", field?.value)
                         }
                       >
                         Update
@@ -149,68 +168,24 @@ const EditEventPage = () => {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="minister"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Ministering </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Ministers Name, seperated  by comma"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
-                      </FormDescription>
-                      <Button
-                        type="button"
-                        disabled={!field.value}
-                        id="minister"
-                        onClick={() =>
-                          handleFormUpdate("minister", field?.value)
-                        }
-                      >
-                        Update
-                      </Button>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="tag"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Tag <span className="italic text-sm">(optional)</span>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Tag"
-                          {...field}
-                          className="form-input"
-                          id="tag"
-                          onKeyUp={() => {}}
-                        />
-                      </FormControl>
-                      <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
-                      </FormDescription>
-                      <Button
-                        type="button"
-                        disabled={!field.value}
-                        id="tag"
-                        onClick={() => handleFormUpdate("tag", field?.value)}
-                      >
-                        Update
-                      </Button>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="flex flex-col space-y-5 h-[400px]">
+                  <FormLabel>About Us</FormLabel>
+                  <RichTextEditor
+                    value={content}
+                    onChange={setContent}
+                    placeholder="Write something amazing..."
+                    className="h-[300px]"
+                  />
+                </div>
+                <Button
+                  type="button"
+                  disabled={!content}
+                  id="content"
+                  onClick={() => handleFormUpdate("content", content)}
+                >
+                  Update
+                </Button>
+
                 <div className="flex flex-col space-y-5">
                   <span>Add Photo</span>
                   <label htmlFor="files" className="w-fit ">
@@ -238,7 +213,7 @@ const EditEventPage = () => {
                 <Button
                   type="button"
                   id="submitBtn"
-                  disabled={selectedImages.length < 1}
+                  disabled={selectedImages?.length < 1}
                   onClick={() => handleImageUpload("image", data?.imageId)}
                 >
                   Update Photo
@@ -252,4 +227,4 @@ const EditEventPage = () => {
   );
 };
 
-export default EditEventPage;
+export default EditAboutUs;

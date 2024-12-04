@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,20 +22,19 @@ import { Link } from "react-router-dom";
 import { z } from "zod";
 
 const formSchema = z.object({
-  event_title: z
-    .string()
-    .min(5, { message: "Event's title must be at least 5 characters long." }),
-  tag: z.string().optional(),
-  minister: z.string({ required_error: "This field is required" }),
+  full_name: z.string({ required_error: "This field is required" }),
+  position: z.string({ required_error: "This field is required" }),
 });
 
-const EditEventPage = () => {
+const EditTeam = () => {
   const [loading, setLoading] = useState(false);
   const [selectedImages, setselectedImages] = useState([]);
   const [files, setFiles] = useState([]);
+  const [content, setContent] = useState("");
   const [data, setData] = useState([]);
 
   const { toast } = useToast();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
@@ -61,7 +59,7 @@ const EditEventPage = () => {
         }
       });
       setFiles(selectedFiles);
-      const fileArray = selectedFiles.map((file) => URL.createObjectURL(file));
+      const fileArray = selectedFiles?.map((file) => URL.createObjectURL(file));
       setselectedImages((prevImages) => prevImages.concat(fileArray));
       selectedFiles.forEach((file) => URL.revokeObjectURL(file));
     }
@@ -92,17 +90,18 @@ const EditEventPage = () => {
       </div>
     ));
   };
+
   const handleFormUpdate = async (field, value) => {};
   const handleImageUpload = async (field, value) => {};
 
   async function onSubmit(values) {}
   return (
     <>
-      <div className="h-screen w-full flex flex-col  overflow-y-scroll pb-[100px] md:pb-20">
+      <div className="w-full flex flex-col pb-[100px] md:pb-20 h-screen overflow-y-scroll">
         <div className="w-full bg-white h-[60px] p-5 flex items-center border-[#eee] border-b-[1px]">
           <div className="w-fit flex  h-[60px]">
             <Link
-              to={`/admin/event`}
+              to={`/admin/team`}
               className="border-r-[1px] border-[#eee] w-fit flex items-center pr-5"
             >
               <ChevronLeft size={30} />
@@ -111,7 +110,7 @@ const EditEventPage = () => {
         </div>
         <div className="w-full my-5 bg-[whitesmoke] px-5 flex flex-col h-screen ">
           <div className="p-5">
-            <h1 className={cn(`font-bold`)}>Edit event details</h1>
+            <h1 className={cn(`font-bold`)}>Edit Team member information</h1>
           </div>
           <div className="p-5 bg-white container w-full">
             <Form {...form}>
@@ -121,26 +120,26 @@ const EditEventPage = () => {
               >
                 <FormField
                   control={form.control}
-                  name="event_title"
+                  name="full_name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Event&apos;s Title</FormLabel>
+                      <FormLabel>Full Name</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Event's title"
+                          placeholder="Full Name"
                           {...field}
                           className="form-input"
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
-                        Give this event a title.
+                        Team memeber&quote;s fullname
                       </FormDescription>
                       <Button
                         type="button"
                         disabled={!field.value}
-                        id="event_title"
+                        id="full_name"
                         onClick={() =>
-                          handleFormUpdate("event_title", field?.value)
+                          handleFormUpdate("full_name", field?.value)
                         }
                       >
                         Update
@@ -151,59 +150,25 @@ const EditEventPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="minister"
+                  name="position"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Ministering </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Ministers Name, seperated  by comma"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
-                      </FormDescription>
-                      <Button
-                        type="button"
-                        disabled={!field.value}
-                        id="minister"
-                        onClick={() =>
-                          handleFormUpdate("minister", field?.value)
-                        }
-                      >
-                        Update
-                      </Button>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="tag"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Tag <span className="italic text-sm">(optional)</span>
-                      </FormLabel>
+                      <FormLabel>Position</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Tag"
+                          placeholder="Full Name"
                           {...field}
                           className="form-input"
-                          id="tag"
-                          onKeyUp={() => {}}
                         />
                       </FormControl>
-                      <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
-                      </FormDescription>
+
                       <Button
                         type="button"
                         disabled={!field.value}
-                        id="tag"
-                        onClick={() => handleFormUpdate("tag", field?.value)}
+                        id="position"
+                        onClick={() =>
+                          handleFormUpdate("position", field?.value)
+                        }
                       >
                         Update
                       </Button>
@@ -252,4 +217,4 @@ const EditEventPage = () => {
   );
 };
 
-export default EditEventPage;
+export default EditTeam;

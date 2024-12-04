@@ -4,7 +4,7 @@ import Header from "../../components/header";
 import { BookA } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { columns } from "@/components/table/resources/columns";
-import { payments } from "@/components/table/resources/data";
+import { resource } from "@/components/table/resources/data";
 import { ResourcesTable } from "@/components/table/resources/data-table";
 
 const Dashboard = () => {
@@ -52,7 +52,7 @@ const Dashboard = () => {
             </div>
             <ResourcesTable
               columns={columns}
-              data={payments}
+              data={resource}
               loading={loading}
             />
           </div>
