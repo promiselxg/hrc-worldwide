@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-//import RichTextEditor from "@/components/RichTextEditor";
-import RichTextEditor from "@/components/RichTextEditor";
 import "../../admin.css";
 
 import { Button } from "@/components/ui/button";
@@ -23,6 +21,10 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
+import Editor from "@/components/editor/editor";
+import { useImageContext } from "@/context/imageUpload.context";
+import SelectedImagesDisplay from "@/components/image-upload/selectedImageDisplay";
+import { useEditorContext } from "@/context/editor.context";
 
 const formSchema = z.object({
   blog_title: z
@@ -32,67 +34,16 @@ const formSchema = z.object({
 });
 
 const AddBlogPage = () => {
-  const [loading, setLoading] = useState(false);
-  const [selectedImages, setselectedImages] = useState([]);
-  const [content, setContent] = useState("");
-  const [files, setFiles] = useState([]);
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const { files, selectedImages, handleImageChange, removeSelectedImage } =
+    useImageContext();
+  const { quillRef, readOnly, editorContent, setEditorContent } =
+    useEditorContext();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
-
-  //  Select File to Upload
-  const imageHandleChange = (e) => {
-    setselectedImages([]);
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const selectedFiles = [];
-      filesArray.forEach((file) => {
-        if (file.size > 5 * 1024 * 1024) {
-          // File size is bigger than 5MB
-          toast({
-            variant: "destructive",
-            title: "Selected File is > 5MB.",
-            description: `File "${file.name}" exceeds 5MB limit.`,
-          });
-        } else {
-          // File size is within the limit
-          selectedFiles.push(file);
-        }
-      });
-      setFiles(selectedFiles);
-      const fileArray = selectedFiles.map((file) => URL.createObjectURL(file));
-      setselectedImages((prevImages) => prevImages.concat(fileArray));
-      selectedFiles.forEach((file) => URL.revokeObjectURL(file));
-    }
-  };
-  //  Remove an Item from an Array
-  const removeSelectedImage = (index) => {
-    const updatedImages = selectedImages.filter((_, i) => i !== index);
-    setselectedImages(updatedImages);
-  };
-  //  Display the selected Item
-  const renderImages = (source) => {
-    return source.map((image, i) => (
-      <div
-        className="w-full h-[60px] rounded-md relative mb-5   bg-contain"
-        key={i}
-      >
-        <X
-          className="absolute -top-2 -right-2 bg-[rgba(0,0,0,0.9)] rounded-full text-white p-[5px]  cursor-pointer"
-          onClick={() => removeSelectedImage(i)}
-        />
-        <img
-          src={image}
-          alt={`images ${i}`}
-          width={200}
-          height={100}
-          className="object-contain h-[60px]"
-        />
-      </div>
-    ));
-  };
 
   async function onSubmit(values) {}
 
@@ -165,11 +116,19 @@ const AddBlogPage = () => {
                 />
                 <div className="flex flex-col space-y-5 h-[400px]">
                   <FormLabel>Blog Content</FormLabel>
-                  <RichTextEditor
-                    value={content}
-                    onChange={setContent}
-                    placeholder="Write something amazing..."
+                  <Editor
+                    ref={quillRef}
+                    readOnly={readOnly}
                     className="h-[300px]"
+                    defaultValue={
+                      editorContent || "<p>Start editing here...</p>"
+                    }
+                    onTextChange={(delta, oldDelta, source) => {
+                      // Update editor content state on change
+                      if (quillRef.current) {
+                        setEditorContent(quillRef.current.root.innerHTML);
+                      }
+                    }}
                   />
                 </div>
                 <div className="flex flex-col space-y-5">
@@ -187,12 +146,15 @@ const AddBlogPage = () => {
                     id="files"
                     accept="image/png, image/gif, image/jpeg"
                     multiple
-                    onChange={imageHandleChange}
+                    onChange={handleImageChange}
                     className="hidden"
                   />
 
-                  <div className="w-full grid md:grid-cols-10 grid-cols-3 gap-3">
-                    {selectedImages && renderImages(selectedImages)}
+                  <div className="w-fit grid md:grid-cols-10 grid-cols-3 gap-3">
+                    <SelectedImagesDisplay
+                      images={selectedImages}
+                      onRemoveImage={removeSelectedImage}
+                    />
                   </div>
                 </div>
                 <Button type="submit" id="submitBtn" disabled={loading}>

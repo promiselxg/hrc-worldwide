@@ -19,10 +19,11 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronLeft, CloudUpload, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
+import Editor from "@/components/editor/editor";
 
 const formSchema = z.object({
   blog_title: z
@@ -37,7 +38,10 @@ const EditBlogPost = () => {
   const [content, setContent] = useState("");
   const [files, setFiles] = useState([]);
   const [data, setData] = useState([]);
+  const [readOnly, setReadOnly] = useState(true);
+  const [editorContent, setEditorContent] = useState("");
 
+  const quillRef = useRef();
   const { toast } = useToast();
 
   const form = useForm({
@@ -186,20 +190,27 @@ const EditBlogPost = () => {
                 />
                 <div className="flex flex-col space-y-5 h-[400px]">
                   <FormLabel>Blog Content</FormLabel>
-                  <RichTextEditor
-                    value={content}
-                    onChange={setContent}
-                    placeholder="Write something amazing..."
+                  <Editor
+                    ref={quillRef}
+                    readOnly={readOnly}
                     className="h-[300px]"
+                    defaultValue={
+                      editorContent || "<p>Start editing here...</p>"
+                    }
+                    onTextChange={(delta, oldDelta, source) => {
+                      // Update editor content state on change
+                      if (quillRef.current) {
+                        setEditorContent(quillRef.current.root.innerHTML);
+                      }
+                    }}
                   />
                 </div>
                 <Button
                   type="button"
-                  disabled={!content}
                   id="blog_content"
-                  onClick={() => handleFormUpdate("blog_content", content)}
+                  onClick={() => setReadOnly(!readOnly)}
                 >
-                  Update
+                  {readOnly ? "Enable Update" : "Save Update"}
                 </Button>
                 <div className="flex flex-col space-y-5">
                   <span>Add Photo</span>

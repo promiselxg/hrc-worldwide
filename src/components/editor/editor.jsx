@@ -30,11 +30,14 @@ const Editor = forwardRef(
       );
       const quill = new Quill(editorContainer, {
         theme: "snow",
+        readOnly,
       });
 
       ref.current = quill;
 
-      if (defaultValueRef.current) {
+      if (typeof defaultValueRef.current === "string") {
+        quill.clipboard.dangerouslyPasteHTML(defaultValueRef.current);
+      } else if (defaultValueRef.current) {
         quill.setContents(defaultValueRef.current);
       }
 
@@ -50,7 +53,7 @@ const Editor = forwardRef(
         ref.current = null;
         container.innerHTML = "";
       };
-    }, [ref]);
+    }, [ref, readOnly]);
 
     return <div ref={containerRef} {...clasName}></div>;
   }

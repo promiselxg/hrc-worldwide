@@ -24,12 +24,14 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CloudUpload, X } from "lucide-react";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Editor from "@/components/editor/editor";
+import { useEditorContext } from "@/context/editor.context";
 
-import { Quill } from "react-quill";
+import SelectedImagesDisplay from "@/components/image-upload/selectedImageDisplay";
+import { useImageContext } from "@/context/imageUpload.context";
 
 const formSchema = z.object({
   about_category: z.string({
@@ -38,17 +40,19 @@ const formSchema = z.object({
   about_us: z.string({ required_error: "This field is required" }),
 });
 
-const Delta = Quill.import("delta");
-
 const AboutUs = () => {
   const [loading, setLoading] = useState(false);
-  const [selectedImages, setselectedImages] = useState([]);
-  const [files, setFiles] = useState([]);
   const [content, setContent] = useState("");
-  const [lastChange, setLastChange] = useState("");
-  const [readOnly, setReadOnly] = useState(true);
+  const { files, selectedImages, handleImageChange, removeSelectedImage } =
+    useImageContext();
 
-  const quillRef = useRef();
+  const {
+    quillRef,
+    readOnly,
+    toggleEditorReadOnly,
+    editorContent,
+    setEditorContent,
+  } = useEditorContext();
 
   const { toast } = useToast();
 
@@ -56,62 +60,22 @@ const AboutUs = () => {
     resolver: zodResolver(formSchema),
   });
 
-  //  Select File to Upload
-  const imageHandleChange = (e) => {
-    setselectedImages([]);
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const selectedFiles = [];
-      filesArray.forEach((file) => {
-        if (file.size > 5 * 1024 * 1024) {
-          // File size is bigger than 5MB
-          toast({
-            variant: "destructive",
-            title: "Selected File is > 5MB.",
-            description: `File "${file.name}" exceeds 5MB limit.`,
-          });
-        } else {
-          // File size is within the limit
-          selectedFiles.push(file);
-        }
-      });
-      setFiles(selectedFiles);
-      const fileArray = selectedFiles.map((file) => URL.createObjectURL(file));
-      setselectedImages((prevImages) => prevImages.concat(fileArray));
-      selectedFiles.forEach((file) => URL.revokeObjectURL(file));
+  async function onSubmit(values) {}
+
+  const handleSubmit = () => {
+    if (quillRef.current) {
+      // Get Delta format
+      const deltaContent = quillRef.current.getContents();
+      console.log("Delta content:", deltaContent);
+
+      // Get HTML content
+      const htmlContent = quillRef.current.root.innerHTML;
+      console.log("HTML content:", htmlContent);
+
+      setContent(htmlContent);
     }
   };
-  //  Remove an Item from an Array
-  const removeSelectedImage = (index) => {
-    const updatedImages = selectedImages.filter((_, i) => i !== index);
-    setselectedImages(updatedImages);
-  };
-  //  Display the selected Item
-  const renderImages = (source) => {
-    return source.map((image, i) => (
-      <div
-        className="w-full h-[60px] rounded-md relative mb-5   bg-contain"
-        key={i}
-      >
-        <X
-          className="absolute -top-2 -right-2 bg-[rgba(0,0,0,0.9)] rounded-full text-white p-[5px]  cursor-pointer"
-          onClick={() => removeSelectedImage(i)}
-        />
-        <img
-          src={image}
-          alt={`images ${i}`}
-          width={200}
-          height={100}
-          className="object-contain h-[60px]"
-        />
-      </div>
-    ));
-  };
 
-  async function onSubmit(values) {}
-  const data = "this is a default data";
-
-  console.log(lastChange);
   return (
     <>
       <div className="h-fit w-full flex flex-col pb-[100px] md:pb-20">
@@ -159,20 +123,25 @@ const AboutUs = () => {
                   <Editor
                     ref={quillRef}
                     readOnly={readOnly}
-                    defaultValue={new Delta().insert(`${data}`)}
-                    onTextChange={setLastChange}
                     className="h-[200px]"
+                    defaultValue={
+                      editorContent || "<p>Start editing here...</p>"
+                    }
+                    onTextChange={(delta, oldDelta, source) => {
+                      // Update editor content state on change
+                      if (quillRef.current) {
+                        setEditorContent(quillRef.current.root.innerHTML);
+                      }
+                    }}
                   />
                   <div className="flex absolute bottom-0 p-4 w-full border border-[#ccc]">
                     <label htmlFor="checkbox">
-                      Edit:{" "}
-                      <input
-                        type="checkbox"
-                        name="checkbox"
-                        checked={readOnly}
-                        className=" cursor-pointer"
-                        onChange={(e) => setReadOnly(e.target.checked)}
-                      />
+                      <button
+                        onClick={() => toggleEditorReadOnly()}
+                        className="bg-[--primary-bg] text-[white] px-5 rounded-[5px] text-sm transition-all duration-100 delay-100 hover:bg-[--text-black]"
+                      >
+                        {readOnly ? "Edit Content" : "Save Content"}
+                      </button>
                     </label>
                   </div>
                 </div>
@@ -194,12 +163,15 @@ const AboutUs = () => {
                     id="files"
                     accept="image/png, image/gif, image/jpeg"
                     multiple
-                    onChange={imageHandleChange}
+                    onChange={handleImageChange}
                     className="hidden"
                   />
 
                   <div className="w-full grid md:grid-cols-10 grid-cols-3 gap-3">
-                    {selectedImages && renderImages(selectedImages)}
+                    <SelectedImagesDisplay
+                      images={selectedImages}
+                      onRemoveImage={removeSelectedImage}
+                    />
                   </div>
                 </div>
                 <Button type="submit" id="submitBtn" disabled={loading}>

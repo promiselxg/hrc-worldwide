@@ -39,7 +39,8 @@ const SideNav = () => {
                 className={cn(
                   `${
                     currentRoute.pathname === "/admin/dashboard" ||
-                    currentRoute.pathname === "/admin/"
+                    currentRoute.pathname === "/admin/" ||
+                    currentRoute.pathname === "/admin"
                       ? "active"
                       : ""
                   } my-[2px] h-10 nav`
