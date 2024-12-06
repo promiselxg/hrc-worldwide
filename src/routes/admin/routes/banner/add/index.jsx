@@ -62,7 +62,6 @@ const AddBanner = () => {
   });
 
   async function onSubmit(values) {
-    console.log(values, files);
     setLoading(true);
 
     // Validate required fields

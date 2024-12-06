@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import SelectedImagesDisplay from "@/components/image-upload/selectedImageDisplay";
 import "../../admin.css";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,83 +21,116 @@ import {
 } from "@/components/ui/select";
 
 import { Textarea } from "@/components/ui/textarea";
+import { useImageContext } from "@/context/imageUpload.context";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import host from "@/utils/host";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CloudUpload, X } from "lucide-react";
+import axios from "axios";
+import { CloudUpload, Loader2, X } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const formSchema = z.object({
-  minsitry_description: z
+  ministry_description: z
     .string({ required_error: "This field is required" })
     .min(5, { message: "description must be at least 5 characters long." }),
-  minsitry_category: z.string({ required_error: "Choose ministry category" }),
+  ministry_category: z.string({ required_error: "Choose ministry category" }),
 });
 
 const Ministry = () => {
   const [loading, setLoading] = useState(false);
-  const [selectedImages, setselectedImages] = useState([]);
-  const [files, setFiles] = useState([]);
+  const { files, selectedImages, handleImageChange, removeSelectedImage } =
+    useImageContext();
+
   const { toast } = useToast();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem("userInfo"))}`,
+    },
+  };
+
   const form = useForm({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      ministry_description: "",
+    },
   });
 
-  //  Select File to Upload
-  const imageHandleChange = (e) => {
-    setselectedImages([]);
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const selectedFiles = [];
-      filesArray.forEach((file) => {
-        if (file.size > 5 * 1024 * 1024) {
-          // File size is bigger than 5MB
-          toast({
-            variant: "destructive",
-            title: "Selected File is > 5MB.",
-            description: `File "${file.name}" exceeds 5MB limit.`,
-          });
-        } else {
-          // File size is within the limit
-          selectedFiles.push(file);
-        }
-      });
-      setFiles(selectedFiles);
-      const fileArray = selectedFiles.map((file) => URL.createObjectURL(file));
-      setselectedImages((prevImages) => prevImages.concat(fileArray));
-      selectedFiles.forEach((file) => URL.revokeObjectURL(file));
-    }
-  };
-  //  Remove an Item from an Array
-  const removeSelectedImage = (index) => {
-    const updatedImages = selectedImages.filter((_, i) => i !== index);
-    setselectedImages(updatedImages);
-  };
-  //  Display the selected Item
-  const renderImages = (source) => {
-    return source.map((image, i) => (
-      <div
-        className="w-full h-[60px] rounded-md relative mb-5   bg-contain"
-        key={i}
-      >
-        <X
-          className="absolute -top-2 -right-2 bg-[rgba(0,0,0,0.9)] rounded-full text-white p-[5px]  cursor-pointer"
-          onClick={() => removeSelectedImage(i)}
-        />
-        <img
-          src={image}
-          alt={`images ${i}`}
-          width={200}
-          height={100}
-          className="object-contain h-[60px]"
-        />
-      </div>
-    ));
-  };
+  async function onSubmit(values) {
+    setLoading(true);
 
-  async function onSubmit(values) {}
+    // Validate required fields
+    const requiredFields = ["ministry_description", "ministry_category"];
+    const missingFields = requiredFields.filter((field) => !values[field]);
+
+    if (missingFields.length > 0) {
+      setLoading(false);
+      toast({
+        variant: "destructive",
+        title: "Missing Required Fields",
+        description: `Please fill out the following fields: ${missingFields.join(
+          ", "
+        )}`,
+      });
+      return;
+    } else {
+      try {
+        let photos = [];
+        if (selectedImages.length > 0 && files) {
+          photos = await Promise.all(
+            Object.values(files).map(async (file) => {
+              const formData = new FormData();
+              formData.append("file", file);
+              formData.append("upload_preset", "hrcImages");
+              formData.append(
+                "api_key",
+                import.meta.env.VITE_CLOUDINARY_API_KEY
+              );
+              formData.append(
+                "timestamp",
+                Math.round(new Date().getTime() / 1000)
+              );
+              const { data } = await axios.post(
+                `https://api.cloudinary.com/v1_1/promiselxg/image/upload`,
+                formData
+              );
+              return data;
+            })
+          );
+        }
+        // Prepare data for submission
+        const data = {
+          ...values,
+          ministry_image_url: photos[0].secure_url,
+          ministry_image_id: photos[0].public_id,
+        };
+        console.log(data);
+        // Submit data to the backend
+        const response = await axios.post(`${host.url}/ministry`, data, config);
+        // Success Toast
+        if (response) {
+          toast({
+            description: `Created successfully.`,
+            className: "bg-green-500 text-white",
+          });
+        }
+        // Redirect
+        window.location.reload();
+      } catch (error) {
+        console.error("Error during submission:", error);
+        toast({
+          variant: "destructive",
+          description:
+            error.response?.data?.message || "An unexpected error occurred.",
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
   return (
     <>
       <div className="h-fit w-full flex flex-col pb-[100px] md:pb-20">
@@ -112,7 +146,7 @@ const Ministry = () => {
               >
                 <FormField
                   control={form.control}
-                  name="minsitry_category"
+                  name="ministry_category"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Ministry category</FormLabel>
@@ -143,7 +177,7 @@ const Ministry = () => {
 
                 <FormField
                   control={form.control}
-                  name="minsitry_description"
+                  name="ministry_description"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Description</FormLabel>
@@ -152,8 +186,7 @@ const Ministry = () => {
                           placeholder="Description"
                           {...field}
                           className="form-input"
-                          id="minsitry_description"
-                          onKeyUp={() => {}}
+                          id="ministry_description"
                         ></Textarea>
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
@@ -178,16 +211,24 @@ const Ministry = () => {
                     id="files"
                     accept="image/png, image/gif, image/jpeg"
                     multiple
-                    onChange={imageHandleChange}
+                    onChange={handleImageChange}
                     className="hidden"
                   />
 
-                  <div className="w-full grid md:grid-cols-10 grid-cols-3 gap-3">
-                    {selectedImages && renderImages(selectedImages)}
+                  <div className="w-fit grid md:grid-cols-10 grid-cols-3 gap-3">
+                    <SelectedImagesDisplay
+                      images={selectedImages}
+                      onRemoveImage={removeSelectedImage}
+                    />
                   </div>
                 </div>
-                <Button type="submit" id="submitBtn" disabled={loading}>
-                  Submit
+                <Button
+                  type="submit"
+                  id="submitBtn"
+                  disabled={loading || selectedImages.length < 1 || !files}
+                >
+                  {loading && <Loader2 className="animate-spin" />}
+                  {loading ? "Please wait" : "Submit"}
                 </Button>
               </form>
             </Form>
