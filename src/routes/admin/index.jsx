@@ -1,11 +1,13 @@
+import { AuthContext } from "@/context/auth.context";
 import { useToast } from "@/hooks/use-toast";
-import { __ } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import host from "@/utils/host";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const Login = () => {
   const { toast } = useToast();
-  const [isloading, setLoading] = useState(false);
+  const { user, loading, error, dispatch } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -24,29 +26,33 @@ const Login = () => {
     if (!formData?.username || !formData.password) {
       return false;
     }
+    dispatch({ type: "LOGIN_START" });
     try {
-      setLoading(true);
-      __("submitBtn").innerHTML = "Authenticating...";
-      const { data } = await axios.post("/api/auth/login", formData);
-      if (data?.message !== "Login Successful") {
-        toast({
-          description: data?.message,
-          variant: "destructive",
-        });
+      const res = await axios.post(`${host.url}/auth/login`, formData);
+      if (res.data.success) {
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.token });
+        window.location = "/admin";
       } else {
-        window.location = `/admin/dashboard?q=${data?.userInfo?.token}`;
+        dispatch({
+          type: "LOGIN_FAILURE",
+          payload: { message: `${error.message}` },
+        });
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE", payload: err?.response?.data });
       toast({
-        description:
-          "An unknown error occured while trying to sign you in, our Engineers have been contacted concerning the error",
+        description: `${error?.message}`,
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      window.location = "/admin";
+    }
+  }, [user]);
+
   return (
     <>
       <div className="w-full bg-[#000]">
@@ -80,12 +86,16 @@ const Login = () => {
             />
 
             <button
-              disabled={isloading}
+              disabled={loading || !formData.username || !formData.password}
               type="submit"
               id="submitBtn"
-              className="border-none outline-none bg-[--admin-primary-bg] p-3 rounded-md uppercase text-white font-[600] hover:opacity-[0.8] transition-all delay-75 hover:text-[#000]  disabled:cursor-not-allowed mt-5"
+              className={`${cn(
+                `${
+                  loading && " cursor-not-allowed"
+                } border-none outline-none bg-[--admin-primary-bg] p-3 rounded-md uppercase text-white font-[600] transition-all delay-75 hover:text-[#000]  disabled:cursor-not-allowed mt-5`
+              )}`}
             >
-              Login
+              {loading ? "processing..." : "Login"}
             </button>
           </form>
         </div>

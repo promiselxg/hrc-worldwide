@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AddBanner from "./banner/add";
 import AboutUs from "./about-us/add";
@@ -10,10 +10,12 @@ import AddTeamMember from "./team/add";
 import AddResource from "./resource/add";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { AuthContext } from "@/context/auth.context";
 
 const Setting = () => {
   const [pageView, setPageView] = useState(<AddBanner />);
   const [active, setActive] = useState("banner");
+  const { user } = useContext(AuthContext);
 
   const setPage = (currentView) => {
     switch (currentView) {
@@ -47,6 +49,10 @@ const Setting = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    if (!user) window.location = "/admin/login";
+  }, [user]);
   return (
     <>
       <section className="w-full flex h-screen flex-col gap-y-5 p-5 overflow-y-scroll bg-[whitesmoke]">

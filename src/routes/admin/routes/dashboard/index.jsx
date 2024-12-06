@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DashboardCard from "../../components/dashboard-card";
 import Header from "../../components/header";
 import { BookA } from "lucide-react";
@@ -6,9 +6,18 @@ import { cn } from "@/lib/utils";
 import { columns } from "@/components/table/resources/columns";
 import { resource } from "@/components/table/resources/data";
 import { ResourcesTable } from "@/components/table/resources/data-table";
+import { AuthContext } from "@/context/auth.context";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!user) {
+      window.location = "/admin/login";
+    }
+  }, [user]);
+
   return (
     <>
       <section className="w-full flex h-screen flex-col gap-y-5 p-5 overflow-y-scroll bg-[whitesmoke]">
