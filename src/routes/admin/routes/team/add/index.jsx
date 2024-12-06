@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import SelectedImagesDisplay from "@/components/image-upload/selectedImageDisplay";
 import "../../admin.css";
 
 import { Button } from "@/components/ui/button";
@@ -12,11 +13,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useImageContext } from "@/context/imageUpload.context";
 
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import host from "@/utils/host";
+import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CloudUpload, X } from "lucide-react";
+import axios from "axios";
+import { CloudUpload, Loader2, X } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -28,69 +33,76 @@ const formSchema = z.object({
 
 const AddTeamMember = () => {
   const [loading, setLoading] = useState(false);
-  const [selectedImages, setselectedImages] = useState([]);
-  const [files, setFiles] = useState([]);
+  const { files, selectedImages, handleImageChange, removeSelectedImage } =
+    useImageContext();
 
   const { toast } = useToast();
 
+  const config = {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem("userInfo"))}`,
+    },
+  };
+
   const form = useForm({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      full_name: "",
+      position: "",
+    },
   });
 
-  //  Select File to Upload
-  const imageHandleChange = (e) => {
-    setselectedImages([]);
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const selectedFiles = [];
-      filesArray.forEach((file) => {
-        if (file.size > 5 * 1024 * 1024) {
-          // File size is bigger than 5MB
-          toast({
-            variant: "destructive",
-            title: "Selected File is > 5MB.",
-            description: `File "${file.name}" exceeds 5MB limit.`,
-          });
-        } else {
-          // File size is within the limit
-          selectedFiles.push(file);
-        }
+  async function onSubmit(values) {
+    setLoading(true);
+    // Validate required fields
+    const requiredFields = ["full_name", "position"];
+    const missingFields = requiredFields.filter((field) => !values[field]);
+
+    if (missingFields.length > 0) {
+      setLoading(false);
+      toast({
+        variant: "destructive",
+        title: "Missing Required Fields",
+        description: `Please fill out the following fields: ${missingFields.join(
+          ", "
+        )}`,
       });
-      setFiles(selectedFiles);
-      const fileArray = selectedFiles.map((file) => URL.createObjectURL(file));
-      setselectedImages((prevImages) => prevImages.concat(fileArray));
-      selectedFiles.forEach((file) => URL.revokeObjectURL(file));
+      return;
+    } else {
+      try {
+        let photos = [];
+        if (selectedImages.length > 0 && files) {
+          photos = await uploadFilesToCloudinary(files, "hrcImages");
+        }
+        // Prepare data for submission
+        const data = {
+          ...values,
+          image_url: photos[0]?.secure_url,
+          image_id: photos[0]?.public_id,
+        };
+        // Submit data to the backend
+        const response = await axios.post(`${host.url}/team`, data, config);
+        // Success Toast
+        if (response) {
+          toast({
+            description: `Created successfully.`,
+            className: "bg-green-500 text-white",
+          });
+        }
+        // Redirect
+        window.location.reload();
+      } catch (error) {
+        console.error("Error during submission:", error);
+        toast({
+          variant: "destructive",
+          description:
+            error.response?.data?.message || "An unexpected error occurred.",
+        });
+      } finally {
+        setLoading(false);
+      }
     }
-  };
-  //  Remove an Item from an Array
-  const removeSelectedImage = (index) => {
-    const updatedImages = selectedImages.filter((_, i) => i !== index);
-    setselectedImages(updatedImages);
-  };
-  //  Display the selected Item
-  const renderImages = (source) => {
-    return source.map((image, i) => (
-      <div
-        className="w-full h-[60px] rounded-md relative mb-5   bg-contain"
-        key={i}
-      >
-        <X
-          className="absolute -top-2 -right-2 bg-[rgba(0,0,0,0.9)] rounded-full text-white p-[5px]  cursor-pointer"
-          onClick={() => removeSelectedImage(i)}
-        />
-        <img
-          src={image}
-          alt={`images ${i}`}
-          width={200}
-          height={100}
-          className="object-contain h-[60px]"
-        />
-      </div>
-    ));
-  };
-
-  async function onSubmit(values) {}
-
+  }
   return (
     <>
       <div className="h-fit w-full flex flex-col pb-[100px] md:pb-20">
@@ -118,7 +130,7 @@ const AddTeamMember = () => {
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
-                        Team memeber&quote;s fullname
+                        Team memeber&apos;s fullname
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -142,9 +154,7 @@ const AddTeamMember = () => {
                   )}
                 />
                 <div className="flex flex-col space-y-5">
-                  <span>
-                    Add Photo <i className="italic text-sm">(optional)</i>
-                  </span>
+                  <span>Add Photo</span>
                   <label htmlFor="files" className="w-fit ">
                     <CloudUpload
                       size={60}
@@ -158,16 +168,24 @@ const AddTeamMember = () => {
                     id="files"
                     accept="image/png, image/gif, image/jpeg"
                     multiple
-                    onChange={imageHandleChange}
+                    onChange={handleImageChange}
                     className="hidden"
                   />
 
-                  <div className="w-full grid md:grid-cols-10 grid-cols-3 gap-3">
-                    {selectedImages && renderImages(selectedImages)}
+                  <div className="w-fit grid md:grid-cols-10 grid-cols-3 gap-3">
+                    <SelectedImagesDisplay
+                      images={selectedImages}
+                      onRemoveImage={removeSelectedImage}
+                    />
                   </div>
                 </div>
-                <Button type="submit" id="submitBtn" disabled={loading}>
-                  Submit
+                <Button
+                  type="submit"
+                  id="submitBtn"
+                  disabled={loading || selectedImages.length < 1 || !files}
+                >
+                  {loading && <Loader2 className="animate-spin" />}
+                  {loading ? "Please wait" : "Submit"}
                 </Button>
               </form>
             </Form>

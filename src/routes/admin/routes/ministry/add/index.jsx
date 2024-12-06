@@ -31,6 +31,7 @@ import { CloudUpload, Loader2, X } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 
 const formSchema = z.object({
   ministry_description: z
@@ -80,26 +81,7 @@ const Ministry = () => {
       try {
         let photos = [];
         if (selectedImages.length > 0 && files) {
-          photos = await Promise.all(
-            Object.values(files).map(async (file) => {
-              const formData = new FormData();
-              formData.append("file", file);
-              formData.append("upload_preset", "hrcImages");
-              formData.append(
-                "api_key",
-                import.meta.env.VITE_CLOUDINARY_API_KEY
-              );
-              formData.append(
-                "timestamp",
-                Math.round(new Date().getTime() / 1000)
-              );
-              const { data } = await axios.post(
-                `https://api.cloudinary.com/v1_1/promiselxg/image/upload`,
-                formData
-              );
-              return data;
-            })
-          );
+          photos = await uploadFilesToCloudinary(files, "hrcImages");
         }
         // Prepare data for submission
         const data = {

@@ -55,15 +55,8 @@ const Login = () => {
 
   return (
     <>
-      <div className="w-full bg-[#000]">
-        <div className="w-full px-5 md:w-1/2 mx-auto flex justify-center items-center flex-col md:h-screen h-fit">
-          <img
-            src="/images/logo.png"
-            width={200}
-            height={200}
-            alt="logo"
-            className="md:mb-5"
-          />
+      <div className="w-full bg-[#000] h-screen">
+        <div className="w-full px-5 md:w-1/2 mx-auto flex justify-center items-center flex-col h-screen overflow-y-scroll">
           <form
             onSubmit={handleSubmit}
             className="flex flex-col md:w-1/2 w-full gap-y-3 text-white font-[600] uppercase"
