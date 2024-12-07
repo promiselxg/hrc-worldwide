@@ -22,7 +22,12 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import CloudinaryUploadWidget from "@/utils/CloudinaryUploadWidget ";
+import host from "@/utils/host";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { Loader2 } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -30,23 +35,104 @@ import { z } from "zod";
 const formSchema = z.object({
   resource_title: z
     .string({ required_error: "Give this resource a title" })
-    .min(5, { message: "Event's title must be at least 5 characters long." }),
-  tag: z.string().optional(),
-  minister: z.string({ required_error: "This field is required" }),
-  resource_type: z.string({ required_error: "This field is required" }),
-  resource_author: z.string({ required_error: "This field is required" }),
+    .min(3, { message: "resource title must be at least 3 characters long." }),
+  resource_minister: z
+    .string({ required_error: "Enter at least one minister's name" })
+    .min(5, { message: "this field must be at least 5 characters long." }),
+
+  resource_tag: z.string().optional(),
+  resource_file_type: z.string({ required_error: "This field is required" }),
 });
 
 const AddResource = () => {
   const [loading, setLoading] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
+  const [uploadedAudio, setUploadedAudio] = useState(null);
+  const [videoUrl, setVideUrl] = useState("");
 
-  const { toast } = useToast();
-  const form = useForm({
-    resolver: zodResolver(formSchema),
+  const [formData, setFormData] = useState({
+    resource_title: "",
+    resource_minister: "",
+    resource_tag: "",
   });
 
+  const { toast } = useToast();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem("userInfo"))}`,
+    },
+  };
+
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      resource_title: "",
+      resource_tag: "",
+      resource_minister: "",
+    },
+  });
+
+  const handleUploadSuccess = (fileInfo) => {
+    setUploadedAudio(fileInfo.secure_url);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleFormSubmit = async (e, fileType) => {
+    e.preventDefault();
+    const requiredFields = ["resource_title", "resource_minister"];
+    const missingFields = requiredFields.filter(
+      (field) => !formData[field]?.trim()
+    );
+
+    if (missingFields.length > 0) {
+      toast({
+        variant: "destructive",
+        title: "Missing Required Fields",
+        description: `Missing required fields: ${missingFields.join(", ")}`,
+      });
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const data = {
+        ...formData,
+        resource_file_url: uploadedAudio || videoUrl,
+        resource_file_id: null,
+        resource_file_type: fileType,
+      };
+
+      const response = await axios.post(`${host.url}/resource`, data, config);
+      // Success Toast
+      if (response) {
+        toast({
+          description: `Created successfully.`,
+          className: "bg-green-500 text-white",
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description:
+          error.response?.data?.message || "An unexpected error occurred.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
   async function onSubmit(values) {}
+
   return (
     <>
       <div className="h-fit w-full flex flex-col pb-[100px] md:pb-20">
@@ -56,10 +142,7 @@ const AddResource = () => {
           </div>
           <div className="p-5 bg-white container w-full">
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-5 mb-20"
-              >
+              <form className="space-y-5 mb-20">
                 <FormField
                   control={form.control}
                   name="resource_title"
@@ -71,6 +154,8 @@ const AddResource = () => {
                           placeholder="title"
                           {...field}
                           className="form-input"
+                          value={formData.resource_title}
+                          onChange={handleChange}
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
@@ -82,7 +167,7 @@ const AddResource = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="resource_author"
+                  name="resource_minister"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Ministering </FormLabel>
@@ -91,6 +176,9 @@ const AddResource = () => {
                           placeholder="Ministers Name, seperated  by comma"
                           className="resize-none"
                           {...field}
+                          value={formData.resource_minister}
+                          onChange={handleChange}
+                          id="resource_minister"
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
@@ -102,7 +190,7 @@ const AddResource = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="tag"
+                  name="resource_tag"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
@@ -113,8 +201,9 @@ const AddResource = () => {
                           placeholder="Tag"
                           {...field}
                           className="form-input"
-                          id="tag"
-                          onKeyUp={() => {}}
+                          id="resource_tag"
+                          value={formData.resource_tag}
+                          onChange={handleChange}
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
@@ -126,7 +215,7 @@ const AddResource = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="resource_type"
+                  name="resource_file_type"
                   render={({ field }) => {
                     // Handle the change of selected value
                     const handleChange = (value) => {
@@ -159,28 +248,69 @@ const AddResource = () => {
 
                         {/* Conditionally display text box based on selected value */}
                         {selectedValue === "video" && (
-                          <FormItem>
-                            <FormLabel>Video Description</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Enter video description" />
-                            </FormControl>
-                          </FormItem>
+                          <>
+                            <FormItem>
+                              <FormLabel>
+                                Video Description{" "}
+                                <i className="text-sm">
+                                  (paste the uploaded youtube video url here)
+                                </i>
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="Enter video description"
+                                  value={videoUrl}
+                                  onChange={(e) => setVideUrl(e.target.value)}
+                                />
+                              </FormControl>
+                              <FormDescription className="text-[12px] text-[#333]">
+                                paste the uploaded youtube video url here
+                              </FormDescription>
+                            </FormItem>
+                            <Button
+                              onClick={(e) => handleFormSubmit(e, "video")}
+                              id="submitBtn"
+                              disabled={
+                                loading ||
+                                !formData.resource_minister ||
+                                !formData.resource_title
+                              }
+                            >
+                              {loading && <Loader2 className="animate-spin" />}
+                              {loading ? "Please wait" : "Submit"}
+                            </Button>
+                          </>
                         )}
-                        {selectedValue === "audio" && (
-                          <FormItem>
-                            <FormLabel>Audio Notes</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Enter audio notes" />
-                            </FormControl>
-                          </FormItem>
-                        )}
+                        {selectedValue === "audio" &&
+                          (!uploadedAudio || uploadedAudio === "") && (
+                            <CloudinaryUploadWidget
+                              cloudName={`${
+                                import.meta.env.VITE_CLOUDINARY_NAME
+                              }`}
+                              uploadPreset="hrcAudio"
+                              onUploadSuccess={handleUploadSuccess}
+                              buttonLabel="Upload Audio"
+                              formData={formData}
+                            />
+                          )}
                       </FormItem>
                     );
                   }}
                 />
-                <Button type="submit" id="submitBtn" disabled={loading}>
-                  Submit
-                </Button>
+                {uploadedAudio && (
+                  <Button
+                    onClick={(e) => handleFormSubmit(e, "audio")}
+                    id="submitBtn"
+                    disabled={
+                      loading ||
+                      !formData.resource_minister ||
+                      !formData.resource_title
+                    }
+                  >
+                    {loading && <Loader2 className="animate-spin" />}
+                    {loading ? "Please wait" : "Submit"}
+                  </Button>
+                )}
               </form>
             </Form>
           </div>

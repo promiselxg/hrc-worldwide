@@ -1,3 +1,4 @@
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { AuthContext } from "@/context/auth.context";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
@@ -55,8 +56,8 @@ const Login = () => {
 
   return (
     <>
-      <div className="w-full bg-[#000] h-screen">
-        <div className="w-full px-5 md:w-1/2 mx-auto flex justify-center items-center flex-col h-screen overflow-y-scroll">
+      <ScrollArea className="w-full bg-[#000] h-screen ">
+        <div className="w-full px-5 md:w-1/2 mx-auto flex justify-center items-center flex-col h-screen">
           <form
             onSubmit={handleSubmit}
             className="flex flex-col md:w-1/2 w-full gap-y-3 text-white font-[600] uppercase"
@@ -92,7 +93,7 @@ const Login = () => {
             </button>
           </form>
         </div>
-      </div>
+      </ScrollArea>
     </>
   );
 };

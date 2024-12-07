@@ -98,9 +98,10 @@ const Ministry = () => {
             description: `Created successfully.`,
             className: "bg-green-500 text-white",
           });
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
         }
-        // Redirect
-        window.location.reload();
       } catch (error) {
         console.error("Error during submission:", error);
         toast({
