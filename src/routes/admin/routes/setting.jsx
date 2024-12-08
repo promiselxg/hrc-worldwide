@@ -12,6 +12,12 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { AuthContext } from "@/context/auth.context";
 
+import RBTIObjective from "./rbti/add/rbti_objective";
+import RBTISpiritualFormation from "./rbti/add/rbti_spiritual_formation";
+import RBTICandidateResponsibility from "./rbti/add/rbti_candidate_responsibility";
+import RBTIEntryRequirement from "./rbti/add/rbti_entry_requirement";
+import RBTITraining_requirement from "./rbti/add/rbti_training_requirement";
+
 const Setting = () => {
   const [pageView, setPageView] = useState(<AddBanner />);
   const [active, setActive] = useState("banner");
@@ -42,6 +48,26 @@ const Setting = () => {
       case "resource":
         setPageView(<AddResource />);
         setActive("resource");
+        break;
+      case "rbti_objective":
+        setPageView(<RBTIObjective />);
+        setActive("rbti_objective");
+        break;
+      case "spiritual_formation":
+        setPageView(<RBTISpiritualFormation />);
+        setActive("spiritual_formation");
+        break;
+      case "candidate_responsibility":
+        setPageView(<RBTICandidateResponsibility />);
+        setActive("candidate_responsibility");
+        break;
+      case "entry_requirement":
+        setPageView(<RBTIEntryRequirement />);
+        setActive("entry_requirement");
+        break;
+      case "training_requirement":
+        setPageView(<RBTITraining_requirement />);
+        setActive("training_requirement");
         break;
       default:
         setPageView(<AddBanner />);
@@ -223,20 +249,6 @@ const Setting = () => {
                   >
                     <Settings2 size={20} />
                     Training requirement
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to=""
-                    onClick={() => setPage("staff_position")}
-                    className={cn(
-                      `${
-                        active === "staff_position" && "text-[purple]"
-                      } flex items-center gap-2`
-                    )}
-                  >
-                    <Settings2 size={20} />
-                    Oragnogram (Staff position)
                   </Link>
                 </li>
               </ul>

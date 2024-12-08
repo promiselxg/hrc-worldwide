@@ -48,6 +48,8 @@ const AddResource = () => {
   const [loading, setLoading] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
   const [uploadedAudio, setUploadedAudio] = useState(null);
+  const [uploadedAudioId, setUploadedAudioId] = useState(null);
+
   const [videoUrl, setVideUrl] = useState("");
 
   const [formData, setFormData] = useState({
@@ -74,7 +76,8 @@ const AddResource = () => {
   });
 
   const handleUploadSuccess = (fileInfo) => {
-    setUploadedAudio(fileInfo.secure_url);
+    setUploadedAudio(fileInfo?.secure_url);
+    setUploadedAudioId(fileInfo?.path);
   };
 
   const handleChange = (e) => {
@@ -106,7 +109,7 @@ const AddResource = () => {
       const data = {
         ...formData,
         resource_file_url: uploadedAudio || videoUrl,
-        resource_file_id: null,
+        resource_file_id: uploadedAudioId,
         resource_file_type: fileType,
       };
 
@@ -132,6 +135,8 @@ const AddResource = () => {
     }
   };
   async function onSubmit(values) {}
+
+  console.log(uploadedAudioId);
 
   return (
     <>

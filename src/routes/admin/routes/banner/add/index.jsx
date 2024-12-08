@@ -31,7 +31,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "axios";
 import host from "@/utils/host";
-import { Navigate } from "react-router-dom";
+import { config } from "@/utils/headerConfig";
+import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 
 const formSchema = z.object({
   description: z
@@ -47,13 +48,6 @@ const AddBanner = () => {
     useImageContext();
 
   const { toast } = useToast();
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem("userInfo"))}`,
-    },
-  };
-
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -85,25 +79,7 @@ const AddBanner = () => {
 
       // Upload images if selected
       if (selectedImages.length > 0 && files) {
-        photos = await Promise.all(
-          Object.values(files).map(async (file) => {
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("upload_preset", "hrcImages");
-            formData.append("api_key", import.meta.env.VITE_CLOUDINARY_API_KEY);
-            formData.append(
-              "timestamp",
-              Math.round(new Date().getTime() / 1000)
-            );
-
-            // Call Cloudinary API
-            const { data } = await axios.post(
-              `https://api.cloudinary.com/v1_1/promiselxg/image/upload`,
-              formData
-            );
-            return data;
-          })
-        );
+        photos = await uploadFilesToCloudinary(files, "hrcImages");
       }
 
       // Prepare data for submission

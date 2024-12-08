@@ -25,24 +25,28 @@ import { CloudUpload, Loader2, X } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { config } from "@/utils/headerConfig";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   full_name: z.string({ required_error: "This field is required" }),
   position: z.string({ required_error: "This field is required" }),
+  category: z.string({ required_error: "This field is required" }),
 });
 
 const AddTeamMember = () => {
   const [loading, setLoading] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
   const { files, selectedImages, handleImageChange, removeSelectedImage } =
     useImageContext();
 
   const { toast } = useToast();
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem("userInfo"))}`,
-    },
-  };
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -55,7 +59,7 @@ const AddTeamMember = () => {
   async function onSubmit(values) {
     setLoading(true);
     // Validate required fields
-    const requiredFields = ["full_name", "position"];
+    const requiredFields = ["full_name", "position", "category"];
     const missingFields = requiredFields.filter((field) => !values[field]);
 
     if (missingFields.length > 0) {
@@ -108,7 +112,7 @@ const AddTeamMember = () => {
       <div className="h-fit w-full flex flex-col pb-[100px] md:pb-20">
         <div className="w-full my-5 bg-[whitesmoke] px-5 flex flex-col h-screen ">
           <div className="p-5">
-            <h1 className={cn(`font-bold`)}>About Us</h1>
+            <h1 className={cn(`font-bold`)}>Organogram (Team)</h1>
           </div>
           <div className="p-5 bg-white container w-full">
             <Form {...form}>
@@ -136,6 +140,52 @@ const AddTeamMember = () => {
                     </FormItem>
                   )}
                 />
+
+                <FormField
+                  control={form.control}
+                  name="category"
+                  render={({ field }) => {
+                    // Handle the change of selected value
+                    const handleChange = (value) => {
+                      field.onChange(value);
+                      setSelectedValue(value);
+                    };
+
+                    return (
+                      <FormItem>
+                        <FormLabel>File type</FormLabel>
+                        <Select
+                          onValueChange={handleChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select the corresponding staff position" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="board_of_governor">
+                              Board of Governors
+                            </SelectItem>
+                            <SelectItem value="dean_of_academics_affair">
+                              Dean of Academics Affair
+                            </SelectItem>
+                            <SelectItem value="registrar">Registrar</SelectItem>
+                            <SelectItem value="bursar">Bursar</SelectItem>
+                            <SelectItem value="director_of_christian_services">
+                              Director of Christian Services
+                            </SelectItem>
+                            <SelectItem value="provost">Provost</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormDescription className="text-[12px] text-[#333]">
+                          Select the corresponding staff position.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
                 <FormField
                   control={form.control}
                   name="position"
@@ -144,7 +194,7 @@ const AddTeamMember = () => {
                       <FormLabel>Position</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Full Name"
+                          placeholder="Position"
                           {...field}
                           className="form-input"
                         />
@@ -182,7 +232,12 @@ const AddTeamMember = () => {
                 <Button
                   type="submit"
                   id="submitBtn"
-                  disabled={loading || selectedImages.length < 1 || !files}
+                  disabled={
+                    loading ||
+                    selectedImages.length < 1 ||
+                    !files ||
+                    !selectedValue
+                  }
                 >
                   {loading && <Loader2 className="animate-spin" />}
                   {loading ? "Please wait" : "Submit"}

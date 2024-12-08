@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 export function generateSlug(text) {
   return text
     .toString() // Convert to string in case it's not

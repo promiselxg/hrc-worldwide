@@ -32,6 +32,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
+import { config } from "@/utils/headerConfig";
 
 const formSchema = z.object({
   ministry_description: z
@@ -46,12 +47,6 @@ const Ministry = () => {
     useImageContext();
 
   const { toast } = useToast();
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem("userInfo"))}`,
-    },
-  };
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -89,7 +84,6 @@ const Ministry = () => {
           ministry_image_url: photos[0].secure_url,
           ministry_image_id: photos[0].public_id,
         };
-        console.log(data);
         // Submit data to the backend
         const response = await axios.post(`${host.url}/ministry`, data, config);
         // Success Toast
