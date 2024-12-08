@@ -18,12 +18,17 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeft, CloudUpload, X } from "lucide-react";
-import React, { useRef, useState } from "react";
+import { ChevronLeft, CloudUpload, Loader2, X } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { z } from "zod";
 import Editor from "@/components/editor/editor";
+import axios from "axios";
+import SelectedImagesDisplay from "@/components/image-upload/selectedImageDisplay";
+import { useImageContext } from "@/context/imageUpload.context";
+import { useEditorContext } from "@/context/editor.context";
+import host from "@/utils/host";
 
 const formSchema = z.object({
   blog_title: z
@@ -34,77 +39,65 @@ const formSchema = z.object({
 
 const EditBlogPost = () => {
   const [loading, setLoading] = useState(false);
-  const [selectedImages, setselectedImages] = useState([]);
-  const [content, setContent] = useState("");
-  const [files, setFiles] = useState([]);
-  const [data, setData] = useState([]);
-  const [readOnly, setReadOnly] = useState(true);
-  const [editorContent, setEditorContent] = useState("");
+  const [blogContent, setBlogContent] = useState("initializing...");
 
-  const quillRef = useRef();
+  const [formData, setFormData] = useState({
+    blog_title: "",
+    blog_tag: "",
+  });
+  const { files, selectedImages, handleImageChange, removeSelectedImage } =
+    useImageContext();
+
+  const { quillRef, readOnly, editorContent, setEditorContent } =
+    useEditorContext();
+
+  const [content, setContent] = useState("");
+
+  const [data, setData] = useState([]);
+  const params = useParams();
+
   const { toast } = useToast();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
 
-  //  Select File to Upload
-  const imageHandleChange = (e) => {
-    setselectedImages([]);
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const selectedFiles = [];
-      filesArray.forEach((file) => {
-        if (file.size > 5 * 1024 * 1024) {
-          // File size is bigger than 5MB
-          toast({
-            variant: "destructive",
-            title: "Selected File is > 5MB.",
-            description: `File "${file.name}" exceeds 5MB limit.`,
-          });
-        } else {
-          // File size is within the limit
-          selectedFiles.push(file);
-        }
-      });
-      setFiles(selectedFiles);
-      const fileArray = selectedFiles?.map((file) => URL.createObjectURL(file));
-      setselectedImages((prevImages) => prevImages.concat(fileArray));
-      selectedFiles.forEach((file) => URL.revokeObjectURL(file));
-    }
-  };
-  //  Remove an Item from an Array
-  const removeSelectedImage = (index) => {
-    const updatedImages = selectedImages.filter((_, i) => i !== index);
-    setselectedImages(updatedImages);
-  };
-  //  Display the selected Item
-  const renderImages = (source) => {
-    return source?.map((image, i) => (
-      <div
-        className="w-full h-[60px] rounded-md relative mb-5   bg-contain"
-        key={i}
-      >
-        <X
-          className="absolute -top-2 -right-2 bg-[rgba(0,0,0,0.9)] rounded-full text-white p-[5px]  cursor-pointer"
-          onClick={() => removeSelectedImage(i)}
-        />
-        <img
-          src={image}
-          alt={`images ${i}`}
-          width={200}
-          height={100}
-          className="object-contain h-[60px]"
-        />
-      </div>
-    ));
-  };
-
   const handleFormUpdate = async (field, value) => {};
   const handleImageUpload = async (field, value) => {};
 
   async function onSubmit(values) {}
 
+  const handleSubmit = async () => {};
+
+  useEffect(() => {
+    const getRecord = async () => {
+      if (!params?.id || params.id === "") {
+        window.location = "/admin/blog";
+      }
+      try {
+        const { data } = await axios.get(
+          `${host.url}/blog/${params?.id}/blogPost`
+        );
+        if (data?.message === "No Record found with the ID Provided") {
+          window.location = "/admin/blog";
+        }
+        setData(data);
+        setBlogContent(data?.data?.blog_content);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getRecord();
+  }, [params.id]);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      quillRef.current.clipboard.dangerouslyPasteHTML(editorContent);
+    }
+  }, [blogContent, quillRef, editorContent]);
+
+  console.log(blogContent);
+  console.log(editorContent);
   return (
     <>
       <div className="h-screen w-full flex flex-col pb-[100px] md:pb-20 overflow-y-scroll">
@@ -194,9 +187,7 @@ const EditBlogPost = () => {
                     ref={quillRef}
                     readOnly={readOnly}
                     className="h-[300px]"
-                    defaultValue={
-                      editorContent || "<p>Start editing here...</p>"
-                    }
+                    defaultValue={editorContent || blogContent}
                     onTextChange={(delta, oldDelta, source) => {
                       // Update editor content state on change
                       if (quillRef.current) {
@@ -205,15 +196,9 @@ const EditBlogPost = () => {
                     }}
                   />
                 </div>
-                <Button
-                  type="button"
-                  id="blog_content"
-                  onClick={() => setReadOnly(!readOnly)}
-                >
-                  {readOnly ? "Enable Update" : "Save Update"}
-                </Button>
+
                 <div className="flex flex-col space-y-5">
-                  <span>Add Photo</span>
+                  <span>Add cover Photo</span>
                   <label htmlFor="files" className="w-fit ">
                     <CloudUpload
                       size={60}
@@ -226,23 +211,28 @@ const EditBlogPost = () => {
                     name="files"
                     id="files"
                     accept="image/png, image/gif, image/jpeg"
-                    multiple
-                    onChange={imageHandleChange}
+                    onChange={handleImageChange}
                     className="hidden"
                   />
-                  <div className="w-full grid md:grid-cols-10 grid-cols-3 gap-3">
-                    {selectedImages.length > 0
-                      ? renderImages(selectedImages, "file")
-                      : renderImages(data?.imgUrl)}
+
+                  <div className="w-fit grid md:grid-cols-10 grid-cols-3 gap-3">
+                    <SelectedImagesDisplay
+                      images={selectedImages}
+                      onRemoveImage={removeSelectedImage}
+                    />
                   </div>
                 </div>
                 <Button
-                  type="button"
+                  onClick={handleSubmit}
                   id="submitBtn"
-                  disabled={selectedImages?.length < 1}
-                  onClick={() => handleImageUpload("image", data?.imageId)}
+                  disabled={
+                    loading ||
+                    !formData.blog_title ||
+                    selectedImages.length === 0
+                  }
                 >
-                  Update Photo
+                  {loading && <Loader2 className="animate-spin" />}
+                  {loading ? "Please wait" : "Submit"}
                 </Button>
               </form>
             </Form>

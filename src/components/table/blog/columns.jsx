@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { handleDeleteBtn } from "@/utils/deleteItemFromDb";
+import { formatDateTime } from "@/utils/getDateDifference";
+import { truncateText } from "@/utils/trucateText";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,29 +43,52 @@ export const columns = [
     header: "Blog Content",
     cell: ({ row }) => {
       const { blog_content } = row.original;
+      const newData = truncateText(blog_content, 30);
       return (
         <>
-          <div>
-            <p className={cn(`text-sm font-lato`)}>{blog_content}</p>
-          </div>
+          <div
+            className="text-sm font-lato"
+            dangerouslySetInnerHTML={{ __html: newData }}
+          ></div>
         </>
       );
     },
   },
   {
-    accessorKey: "blog_banner",
-    header: "Display Image",
+    accessorKey: "image_url",
+    header: "Cover Image",
+    cell: ({ row }) => {
+      const { image_url, blog_title } = row.original;
+      return (
+        <>
+          <div className="text-sm font-lato md:w-[100px] md:h-[50px]">
+            <a href={image_url} target="_blank">
+              <img
+                src={image_url}
+                alt={blog_title}
+                className="w-[100px] h-[50px] object-contain"
+              />
+            </a>
+          </div>
+        </>
+      );
+    },
   },
+
   {
-    accessorKey: "tags",
-    header: "Tags",
-  },
-  {
-    accessorKey: "published_date",
+    accessorKey: "createdAt",
     header: "Published Date",
+    cell: ({ row }) => {
+      const { createdAt } = row.original;
+      return (
+        <>
+          <div className="text-sm font-lato">{formatDateTime(createdAt)}</div>
+        </>
+      );
+    },
   },
   {
-    accessorKey: "author",
+    accessorKey: "blog_author",
     header: "Published By",
   },
   {
@@ -94,7 +119,7 @@ export const columns = [
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
-                handleDeleteBtn(id, "");
+                handleDeleteBtn(id, "blog", "blogPost");
               }}
               className="text-red-400 flex items-center gap-2 cursor-pointer hover:outline-none"
             >

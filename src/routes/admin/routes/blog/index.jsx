@@ -2,13 +2,12 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Cross } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { BlogTable } from "@/components/table/blog/data-table";
 import { columns } from "@/components/table/blog/columns";
-import { blog } from "@/components/table/blog/data";
+import useFetch from "@/hooks/useFetch";
 
 const BlogPage = () => {
-  const [loading, setLoading] = useState(false);
+  const { loading, data } = useFetch("/blog");
   return (
     <>
       <section className="w-full flex h-screen flex-col gap-y-5 p-5 overflow-y-scroll bg-[whitesmoke]">
@@ -22,7 +21,7 @@ const BlogPage = () => {
             </Button>
           </Link>
         </div>
-        <BlogTable columns={columns} data={blog} loading={loading} />
+        <BlogTable columns={columns} data={data} loading={loading} />
       </section>
     </>
   );

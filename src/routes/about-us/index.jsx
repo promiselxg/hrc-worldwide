@@ -9,7 +9,10 @@ import Music from "../../assets/images/banner/music.jpeg";
 import ServiceBanner from "@/components/service-banner";
 import MinistryCard from "../ministries/ministry-card";
 import SEO from "@/lib/seo";
+import useFetch from "@/hooks/useFetch";
 const AboutUs = () => {
+  const { loading, data } = useFetch("/ministry");
+
   return (
     <>
       <SEO
@@ -91,7 +94,7 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-      <MinistryCard title="Our Ministries" />
+      <MinistryCard title="Our Ministries" data={data} loading={loading} />
       <div className="flex w-full text-[--primary-bg]">
         <div className="container mx-auto w-[90%] md:w-[1200px] my-5 md:my-10">
           <div className="flex gap-5 md:gap-2 flex-col md:flex-row">

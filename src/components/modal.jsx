@@ -2,7 +2,7 @@ import { useModal } from "@/context/modal-context";
 import { cn } from "@/lib/utils";
 
 /* eslint-disable react/prop-types */
-const Modal = ({ width, height, children }) => {
+const Modal = ({ width, height, children, data }) => {
   const { isModalOpen } = useModal();
   if (!isModalOpen) return null;
 

@@ -1,8 +1,9 @@
 import Swal from "sweetalert2";
-import host from "./host";
 import axios from "axios";
+import host from "./host";
+import { config } from "./headerConfig";
 
-export const handleDeleteBtn = (id, route) => {
+export const handleDeleteBtn = (id, route, model) => {
   Swal.fire({
     title: "Please confirm action.",
     text: "Do you want to delete this item?",
@@ -12,8 +13,11 @@ export const handleDeleteBtn = (id, route) => {
     confirmButtonColor: "#d33",
     preConfirm: async () => {
       try {
-        const { data } = await axios.delete(`${host.url}/${route}/${id}`);
-        if (data?.message !== "Record deleted successfully") {
+        const { data } = await axios.delete(
+          `${host.url}/${route}/${id}/${model}`,
+          config
+        );
+        if (data?.message !== "Record successfully deleted") {
           Swal.showValidationMessage(`${data?.message}`);
         }
       } catch (error) {

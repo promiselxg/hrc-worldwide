@@ -1,8 +1,10 @@
 import BgWrapper from "@/components/bg-wrapper";
 import MinistryCard from "./ministry-card";
 import SEO from "@/lib/seo";
+import useFetch from "@/hooks/useFetch";
 
 const Ministries = () => {
+  const { loading, data } = useFetch("/ministry");
   return (
     <>
       <SEO
@@ -36,7 +38,7 @@ const Ministries = () => {
             </div>
           </div>
         </div>
-        <MinistryCard />
+        <MinistryCard data={data} loading={loading} />
       </div>
     </>
   );

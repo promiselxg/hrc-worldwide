@@ -5,12 +5,12 @@ import "swiper/css/pagination";
 
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import { Button } from "@/components/ui/button";
-
-import Event1 from "../../../assets/images/event/event1.png";
-import Event2 from "../../../assets/images/event/event2.png";
-import Event3 from "../../../assets/images/event/event3.png";
+import useFetch from "@/hooks/useFetch";
+import { Link } from "react-router-dom";
 
 const EventSection = () => {
+  const { data } = useFetch("/event");
+
   return (
     <>
       <div className="flex w-full text-[--text-black]">
@@ -35,23 +35,24 @@ const EventSection = () => {
               modules={[EffectCoverflow, Pagination]}
               className="w-full"
             >
-              <SwiperSlide className="w-[500px] h-[500px] bg-contain bg-center">
-                <img
-                  src={Event1}
-                  className="w-full h-[500px] object-cover bg-center"
-                />
-              </SwiperSlide>
-              <SwiperSlide className="w-[500px] h-[500px] bg-contain bg-center">
-                <img src={Event2} className="w-full h-[500px] object-cover" />
-              </SwiperSlide>
-              <SwiperSlide className="w-[500px] h-[500px] bg-contain bg-center">
-                <img src={Event3} className="w-full h-[500px] object-cover" />
-              </SwiperSlide>
+              {data?.map((event) => (
+                <SwiperSlide
+                  className="w-[500px] h-[500px] bg-contain bg-center"
+                  key={event.id}
+                >
+                  <img
+                    src={event?.event_image_url}
+                    className="w-full h-[500px] object-cover"
+                  />
+                </SwiperSlide>
+              ))}
             </Swiper>
             <div className="flex justify-center mt-3">
-              <Button className="bg-[rgba(0,0,0,0.8)] text-[#ccc] rounded-full w-fit text-[12px] font-[400] font-lato">
-                View all event
-              </Button>
+              <Link to="/events">
+                <Button className="bg-[rgba(0,0,0,0.8)] text-[#ccc] rounded-full w-fit text-[12px] font-[400] font-lato">
+                  View all eventx
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

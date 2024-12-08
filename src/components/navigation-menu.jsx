@@ -15,21 +15,6 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Link } from "react-router-dom";
 
-const components = [
-  {
-    title: "Sermons",
-    href: "/resources",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Audio Messages",
-    href: "/resources",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-];
-
 export function NavigationMenuDemo() {
   return (
     <NavigationMenu>
@@ -67,13 +52,13 @@ export function NavigationMenuDemo() {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/ministry/:id" title="Children Ministry">
+              <ListItem href="/ministry" title="Children Ministry">
                 Re-usable components built using Radix UI and Tailwind CSS.
               </ListItem>
-              <ListItem href="/ministry/:id" title="Youth Ministry">
+              <ListItem href="/ministry" title="Youth Ministry">
                 How to install dependencies and structure your app.
               </ListItem>
-              <ListItem href="/ministry/:id" title="Music Ministry">
+              <ListItem href="/ministry" title="Music Ministry">
                 Styles for headings, paragraphs, lists...etc
               </ListItem>
             </ul>

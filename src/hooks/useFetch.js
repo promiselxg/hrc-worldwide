@@ -1,6 +1,7 @@
+import host from "@/utils/host";
+import axios from "axios";
 import { useEffect, useState } from "react";
 const useFetch = (url) => {
-  const API_URL = "/api";
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -9,14 +10,13 @@ const useFetch = (url) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const uniqueUrl = `${API_URL}${url}`;
-        const response = await fetch(uniqueUrl, { cache: "no-store" });
-        if (!response.ok) {
+        const uniqueUrl = `${host.url}${url}`;
+
+        const response = await axios.get(`${uniqueUrl}`);
+        if (!response) {
           throw new Error("Network response was not ok");
         }
-
-        const data = await response.json();
-        setData(data);
+        setData(response?.data?.data);
       } catch (err) {
         setError(err);
       } finally {

@@ -1,12 +1,12 @@
 import { cn } from "@/lib/utils";
 import DashboardCard from "../../components/dashboard-card";
-import { useState } from "react";
 import { ResourcesTable } from "@/components/table/resources/data-table";
-import { resource } from "@/components/table/resources/data";
+
 import { columns } from "@/components/table/resources/columns";
+import useFetch from "@/hooks/useFetch";
 
 const ResourcesPage = () => {
-  const [loading, setLoading] = useState(true);
+  const { loading, data } = useFetch("/resource");
   return (
     <>
       <section className="w-full flex h-screen flex-col gap-y-5 p-5 overflow-y-scroll bg-[whitesmoke]">
@@ -33,7 +33,7 @@ const ResourcesPage = () => {
             Management Resources
           </h1>
         </div>
-        <ResourcesTable columns={columns} data={resource} loading={loading} />
+        <ResourcesTable columns={columns} data={data} loading={loading} />
       </section>
     </>
   );

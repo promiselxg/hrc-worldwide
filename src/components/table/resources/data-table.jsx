@@ -29,10 +29,9 @@ const formSchema = z.object({
   transaction_id: z.string().min(8),
 });
 
-export function ResourcesTable({ columns, data }) {
+export function ResourcesTable({ columns, data, loading }) {
   const [columnFilters, setColumnFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const table = useReactTable({
     data,

@@ -3,8 +3,14 @@ import { FiSearch } from "react-icons/fi";
 import ResourceCard from "./resource-card";
 import ServiceBanner from "@/components/service-banner";
 import SEO from "@/lib/seo";
+import useFetch from "@/hooks/useFetch";
+import { formatDateWithoutTime } from "@/utils/getDateDifference";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
 const Resources = () => {
+  const { loading, data } = useFetch("/resource");
+
   return (
     <>
       <SEO
@@ -47,43 +53,38 @@ const Resources = () => {
         </div>
         <div className="flex w-full">
           <div className="container mx-auto w-[90%] md:w-[1200px] mb-10">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-              <div className="bg-[whitesmoke] shadow-md rounded-[5px] overflow-hidden">
-                <ResourceCard
-                  mediaUrl="https://youtu.be/2LRLsMracAY?si=MVZutLmCRr-WpU_s"
-                  title="Video media resource"
-                  mediaType="video"
-                  preacher="Preacher name goes here."
-                  date="22/11/2024"
-                />
-              </div>
-              <div className="bg-[whitesmoke] shadow-md rounded-[5px] overflow-hidden">
-                <ResourceCard
-                  mediaUrl="https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3"
-                  title="Video media resource"
-                  mediaType="audio"
-                  preacher="Preacher name goes here."
-                  date="22/11/2024"
-                />
-              </div>
-              <div className="bg-[whitesmoke] shadow-md rounded-[5px] overflow-hidden">
-                <ResourceCard
-                  mediaUrl="https://youtu.be/2LRLsMracAY?si=MVZutLmCRr-WpU_s"
-                  title="Video media resource"
-                  mediaType="video"
-                  preacher="Preacher name goes here."
-                  date="22/11/2024"
-                />
-              </div>
-              <div className="bg-[whitesmoke] shadow-md rounded-[5px] overflow-hidden">
-                <ResourceCard
-                  mediaUrl="https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3"
-                  title="Video media resource"
-                  mediaType="audio"
-                  preacher="Preacher name goes here."
-                  date="22/11/2024"
-                />
-              </div>
+            <div
+              className={`${cn(
+                `${loading && "w-full"} ${
+                  !loading && "w-full grid grid-cols-1 md:grid-cols-4 gap-5"
+                }`
+              )}`}
+            >
+              {loading ? (
+                <div className="p-5 w-full space-y-2">
+                  <Skeleton className="h-2 w-full bg-[#171726] rounded-full" />
+                  <Skeleton className="h-2 w-2/3 bg-[#212136] rounded-full" />
+                  <Skeleton className="h-2 w-1/3 bg-[#0d0d16] rounded-full" />
+                </div>
+              ) : (
+                data?.map((resource) => (
+                  <div
+                    className="bg-[whitesmoke] shadow-md rounded-[5px] overflow-hidden"
+                    key={resource.id}
+                  >
+                    <ResourceCard
+                      mediaUrl={
+                        resource?.resource_file_url ??
+                        "https://youtu.be/2LRLsMracAY?si=MVZutLmCRr-WpU_s"
+                      }
+                      title={resource.resource_title}
+                      mediaType={resource?.resource_file_type}
+                      preacher={resource?.resource_minister}
+                      date={formatDateWithoutTime(resource?.createdAt)}
+                    />
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>

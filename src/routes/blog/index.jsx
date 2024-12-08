@@ -1,9 +1,13 @@
 import BgWrapper from "@/components/bg-wrapper";
 import Card from "@/components/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import useFetch from "@/hooks/useFetch";
 import SEO from "@/lib/seo";
+import { formatDateWithoutTime } from "@/utils/getDateDifference";
 import { FiSearch } from "react-icons/fi";
 
 const Blog = () => {
+  const { loading, data } = useFetch("/blog");
   return (
     <>
       <SEO
@@ -45,40 +49,30 @@ const Blog = () => {
           <div className="container md:w-[1200px] mx-auto">
             <div className="w-full md:pb-20 ">
               <div className="w-full flex mt-8">
-                <div className="grid md:w-full w-[90%] mx-auto md:grid-cols-4 gap-4 text-[--text-black]">
-                  <div className="shadow-md rounded-sm overflow-hidden">
-                    <Card
-                      title="Event title"
-                      date="26th November, 2024"
-                      tags="building your inner man"
-                      url="/blog/blogid"
-                    />
+                {loading ? (
+                  <div className="p-5 w-full space-y-2">
+                    <Skeleton className="h-2 w-full bg-[#171726] rounded-full" />
+                    <Skeleton className="h-2 w-2/3 bg-[#212136] rounded-full" />
+                    <Skeleton className="h-2 w-1/3 bg-[#0d0d16] rounded-full" />
                   </div>
-                  <div className="shadow-md rounded-sm overflow-hidden">
-                    <Card
-                      title="Event title"
-                      date="26th November, 2024"
-                      tags="spiritual truth,building your inner man"
-                      url="/blog/blogid"
-                    />
+                ) : (
+                  <div className="grid md:w-full w-[90%] mx-auto md:grid-cols-4 gap-4 text-[--text-black]">
+                    {data.map((post) => (
+                      <div
+                        className="shadow-md rounded-sm overflow-hidden"
+                        key={post.id}
+                      >
+                        <Card
+                          title={post?.blog_title}
+                          date={formatDateWithoutTime(post?.createdAt)}
+                          tags={post?.blog_tag}
+                          url={`/blog/${post.id}`}
+                          imgUrl={post?.image_url}
+                        />
+                      </div>
+                    ))}
                   </div>
-                  <div className="shadow-md rounded-sm overflow-hidden">
-                    <Card
-                      title="Event title"
-                      date="26th November, 2024"
-                      tags="building your inner man"
-                      url="/blog/blogid"
-                    />
-                  </div>
-                  <div className="shadow-md rounded-sm overflow-hidden">
-                    <Card
-                      title="Event title"
-                      date="26th November, 2024"
-                      tags="building your inner man"
-                      url="/blog/blogid"
-                    />
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </div>

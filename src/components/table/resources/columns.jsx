@@ -5,18 +5,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { ArrowUpDown, Edit2, MoreHorizontal } from "lucide-react";
 import { FiTrash2 } from "react-icons/fi";
+import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 
 export const columns = [
-  {
-    accessorKey: "sn",
-    header: "S/N",
-  },
   {
     accessorKey: "resource_title",
     header: ({ column }) => {
@@ -42,13 +38,13 @@ export const columns = [
     },
   },
   {
-    accessorKey: "resource_type",
+    accessorKey: "resource_file_type",
     header: "Resource Type",
     cell: ({ row }) => {
-      const { resource_type } = row.original;
+      const { resource_file_type } = row.original;
       let type = "";
-      if (resource_type === "video") type = "Video";
-      if (resource_type === "image") type = "Image";
+      if (resource_file_type === "video") type = "Video";
+      if (resource_file_type === "audio") type = "audio";
       return (
         <>
           <div>
@@ -59,8 +55,24 @@ export const columns = [
     },
   },
   {
-    accessorKey: "thumbnail",
+    accessorKey: "resource_file_url",
     header: "Resource Thumbnail",
+    cell: ({ row }) => {
+      const { resource_file_url } = row.original;
+      return (
+        <>
+          <div>
+            <ReactPlayer
+              url={resource_file_url}
+              width="100%"
+              height={100}
+              volume={1}
+              controls={true}
+            />
+          </div>
+        </>
+      );
+    },
   },
   {
     id: "actions",
@@ -95,7 +107,7 @@ export const columns = [
               <Button
                 variant="ghost"
                 className="w-full flex justify-start"
-                onClick={() => handleDeleteBtn("event", 1)}
+                onClick={() => handleDeleteBtn(id, "resource", "resource")}
               >
                 <FiTrash2 /> Delete Resource
               </Button>

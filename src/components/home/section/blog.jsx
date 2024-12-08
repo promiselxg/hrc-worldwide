@@ -1,7 +1,12 @@
 import Card from "@/components/card";
 import { Button } from "@/components/ui/button";
+import useFetch from "@/hooks/useFetch";
+import { formatDateWithoutTime } from "@/utils/getDateDifference";
+import { Link } from "react-router-dom";
 
 const BlogSection = () => {
+  const { data } = useFetch("/blog");
+
   return (
     <>
       <div className="flex w-full bg-[rgba(255,0,0,0.1)]">
@@ -16,32 +21,26 @@ const BlogSection = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 p-5 gap-5">
-            <div className="bg-[whitesmoke] shadow-sm rounded-[5px] overflow-hidden">
-              <Card
-                title="Blog Content Title Will be Here and be clickable"
-                date="22nd November, 2024"
-                tags="Spiritual,Youth Ministry"
-              />
-            </div>
-            <div className="bg-[whitesmoke] shadow-sm rounded-[5px] overflow-hidden">
-              <Card
-                title="Blog Content Title Will be Here and be clickable"
-                date="22nd November, 2024"
-                tags="Spiritual,Youth Ministry"
-              />
-            </div>
-            <div className="bg-[whitesmoke] shadow-sm rounded-[5px] overflow-hidden">
-              <Card
-                title="Blog Content Title Will be Here and be clickable"
-                date="22nd November, 2024"
-                tags="Spiritual,Youth Ministry"
-              />
-            </div>
+            {data?.map((post) => (
+              <div
+                className="bg-[whitesmoke] shadow-sm rounded-[5px] overflow-hidden"
+                key={post.id}
+              >
+                <Card
+                  title={post?.blog_title}
+                  date={formatDateWithoutTime(post?.createdAt)}
+                  tags={post?.blog_tag}
+                  imgUrl={post?.image_url}
+                />
+              </div>
+            ))}
           </div>
           <div className="flex items-center justify-center">
-            <Button className="bg-[rgba(0,0,0,0.8)] text-[#ccc] rounded-full w-fit text-[12px] font-[400] font-lato">
-              View all blog posts
-            </Button>
+            <Link to="/blog">
+              <Button className="bg-[rgba(0,0,0,0.8)] text-[#ccc] rounded-full w-fit text-[12px] font-[400] font-lato">
+                View all blog posts
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

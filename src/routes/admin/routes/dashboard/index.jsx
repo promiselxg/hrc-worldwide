@@ -1,16 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import DashboardCard from "../../components/dashboard-card";
 import Header from "../../components/header";
 import { BookA } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { columns } from "@/components/table/resources/columns";
-import { resource } from "@/components/table/resources/data";
 import { ResourcesTable } from "@/components/table/resources/data-table";
 import { AuthContext } from "@/context/auth.context";
+import useFetch from "@/hooks/useFetch";
 
 const Dashboard = () => {
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
+  const { loading, data } = useFetch("/resource");
 
   useEffect(() => {
     if (!user) {
@@ -59,11 +60,7 @@ const Dashboard = () => {
             <div className="flex items-center justify-between w-full my-5">
               <h1 className={cn(`capitalize font-[600]`)}>Resources</h1>
             </div>
-            <ResourcesTable
-              columns={columns}
-              data={resource}
-              loading={loading}
-            />
+            <ResourcesTable columns={columns} data={data} loading={loading} />
           </div>
         </div>
       </section>
