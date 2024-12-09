@@ -60,10 +60,10 @@ export function MinistryTable({ columns, data }) {
       <div className="flex items-center  py-4 justify-between w-full flex-col md:flex-row space-y-3">
         <Input
           placeholder="Search Table"
-          value={table.getColumn("minsitry_category")?.getFilterValue() ?? ""}
+          value={table.getColumn("ministry_category")?.getFilterValue() ?? ""}
           onChange={(event) =>
             table
-              .getColumn("minsitry_category")
+              .getColumn("ministry_category")
               ?.setFilterValue(event.target.value)
           }
           className="md:w-2/6 w-full"

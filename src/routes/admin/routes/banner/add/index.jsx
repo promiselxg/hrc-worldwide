@@ -195,7 +195,6 @@ const AddBanner = () => {
                     name="files"
                     id="files"
                     accept="image/png, image/gif, image/jpeg"
-                    multiple
                     onChange={handleImageChange}
                     className="hidden"
                   />

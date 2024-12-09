@@ -31,6 +31,7 @@ const BlogSection = () => {
                   date={formatDateWithoutTime(post?.createdAt)}
                   tags={post?.blog_tag}
                   imgUrl={post?.image_url}
+                  url={`/blog/${post?.id}`}
                 />
               </div>
             ))}

@@ -47,7 +47,7 @@ const CloudinaryUploadWidget = ({
           resourceType,
           clientAllowedFormats: allowedFormats,
           maxFileSize,
-          multiple,
+          //multiple,
         },
         (error, result) => {
           setIsLoading(false); // Re-enable button

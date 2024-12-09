@@ -32,6 +32,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
+import { config } from "@/utils/headerConfig";
 
 const formSchema = z.object({
   event_title: z
@@ -48,12 +49,6 @@ const AddEventPage = () => {
     useImageContext();
 
   const { toast } = useToast();
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem("userInfo"))}`,
-    },
-  };
 
   const form = useForm({
     resolver: zodResolver(formSchema),

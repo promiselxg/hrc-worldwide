@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import SelectedImagesDisplay from "@/components/image-upload/selectedImageDisplay";
 import "../../admin.css";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,14 +14,27 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { Textarea } from "@/components/ui/textarea";
+import { useImageContext } from "@/context/imageUpload.context";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
+import { __, cn } from "@/lib/utils";
+import { config } from "@/utils/headerConfig";
+import host from "@/utils/host";
+import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeft, CloudUpload, X } from "lucide-react";
-import React, { useState } from "react";
+import axios from "axios";
+import { CalendarIcon, ChevronLeft, CloudUpload, X } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { z } from "zod";
+import { handleFormUpdate } from "@/utils/handleFormUpdate";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { Calendar } from "@/components/ui/calendar";
 
 const formSchema = z.object({
   event_title: z
@@ -31,71 +45,82 @@ const formSchema = z.object({
 });
 
 const EditEventPage = () => {
-  const [loading, setLoading] = useState(false);
-  const [selectedImages, setselectedImages] = useState([]);
-  const [files, setFiles] = useState([]);
-  const [data, setData] = useState([]);
-
+  const params = useParams();
   const { toast } = useToast();
+  const { files, selectedImages, handleImageChange, removeSelectedImage } =
+    useImageContext();
+  const [data, setData] = useState({
+    event_title: "",
+    event_minister: "",
+    event_date: "",
+    event_tag: "",
+    event_image_url: "",
+  });
+
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
 
-  //  Select File to Upload
-  const imageHandleChange = (e) => {
-    setselectedImages([]);
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const selectedFiles = [];
-      filesArray.forEach((file) => {
-        if (file.size > 5 * 1024 * 1024) {
-          // File size is bigger than 5MB
+  const handleImageUpload = async (field) => {
+    try {
+      __(field).innerHTML = "Updating...";
+      __(field).disabled = true;
+      let photos = [];
+      if (selectedImages.length > 0 && files) {
+        photos = await uploadFilesToCloudinary(files, "hrcImages");
+      }
+      if (photos) {
+        const { data } = await axios.put(
+          `${host.url}/event/${params.id}`,
+          {
+            id: params.id,
+            field: "event_image_url",
+            image_url: photos[0]?.secure_url,
+            image_id: photos[0]?.public_id,
+            model: "event",
+          },
+          config
+        );
+
+        if (data.status === "success") {
           toast({
-            variant: "destructive",
-            title: "Selected File is > 5MB.",
-            description: `File "${file.name}" exceeds 5MB limit.`,
+            description: `Updated successfully.`,
+            className: "bg-green-500 text-white",
           });
-        } else {
-          // File size is within the limit
-          selectedFiles.push(file);
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
         }
-      });
-      setFiles(selectedFiles);
-      const fileArray = selectedFiles.map((file) => URL.createObjectURL(file));
-      setselectedImages((prevImages) => prevImages.concat(fileArray));
-      selectedFiles.forEach((file) => URL.revokeObjectURL(file));
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      __(field).innerHTML = "Update";
+      __(field).disabled = false;
     }
   };
-  //  Remove an Item from an Array
-  const removeSelectedImage = (index) => {
-    const updatedImages = selectedImages.filter((_, i) => i !== index);
-    setselectedImages(updatedImages);
-  };
-  //  Display the selected Item
-  const renderImages = (source) => {
-    return source?.map((image, i) => (
-      <div
-        className="w-full h-[60px] rounded-md relative mb-5   bg-contain"
-        key={i}
-      >
-        <X
-          className="absolute -top-2 -right-2 bg-[rgba(0,0,0,0.9)] rounded-full text-white p-[5px]  cursor-pointer"
-          onClick={() => removeSelectedImage(i)}
-        />
-        <img
-          src={image}
-          alt={`images ${i}`}
-          width={200}
-          height={100}
-          className="object-contain h-[60px]"
-        />
-      </div>
-    ));
-  };
-  const handleFormUpdate = async (field, value) => {};
-  const handleImageUpload = async (field, value) => {};
 
   async function onSubmit(values) {}
+
+  useEffect(() => {
+    const getTeamData = async () => {
+      try {
+        const response = await axios.get(
+          `${host.url}/event/${params.id}/event`
+        );
+        setData(response.data?.data || {});
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTeamData();
+  }, [params.id]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <>
       <div className="h-screen w-full flex flex-col  overflow-y-scroll pb-[100px] md:pb-20">
@@ -129,6 +154,11 @@ const EditEventPage = () => {
                         <Input
                           placeholder="Event's title"
                           {...field}
+                          value={data.event_title} // Controlled input
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            field.onChange(e);
+                          }}
                           className="form-input"
                         />
                       </FormControl>
@@ -137,10 +167,16 @@ const EditEventPage = () => {
                       </FormDescription>
                       <Button
                         type="button"
-                        disabled={!field.value}
+                        disabled={!field?.value}
                         id="event_title"
                         onClick={() =>
-                          handleFormUpdate("event_title", field?.value)
+                          handleFormUpdate(
+                            "event_title",
+                            params.id,
+                            data.event_title,
+                            `event/${params.id}`,
+                            "event"
+                          )
                         }
                       >
                         Update
@@ -151,7 +187,7 @@ const EditEventPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="minister"
+                  name="event_minister"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Ministering </FormLabel>
@@ -160,6 +196,11 @@ const EditEventPage = () => {
                           placeholder="Ministers Name, seperated  by comma"
                           className="resize-none"
                           {...field}
+                          value={data.event_minister} // Controlled input
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            field.onChange(e);
+                          }}
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
@@ -167,10 +208,16 @@ const EditEventPage = () => {
                       </FormDescription>
                       <Button
                         type="button"
-                        disabled={!field.value}
-                        id="minister"
+                        disabled={!field?.value}
+                        id="event_minister"
                         onClick={() =>
-                          handleFormUpdate("minister", field?.value)
+                          handleFormUpdate(
+                            "event_minister",
+                            params.id,
+                            data.event_minister,
+                            `event/${params.id}`,
+                            "event"
+                          )
                         }
                       >
                         Update
@@ -181,7 +228,7 @@ const EditEventPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="tag"
+                  name="event_tag"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
@@ -192,18 +239,102 @@ const EditEventPage = () => {
                           placeholder="Tag"
                           {...field}
                           className="form-input"
-                          id="tag"
-                          onKeyUp={() => {}}
+                          value={data.event_tag} // Controlled input
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            field.onChange(e);
+                          }}
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
-                        seperated by comma (e.g, Evangelism, Crusade, etc)
+                        event tag
                       </FormDescription>
                       <Button
                         type="button"
                         disabled={!field.value}
-                        id="tag"
-                        onClick={() => handleFormUpdate("tag", field?.value)}
+                        id="event_tag"
+                        onClick={() =>
+                          handleFormUpdate(
+                            "event_tag",
+                            params.id,
+                            data.event_tag,
+                            `event/${params.id}`,
+                            "event"
+                          )
+                        }
+                      >
+                        Update
+                      </Button>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="event_date"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Event Date</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-[240px] pl-3 text-left font-normal",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "PPP")
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={(date) => {
+                              field.onChange(date);
+                              handleInputChange({
+                                target: { name: "event_date", value: date },
+                              });
+                            }}
+                            disabled={(date) => {
+                              const today = new Date();
+                              const yesterday = new Date(today);
+                              yesterday.setDate(today.getDate() - 1);
+                              return date <= yesterday;
+                            }}
+                            onChange={(e) => {
+                              handleInputChange(e);
+                              field.onChange(e);
+                            }}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormDescription>
+                        Pick a date for this event
+                      </FormDescription>
+                      <Button
+                        type="button"
+                        disabled={!field.value}
+                        id="event_date"
+                        className="w-fit"
+                        onClick={() =>
+                          handleFormUpdate(
+                            "event_date",
+                            params.id,
+                            data.event_date,
+                            `event/${params.id}`,
+                            "event"
+                          )
+                        }
                       >
                         Update
                       </Button>
@@ -212,7 +343,7 @@ const EditEventPage = () => {
                   )}
                 />
                 <div className="flex flex-col space-y-5">
-                  <span>Add Photo</span>
+                  <span>Edit Photo</span>
                   <label htmlFor="files" className="w-fit ">
                     <CloudUpload
                       size={60}
@@ -225,21 +356,26 @@ const EditEventPage = () => {
                     name="files"
                     id="files"
                     accept="image/png, image/gif, image/jpeg"
-                    multiple
-                    onChange={imageHandleChange}
+                    onChange={handleImageChange}
                     className="hidden"
                   />
-                  <div className="w-full grid md:grid-cols-10 grid-cols-3 gap-3">
-                    {selectedImages.length > 0
-                      ? renderImages(selectedImages, "file")
-                      : renderImages(data?.imgUrl)}
+
+                  <div className="w-fit grid md:grid-cols-10 grid-cols-3 gap-3">
+                    <SelectedImagesDisplay
+                      images={
+                        selectedImages.length > 0
+                          ? selectedImages
+                          : data?.event_image_url
+                      }
+                      onRemoveImage={removeSelectedImage}
+                    />
                   </div>
                 </div>
                 <Button
                   type="button"
                   id="submitBtn"
                   disabled={selectedImages.length < 1}
-                  onClick={() => handleImageUpload("image", data?.imageId)}
+                  onClick={() => handleImageUpload("submitBtn")}
                 >
                   Update Photo
                 </Button>

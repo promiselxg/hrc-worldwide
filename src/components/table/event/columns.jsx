@@ -1,6 +1,8 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { handleDeleteBtn } from "@/utils/deleteItemFromDb";
+import { formatDateWithoutTime } from "@/utils/getDateDifference";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,30 +39,60 @@ export const columns = [
     },
   },
   {
-    accessorKey: "minister",
+    accessorKey: "event_minister",
     header: "Ministers",
     cell: ({ row }) => {
-      const { minister } = row.original;
+      const { event_minister } = row.original;
       return (
         <>
           <div>
-            <h1 className={cn(`font-bold uppercase`)}>{minister}</h1>
+            <h1 className={cn(`font-bold uppercase`)}>{event_minister}</h1>
           </div>
         </>
       );
     },
   },
   {
-    accessorKey: "event_bg",
+    accessorKey: "event_image_url",
     header: "Event Banner",
+    cell: ({ row }) => {
+      const { event_image_url, event_title } = row.original;
+      return (
+        <>
+          <div>
+            <img
+              src={event_image_url}
+              alt={event_title}
+              className="w-[100px] h-[80px] object-contain"
+            />
+          </div>
+        </>
+      );
+    },
   },
   {
-    accessorKey: "tags",
+    accessorKey: "event_tag",
     header: "Tags",
+    cell: ({ row }) => {
+      const { event_tag } = row.original;
+      return (
+        <>
+          <div>{event_tag}</div>
+        </>
+      );
+    },
   },
   {
     accessorKey: "event_date",
     header: "Event Date",
+    cell: ({ row }) => {
+      const { event_date } = row.original;
+      return (
+        <>
+          <div>{formatDateWithoutTime(event_date)}</div>
+        </>
+      );
+    },
   },
   {
     id: "actions",
@@ -95,7 +127,7 @@ export const columns = [
               <Button
                 variant="ghost"
                 className="w-full flex justify-start"
-                onClick={() => handleDeleteBtn("event", 1)}
+                onClick={() => handleDeleteBtn(id, "event", "event")}
               >
                 <FiTrash2 /> Delete Event
               </Button>

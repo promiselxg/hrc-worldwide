@@ -133,7 +133,7 @@ const Ministry = () => {
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="select banner position" />
+                            <SelectValue placeholder="select an option" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>

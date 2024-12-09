@@ -1,8 +1,5 @@
 /* eslint-disable react/prop-types */
 import { Button } from "@/components/ui/button";
-import Children from "../../assets/images/banner/children.webp";
-import Banner5 from "../../assets/images/banner/banner-5.png";
-import Music from "../../assets/images/banner/music.jpeg";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { truncateText } from "@/utils/trucateText";
@@ -25,16 +22,12 @@ const MinistryCard = ({ title, data, loading }) => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
                 {data.map((ministy) => {
-                  let bgImage = "";
-                  if (ministy.ministry_category === "youth") bgImage = Banner5;
-                  if (ministy.ministry_category === "children")
-                    bgImage = Children;
-                  if (ministy.ministry_category === "music") bgImage = Music;
-
                   return (
                     <div
                       className="p-10 bg-cover bg-center shadow-sm text-[whitesmoke] flex flex-col justify-center relative hover:scale-90 transition-all delay-100 duration-300 cursor-pointer"
-                      style={{ backgroundImage: `url(${bgImage})` }}
+                      style={{
+                        backgroundImage: `url(${ministy?.ministry_image_url})`,
+                      }}
                       key={ministy.id}
                     >
                       <h1 className="text-[30px] font-gothic font-[400] leading-tight">

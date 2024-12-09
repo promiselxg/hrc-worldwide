@@ -1,17 +1,21 @@
 import { useContext, useEffect } from "react";
 import DashboardCard from "../../components/dashboard-card";
-import Header from "../../components/header";
 import { BookA } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { columns } from "@/components/table/resources/columns";
 import { ResourcesTable } from "@/components/table/resources/data-table";
 import { AuthContext } from "@/context/auth.context";
 import useFetch from "@/hooks/useFetch";
+import { FiBook, FiFileText, FiMapPin } from "react-icons/fi";
 
 const Dashboard = () => {
   //const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const { loading, data } = useFetch("/resource");
+  const { loading: eventLoading, data: eventData } = useFetch("/event");
+  const { loading: blogLoading, data: blogData } = useFetch("/blog");
+  const { loading: ministryLoading, data: ministryData } =
+    useFetch("/ministry");
 
   useEffect(() => {
     if (!user) {
@@ -22,36 +26,38 @@ const Dashboard = () => {
   return (
     <>
       <section className="w-full flex h-screen flex-col gap-y-5 p-5 overflow-y-scroll bg-[whitesmoke]">
-        <Header />
         <div className="w-full">
           <div className="w-full grid md:grid-cols-4  grid-cols-1 gap-3">
             <DashboardCard
-              title="Revenue"
+              title="Resources"
               bg="whitesmoke"
               loading={loading}
-              value={4}
+              value={data?.length || 0}
+              icon={<FiFileText color="orange" />}
             />
             <DashboardCard
-              title="Transaction count"
+              title="Ministries"
               icon={<BookA color="orange" />}
-              value={3}
+              value={ministryData?.length || 0}
               bg="whitesmoke"
-              loading={loading}
+              loading={ministryLoading}
               bgColor="darkblue"
             />
             <DashboardCard
-              title="Pending Transactions"
-              value="0"
+              title="Blog Post"
+              value={blogData?.length || 0}
               bg="whitesmoke"
-              loading={loading}
+              loading={blogLoading}
               bgColor="darkred"
+              icon={<FiBook color="orange" />}
             />
             <DashboardCard
-              title="Completed Transactions"
-              value={10}
+              title="Events"
+              value={eventData?.length || 0}
               bg="whitesmoke"
               bgColor="green"
-              loading={loading}
+              loading={eventLoading}
+              icon={<FiMapPin color="orange" />}
             />
           </div>
         </div>

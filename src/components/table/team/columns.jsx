@@ -54,11 +54,15 @@ export const columns = [
     accessorKey: "image_url",
     header: "Display Picture",
     cell: ({ row }) => {
-      const { image_url } = row.original;
+      const { image_url, full_name } = row.original;
       return (
         <>
           <div>
-            <p className={cn(`text-sm font-lato`)}>{image_url}</p>
+            <img
+              src={image_url}
+              alt={full_name}
+              className="w-[100px] h-[80px] object-contain"
+            />
           </div>
         </>
       );
@@ -98,7 +102,7 @@ export const columns = [
               <Button
                 variant="ghost"
                 className="w-full flex justify-start"
-                onClick={() => handleDeleteBtn()}
+                onClick={() => handleDeleteBtn(id, "team", "team")}
               >
                 <FiTrash2 /> Delete User
               </Button>

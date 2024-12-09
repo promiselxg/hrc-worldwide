@@ -153,14 +153,14 @@ const AddTeamMember = () => {
 
                     return (
                       <FormItem>
-                        <FormLabel>File type</FormLabel>
+                        <FormLabel>Category</FormLabel>
                         <Select
                           onValueChange={handleChange}
                           defaultValue={field.value}
                         >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select the corresponding staff position" />
+                              <SelectValue placeholder="Select the corresponding staff category" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>

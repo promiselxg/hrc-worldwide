@@ -4,6 +4,7 @@ import { ResourcesTable } from "@/components/table/resources/data-table";
 
 import { columns } from "@/components/table/resources/columns";
 import useFetch from "@/hooks/useFetch";
+import { FileAudio, FileVideo } from "lucide-react";
 
 const ResourcesPage = () => {
   const { loading, data } = useFetch("/resource");
@@ -15,9 +16,10 @@ const ResourcesPage = () => {
             <DashboardCard
               title="Video"
               value={2}
-              bg="whitesmoke"
+              bg="green"
               loading={loading}
               bgColor="darkblue"
+              icon={<FileVideo />}
             />
             <DashboardCard
               title="Audio"
@@ -25,6 +27,7 @@ const ResourcesPage = () => {
               bg="red"
               loading={loading}
               bgColor="darkred"
+              icon={<FileAudio />}
             />
           </div>
         </div>

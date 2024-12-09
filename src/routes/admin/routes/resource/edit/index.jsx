@@ -22,11 +22,15 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import CloudinaryUploadWidget from "@/utils/CloudinaryUploadWidget ";
+import { handleFormUpdate } from "@/utils/handleFormUpdate";
+import host from "@/utils/host";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeft } from "lucide-react";
-import React, { useState } from "react";
+import axios from "axios";
+import { ChevronLeft, Loader2 } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -40,17 +44,39 @@ const formSchema = z.object({
 });
 
 const EditResouce = () => {
-  const [loading, setLoading] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
+  const params = useParams();
+  const [data, setData] = useState({
+    resource_title: "",
+    resource_minister: "",
+    resource_tag: "",
+    resource_file_type: "",
+  });
 
-  const { toast } = useToast();
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const handleFormUpdate = async (field, value) => {};
   async function onSubmit(values) {}
 
+  useEffect(() => {
+    const getResourceData = async () => {
+      try {
+        const response = await axios.get(
+          `${host.url}/resource/${params.id}/resource`
+        );
+        setData(response.data?.data || {});
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getResourceData();
+  }, [params.id]);
+
+  console.log(data);
   return (
     <>
       <div className="h-screen w-full flex flex-col  overflow-y-scroll pb-[100px] md:pb-20">
@@ -66,7 +92,9 @@ const EditResouce = () => {
         </div>
         <div className="w-full my-5 bg-[whitesmoke] px-5 flex flex-col h-screen ">
           <div className="p-5">
-            <h1 className={cn(`font-bold`)}>Create a new resource</h1>
+            <h1 className={cn(`font-bold`)}>
+              Edit [{data?.resource_title}] resource
+            </h1>
           </div>
           <div className="p-5 bg-white container w-full">
             <Form {...form}>
@@ -84,6 +112,11 @@ const EditResouce = () => {
                         <Input
                           placeholder="title"
                           {...field}
+                          value={data?.resource_title} // Controlled input
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            field.onChange(e);
+                          }}
                           className="form-input"
                         />
                       </FormControl>
@@ -92,10 +125,16 @@ const EditResouce = () => {
                       </FormDescription>
                       <Button
                         type="button"
-                        disabled={!field.value}
+                        disabled={!data.resource_title}
                         id="resource_title"
                         onClick={() =>
-                          handleFormUpdate("resource_title", field?.value)
+                          handleFormUpdate(
+                            "resource_title",
+                            params.id,
+                            data?.resource_title,
+                            `resource/${params.id}`,
+                            "resource"
+                          )
                         }
                       >
                         Update
@@ -106,7 +145,7 @@ const EditResouce = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="resource_author"
+                  name="resource_minister"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Ministering </FormLabel>
@@ -115,6 +154,11 @@ const EditResouce = () => {
                           placeholder="Ministers Name, seperated  by comma"
                           className="resize-none"
                           {...field}
+                          value={data?.resource_minister} // Controlled input
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            field.onChange(e);
+                          }}
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
@@ -122,10 +166,16 @@ const EditResouce = () => {
                       </FormDescription>
                       <Button
                         type="button"
-                        disabled={!field.value}
-                        id="resource_author"
+                        disabled={!data?.resource_minister}
+                        id="resource_minister"
                         onClick={() =>
-                          handleFormUpdate("resource_author", field?.value)
+                          handleFormUpdate(
+                            "resource_minister",
+                            params.id,
+                            data?.resource_minister,
+                            `resource/${params.id}`,
+                            "resource"
+                          )
                         }
                       >
                         Update
@@ -136,7 +186,7 @@ const EditResouce = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="tag"
+                  name="resource_tag"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
@@ -147,8 +197,12 @@ const EditResouce = () => {
                           placeholder="Tag"
                           {...field}
                           className="form-input"
-                          id="tag"
-                          onKeyUp={() => {}}
+                          id="resource_tag"
+                          value={data?.resource_tag} // Controlled input
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            field.onChange(e);
+                          }}
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
@@ -156,89 +210,22 @@ const EditResouce = () => {
                       </FormDescription>
                       <Button
                         type="button"
-                        disabled={!field.value}
-                        id="tag"
-                        onClick={() => handleFormUpdate("tag", field?.value)}
+                        id="resource_tag"
+                        onClick={() =>
+                          handleFormUpdate(
+                            "resource_tag",
+                            params.id,
+                            data?.resource_tag,
+                            `resource/${params.id}`,
+                            "resource"
+                          )
+                        }
                       >
                         Update
                       </Button>
                       <FormMessage />
                     </FormItem>
                   )}
-                />
-                <FormField
-                  control={form.control}
-                  name="resource_type"
-                  render={({ field }) => {
-                    // Handle the change of selected value
-                    const handleChange = (value) => {
-                      field.onChange(value);
-                      setSelectedValue(value);
-                    };
-
-                    return (
-                      <FormItem>
-                        <FormLabel>File type</FormLabel>
-                        <Select
-                          onValueChange={handleChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl className="w-full md:w-[20%] ">
-                            <SelectTrigger>
-                              <SelectValue placeholder="File type." />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value=" ">File type</SelectItem>
-                            <SelectItem value="video">Video File</SelectItem>
-                            <SelectItem value="audio">Audio File</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormDescription className="text-[12px] text-[#333]">
-                          Select file type.
-                        </FormDescription>
-                        <FormMessage />
-
-                        {/* Conditionally display text box based on selected value */}
-                        {selectedValue === "video" && (
-                          <FormItem>
-                            <FormLabel>Video Description</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Enter video description" />
-                            </FormControl>
-                            <Button
-                              type="button"
-                              disabled={!field.value}
-                              id="resource_title"
-                              onClick={() =>
-                                handleFormUpdate("resource_title", field?.value)
-                              }
-                            >
-                              Update
-                            </Button>
-                          </FormItem>
-                        )}
-                        {selectedValue === "audio" && (
-                          <FormItem>
-                            <FormLabel>Audio Notes</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Enter audio notes" />
-                            </FormControl>
-                            <Button
-                              type="button"
-                              disabled={!field.value}
-                              id="resource_title"
-                              onClick={() =>
-                                handleFormUpdate("resource_title", field?.value)
-                              }
-                            >
-                              Update
-                            </Button>
-                          </FormItem>
-                        )}
-                      </FormItem>
-                    );
-                  }}
                 />
               </form>
             </Form>

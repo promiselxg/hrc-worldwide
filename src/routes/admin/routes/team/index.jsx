@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 import { TeamTable } from "@/components/table/team/data-table";
 import { columns } from "@/components/table/team/columns";
-import { team } from "@/components/table/team/data";
+
+import useFetch from "@/hooks/useFetch";
 
 const TeamPage = () => {
-  const [loading, setLoading] = useState(false);
+  const { loading, data } = useFetch("/team");
   return (
     <>
       <section className="w-full flex h-screen flex-col gap-y-5 p-5 overflow-y-scroll bg-[whitesmoke]">
@@ -14,7 +14,7 @@ const TeamPage = () => {
             Manage Team
           </h1>
         </div>
-        <TeamTable columns={columns} data={team} loading={loading} />
+        <TeamTable columns={columns} data={data} loading={loading} />
       </section>
     </>
   );

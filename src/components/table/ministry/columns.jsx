@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 export const columns = [
   {
-    accessorKey: "minsitry_category",
+    accessorKey: "ministry_category",
     header: ({ column }) => {
       return (
         <span
@@ -26,35 +26,47 @@ export const columns = [
       );
     },
     cell: ({ row }) => {
-      const { minsitry_category } = row.original;
+      const { ministry_category } = row.original;
       return (
         <>
           <div>
-            <h1 className={cn(`font-bold capitalize`)}>{minsitry_category}</h1>
+            <h1 className={cn(`font-bold capitalize`)}>{ministry_category}</h1>
           </div>
         </>
       );
     },
   },
   {
-    accessorKey: "minsitry_description",
+    accessorKey: "ministry_description",
     header: "Ministry Description",
     cell: ({ row }) => {
-      const { minsitry_description } = row.original;
+      const { ministry_description } = row.original;
       return (
         <>
           <div>
-            <h1 className={cn(`font-bold uppercase`)}>
-              {minsitry_description}
-            </h1>
+            <p className={cn(`text-sm font-lato`)}>{ministry_description}</p>
           </div>
         </>
       );
     },
   },
   {
-    accessorKey: "ministry_bg",
+    accessorKey: "ministry_image_url",
     header: "Thumbnail",
+    cell: ({ row }) => {
+      const { ministry_image_url, id, ministry_category } = row.original;
+      return (
+        <>
+          <div>
+            <img
+              src={ministry_image_url}
+              alt={`Banner-${ministry_category}-${id}`}
+              className="w-[100px] h-[80px] object-contain"
+            />
+          </div>
+        </>
+      );
+    },
   },
   {
     id: "actions",
@@ -89,7 +101,7 @@ export const columns = [
               <Button
                 variant="ghost"
                 className="w-full flex justify-start"
-                onClick={() => handleDeleteBtn("Ministry", 1)}
+                onClick={() => handleDeleteBtn(id, "ministry", "ministry")}
               >
                 <FiTrash2 /> Delete Ministry
               </Button>

@@ -136,8 +136,6 @@ const AddResource = () => {
   };
   async function onSubmit(values) {}
 
-  console.log(uploadedAudioId);
-
   return (
     <>
       <div className="h-fit w-full flex flex-col pb-[100px] md:pb-20">

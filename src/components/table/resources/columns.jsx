@@ -88,7 +88,7 @@ export const columns = [
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            className="bg-[white] w-fit shadow-md py-5 px-2 rounded-sm flex flex-col"
+            className="bg-[white] w-fit shadow-md py-5 px-2 rounded-sm flex flex-col z-50"
           >
             <DropdownMenuItem className="flex items-center gap-2 cursor-pointer hover:outline-none">
               <Link

@@ -1,11 +1,10 @@
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 import { BannerTable } from "@/components/table/banner/data-table";
-import { banner } from "@/components/table/banner/data";
 import { columns } from "@/components/table/banner/columns";
+import useFetch from "@/hooks/useFetch";
 
 const BannerPage = () => {
-  const [loading, setLoading] = useState(false);
+  const { loading, data } = useFetch("/banner");
   return (
     <>
       <section className="w-full flex h-screen flex-col gap-y-5 p-5 overflow-y-scroll bg-[whitesmoke]">
@@ -14,7 +13,7 @@ const BannerPage = () => {
             Banner Management
           </h1>
         </div>
-        <BannerTable columns={columns} data={banner} loading={loading} />
+        <BannerTable columns={columns} data={data} loading={loading} />
       </section>
     </>
   );

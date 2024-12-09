@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import { ArrowUpDown, Edit2, MoreHorizontal } from "lucide-react";
+import { Edit2, MoreHorizontal } from "lucide-react";
 import { FiTrash2 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
@@ -27,33 +27,38 @@ export const columns = [
     },
   },
   {
-    accessorKey: "position",
-    header: "Position",
+    accessorKey: "imageUrl",
+    header: "Resource Thumbnail",
     cell: ({ row }) => {
-      const { position } = row.original;
+      const { imageUrl, id } = row.original;
       return (
         <>
           <div>
-            <p className={cn(`text-sm`)}>{position}</p>
+            <img
+              src={imageUrl}
+              alt={`Banner-${id}`}
+              className="w-[100px] h-[80px] object-contain"
+            />
           </div>
         </>
       );
     },
   },
   {
-    accessorKey: "thumbnail",
-    header: "Resource Thumbnail",
+    accessorKey: "banner_position",
+    header: "Banner Position",
     cell: ({ row }) => {
-      const { banner_url } = row.original;
+      const { banner_position } = row.original;
       return (
         <>
           <div>
-            <p className={cn(`text-sm`)}>{banner_url}</p>
+            <p className={cn(`text-sm`)}>{banner_position}</p>
           </div>
         </>
       );
     },
   },
+
   {
     id: "actions",
     cell: ({ row }) => {
@@ -87,7 +92,7 @@ export const columns = [
               <Button
                 variant="ghost"
                 className="w-full flex justify-start"
-                onClick={() => handleDeleteBtn("event", 1)}
+                onClick={() => handleDeleteBtn(id, "banner", "banner")}
               >
                 <FiTrash2 /> Delete Banner
               </Button>

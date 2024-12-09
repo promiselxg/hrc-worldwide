@@ -1,11 +1,10 @@
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 import { MinistryTable } from "@/components/table/ministry/data-table";
 import { columns } from "@/components/table/ministry/columns";
-import { ministry } from "@/components/table/ministry/data";
+import useFetch from "@/hooks/useFetch";
 
 const MinistryPage = () => {
-  const [loading, setLoading] = useState(false);
+  const { loading, data } = useFetch("/ministry");
   return (
     <>
       <section className="w-full flex h-screen flex-col gap-y-5 p-5 overflow-y-scroll bg-[whitesmoke]">
@@ -14,7 +13,7 @@ const MinistryPage = () => {
             Ministry
           </h1>
         </div>
-        <MinistryTable columns={columns} data={ministry} loading={loading} />
+        <MinistryTable columns={columns} data={data} loading={loading} />
       </section>
     </>
   );

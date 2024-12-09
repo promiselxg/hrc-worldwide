@@ -49,7 +49,7 @@ export function EventSlider() {
             <div className="flex justify-center mt-3">
               <Link to="/events">
                 <Button className="bg-[rgba(0,0,0,0.8)] text-[#ccc] rounded-full w-fit text-[12px] font-[400] font-lato">
-                  View all eventx
+                  View all events
                 </Button>
               </Link>
             </div>
