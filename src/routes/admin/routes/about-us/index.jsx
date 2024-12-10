@@ -1,11 +1,10 @@
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 import { AboutUsTable } from "@/components/table/about-us/data-table";
 import { columns } from "@/components/table/about-us/columns";
-import { about } from "@/components/table/about-us/data";
+import useFetch from "@/hooks/useFetch";
 
 const AboutUsPage = () => {
-  const [loading, setLoading] = useState(false);
+  const { loading, data } = useFetch("/data/aboutUs");
   return (
     <>
       <section className="w-full flex h-screen flex-col gap-y-5 p-5 overflow-y-scroll bg-[whitesmoke]">
@@ -14,7 +13,7 @@ const AboutUsPage = () => {
             About Us
           </h1>
         </div>
-        <AboutUsTable columns={columns} data={about} loading={loading} />
+        <AboutUsTable columns={columns} data={data} loading={loading} />
       </section>
     </>
   );

@@ -95,6 +95,11 @@ const EditMinistyPage = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
+
   useEffect(() => {
     const getMinistryData = async () => {
       try {
@@ -108,11 +113,6 @@ const EditMinistyPage = () => {
     };
     getMinistryData();
   }, [params.id]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
-  };
 
   async function onSubmit(values) {}
   return (

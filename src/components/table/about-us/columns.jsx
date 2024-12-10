@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { handleDeleteBtn } from "@/utils/deleteItemFromDb";
+import { truncateText } from "@/utils/trucateText";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,15 +38,17 @@ export const columns = [
     },
   },
   {
-    accessorKey: "content",
+    accessorKey: "about_us_content",
     header: "Content",
     cell: ({ row }) => {
-      const { content } = row.original;
+      const { about_us_content } = row.original;
+      const newData = truncateText(about_us_content, 100);
       return (
         <>
-          <div>
-            <p className={cn(`text-sm font-lato`)}>{content}</p>
-          </div>
+          <div
+            className="text-sm font-lato"
+            dangerouslySetInnerHTML={{ __html: newData }}
+          ></div>
         </>
       );
     },
@@ -84,7 +87,9 @@ export const columns = [
               <Button
                 variant="ghost"
                 className="w-full flex justify-start"
-                onClick={() => handleDeleteBtn()}
+                onClick={() => {
+                  handleDeleteBtn(id, "data", "aboutUs");
+                }}
               >
                 <FiTrash2 /> Delete Item
               </Button>

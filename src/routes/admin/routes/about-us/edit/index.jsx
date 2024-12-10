@@ -20,90 +20,101 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
+import { __, cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronLeft, CloudUpload, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { z } from "zod";
+import { useImageContext } from "@/context/imageUpload.context";
+import host from "@/utils/host";
+import axios from "axios";
+import SelectedImagesDisplay from "@/components/image-upload/selectedImageDisplay";
+import { CustomEditorPreview } from "@/components/wysiwyg/preview";
+import { CustomEditor } from "@/components/wysiwyg/editor";
+import { handleFormUpdate } from "@/utils/handleFormUpdate";
+import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
+import { config } from "@/utils/headerConfig";
 
 const formSchema = z.object({
-  about_category: z.string({
+  category: z.string({
     required_error: "Choose the about us section you wish to update.",
   }),
-  about_us: z.string({ required_error: "This field is required" }),
+  about_us_content: z.string({ required_error: "This field is required" }),
 });
 
 const EditAboutUs = () => {
-  const [loading, setLoading] = useState(false);
-  const [selectedImages, setselectedImages] = useState([]);
-  const [files, setFiles] = useState([]);
-  const [content, setContent] = useState("");
-  const [data, setData] = useState([]);
-
+  const params = useParams();
   const { toast } = useToast();
+  const { files, selectedImages, handleImageChange, removeSelectedImage } =
+    useImageContext();
+  const [data, setData] = useState({
+    category: "",
+    about_us_content: "",
+    image_url: "",
+  });
+  const [editing, setEditing] = useState(false);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
 
-  //  Select File to Upload
-  const imageHandleChange = (e) => {
-    setselectedImages([]);
-    if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const selectedFiles = [];
-      filesArray.forEach((file) => {
-        if (file.size > 5 * 1024 * 1024) {
-          // File size is bigger than 5MB
+  const handleImageUpload = async (field) => {
+    try {
+      __(field).innerHTML = "Updating...";
+      __(field).disabled = true;
+      let photos = [];
+      if (selectedImages.length > 0 && files) {
+        photos = await uploadFilesToCloudinary(files, "hrcImages");
+      }
+      if (photos) {
+        const { data } = await axios.put(
+          `${host.url}/data/${params.id}`,
+          {
+            id: params.id,
+            field: "image_url",
+            photos,
+            model: "aboutUs",
+          },
+          config
+        );
+        if (data.status === "success") {
           toast({
-            variant: "destructive",
-            title: "Selected File is > 5MB.",
-            description: `File "${file.name}" exceeds 5MB limit.`,
+            description: `Updated successfully.`,
+            className: "bg-green-500 text-white",
           });
-        } else {
-          // File size is within the limit
-          selectedFiles.push(file);
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
         }
-      });
-      setFiles(selectedFiles);
-      const fileArray = selectedFiles?.map((file) => URL.createObjectURL(file));
-      setselectedImages((prevImages) => prevImages.concat(fileArray));
-      selectedFiles.forEach((file) => URL.revokeObjectURL(file));
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      __(field).innerHTML = "Update";
+      __(field).disabled = false;
     }
   };
-  //  Remove an Item from an Array
-  const removeSelectedImage = (index) => {
-    const updatedImages = selectedImages.filter((_, i) => i !== index);
-    setselectedImages(updatedImages);
-  };
-  //  Display the selected Item
-  const renderImages = (source) => {
-    return source?.map((image, i) => (
-      <div
-        className="w-full h-[60px] rounded-md relative mb-5   bg-contain"
-        key={i}
-      >
-        <X
-          className="absolute -top-2 -right-2 bg-[rgba(0,0,0,0.9)] rounded-full text-white p-[5px]  cursor-pointer"
-          onClick={() => removeSelectedImage(i)}
-        />
-        <img
-          src={image}
-          alt={`images ${i}`}
-          width={200}
-          height={100}
-          className="object-contain h-[60px]"
-        />
-      </div>
-    ));
-  };
 
-  const handleFormUpdate = async (field, value) => {};
-  const handleImageUpload = async (field, value) => {};
+  useEffect(() => {
+    const getAboutUsData = async () => {
+      try {
+        const response = await axios.get(
+          `${host.url}/data/${params.id}/aboutUs`
+        );
+        setData(response.data?.data || {});
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAboutUsData();
+  }, [params.id]);
 
   async function onSubmit(values) {}
   return (
@@ -131,63 +142,125 @@ const EditAboutUs = () => {
               >
                 <FormField
                   control={form.control}
-                  name="about_category"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Category</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Choose the about us section you wish to update." />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="hrc">
-                            About HRC Worldwide
-                          </SelectItem>
-                          <SelectItem value="rbti">About RBTI</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormDescription className="text-[12px] text-[#333]">
-                        Choose the about us section you wish to update.
-                      </FormDescription>
+                  name="category"
+                  render={({ field }) => {
+                    const handleChange = (value) => {
+                      field.onChange(value);
+                      handleInputChange({
+                        target: { name: "category", value },
+                      });
+                    };
+
+                    return (
+                      <FormItem>
+                        <FormLabel>Catgeory</FormLabel>
+                        <Select
+                          onValueChange={handleChange}
+                          value={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue
+                                placeholder={
+                                  data?.category
+                                    ? "ABOUT " +
+                                      data.category.toUpperCase() +
+                                      " WORLDWIDE"
+                                    : "Choose the about us section you wish to update."
+                                }
+                              />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="hrc">
+                              About HRC Worldwide
+                            </SelectItem>
+                            <SelectItem value="rbti">About RBTI</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormDescription className="text-[12px] text-[#333]">
+                          Choose the about us section you wish to update.
+                        </FormDescription>
+                        <Button
+                          type="button"
+                          disabled={!field.value}
+                          id="category"
+                          onClick={() =>
+                            handleFormUpdate(
+                              "category",
+                              params.id,
+                              data.category,
+                              `data/${params.id}`,
+                              "aboutUs"
+                            )
+                          }
+                        >
+                          Update
+                        </Button>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+                <div className="flex flex-col space-y-5">
+                  <FormLabel>Blog Content</FormLabel>
+                  {editing ? (
+                    <FormField
+                      control={form.control}
+                      name="about_us_content"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <CustomEditor
+                              value={data?.about_us_content}
+                              onChange={(value) => {
+                                handleInputChange({
+                                  target: {
+                                    name: "about_us_content",
+                                    value: value,
+                                  },
+                                });
+                                field.onChange(value);
+                              }}
+                            />
+                          </FormControl>
+
+                          <Button
+                            type="button"
+                            disabled={!field.value}
+                            id="about_us_content"
+                            onClick={() =>
+                              handleFormUpdate(
+                                "about_us_content",
+                                params.id,
+                                data.about_us_content,
+                                `data/${params.id}`,
+                                "aboutUs"
+                              )
+                            }
+                          >
+                            Update
+                          </Button>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  ) : (
+                    <>
+                      <CustomEditorPreview value={data?.about_us_content} />
                       <Button
                         type="button"
-                        disabled={!field.value}
-                        id="about_category"
-                        onClick={() =>
-                          handleFormUpdate("about_category", field?.value)
-                        }
+                        className="w-fit"
+                        onClick={() => setEditing(!editing)}
                       >
-                        Update
+                        Edit Content
                       </Button>
-                      <FormMessage />
-                    </FormItem>
+                    </>
                   )}
-                />
-                <div className="flex flex-col space-y-5 h-[400px]">
-                  <FormLabel>About Us</FormLabel>
-                  <RichTextEditor
-                    value={content}
-                    onChange={setContent}
-                    placeholder="Write something amazing..."
-                    className="h-[300px]"
-                  />
                 </div>
-                <Button
-                  type="button"
-                  disabled={!content}
-                  id="content"
-                  onClick={() => handleFormUpdate("content", content)}
-                >
-                  Update
-                </Button>
 
                 <div className="flex flex-col space-y-5">
-                  <span>Add Photo</span>
+                  <span>Edit Photo</span>
                   <label htmlFor="files" className="w-fit ">
                     <CloudUpload
                       size={60}
@@ -200,23 +273,28 @@ const EditAboutUs = () => {
                     name="files"
                     id="files"
                     accept="image/png, image/gif, image/jpeg"
-                    multiple
-                    onChange={imageHandleChange}
+                    onChange={handleImageChange}
                     className="hidden"
                   />
-                  <div className="w-full grid md:grid-cols-10 grid-cols-3 gap-3">
-                    {selectedImages.length > 0
-                      ? renderImages(selectedImages, "file")
-                      : renderImages(data?.imgUrl)}
+
+                  <div className="w-fit grid md:grid-cols-10 grid-cols-3 gap-3">
+                    <SelectedImagesDisplay
+                      images={
+                        selectedImages.length > 0
+                          ? selectedImages
+                          : data?.image_url || ""
+                      }
+                      onRemoveImage={removeSelectedImage}
+                    />
                   </div>
                 </div>
                 <Button
                   type="button"
                   id="submitBtn"
-                  disabled={selectedImages?.length < 1}
-                  onClick={() => handleImageUpload("image", data?.imageId)}
+                  onClick={() => handleImageUpload("submitBtn")}
+                  disabled={selectedImages.length < 1 || !files}
                 >
-                  Update Photo
+                  Update
                 </Button>
               </form>
             </Form>

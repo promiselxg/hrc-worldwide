@@ -20,86 +20,71 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Editor from "@/components/editor/editor";
-import { useEditorContext } from "@/context/editor.context";
 
 import axios from "axios";
 import host from "@/utils/host";
 import { config } from "@/utils/headerConfig";
+import { CustomEditorPreview } from "@/components/wysiwyg/preview";
+import { CustomEditor } from "@/components/wysiwyg/editor";
+import { handleFormUpdate } from "@/utils/handleFormUpdate";
+import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
-  about_category: z.string({
+  category: z.string({
     required_error: "Choose the about us section you wish to update.",
   }),
-  about_us: z.string({ required_error: "This field is required" }),
+  about_us_content: z.string({ required_error: "This field is required" }),
 });
 
 const RBTIObjective = () => {
-  const [loading, setLoading] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
-
-  const {
-    quillRef,
-    readOnly,
-    toggleEditorReadOnly,
-    editorContent,
-    setEditorContent,
-  } = useEditorContext();
-
   const { toast } = useToast();
-
+  const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({
+    category: "",
+    about_us_content: "",
+  });
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
 
   async function onSubmit(values) {}
+  // /:model/:category
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const handleSubmit = async () => {
+  const handleFormPost = async () => {
+    const formData = {
+      category: "rbti_objective",
+      about_us_content: data?.about_us_content,
+      model: "rbti",
+    };
     try {
       setLoading(true);
-      if (quillRef.current) {
-        // Get HTML content
-        const htmlContent = quillRef?.current?.root?.innerHTML;
-
-        // Check if the content length is less than 8
-        if (!selectedValue || (htmlContent && htmlContent.length < 50)) {
-          toast({
-            variant: "destructive",
-            description: "The content must be at least 50 characters long.",
-          });
-        }
-
-        const data = {
-          category: selectedValue,
-          about_us_content: htmlContent,
-          model: "rbti",
-        };
-
-        const response = await axios.post(
-          `${host.url}/data/rbti`,
-          data,
-          config
-        );
-        // Success Toast
-        if (response) {
-          toast({
-            description: `Created successfully.`,
-            className: "bg-green-500 text-white",
-          });
-          setTimeout(() => {
-            window.location.reload();
-          }, 3000);
-        }
+      const response = await axios.post(
+        `${host.url}/data/rbti`,
+        formData,
+        config
+      );
+      if (response) {
+        toast({
+          description: `Created successfully.`,
+          className: "bg-green-500 text-white",
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast({
         variant: "destructive",
         description:
@@ -109,6 +94,21 @@ const RBTIObjective = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(
+          `${host.url}/data/rbti/rbti_objective`,
+          config
+        );
+        setData(response.data?.data || {});
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
   return (
     <>
       <div className="h-fit w-full flex flex-col pb-[100px] md:pb-20">
@@ -129,12 +129,11 @@ const RBTIObjective = () => {
                     // Handle the change of selected value
                     const handleChange = (value) => {
                       field.onChange(value);
-                      setSelectedValue(value);
                     };
 
                     return (
                       <FormItem>
-                        <FormLabel>Category</FormLabel>
+                        <FormLabel>RBTI - Objectives</FormLabel>
                         <Select
                           onValueChange={handleChange}
                           defaultValue={field.value}
@@ -158,41 +157,67 @@ const RBTIObjective = () => {
                     );
                   }}
                 />
-                <div className="flex flex-col relative h-[400px]">
-                  <FormLabel className="mb-5">Content</FormLabel>
-                  <Editor
-                    ref={quillRef}
-                    readOnly={readOnly}
-                    className="h-[250px]"
-                    defaultValue={
-                      editorContent || "<p>Start editing here...</p>"
-                    }
-                    onTextChange={(delta, oldDelta, source) => {
-                      // Update editor content state on change
-                      if (quillRef.current) {
-                        setEditorContent(quillRef.current.root.innerHTML);
-                      }
-                    }}
-                  />
-                  <div className="flex absolute bottom-0 p-4 w-full border border-[#ccc]">
-                    <label htmlFor="checkbox">
-                      <button
-                        onClick={() => toggleEditorReadOnly()}
-                        className="bg-[--primary-bg] text-[white] px-5 py-2 rounded-[8px] text-sm transition-all duration-100 delay-100 hover:bg-[--text-black]"
+                <div className="flex flex-col space-y-5">
+                  <FormLabel>RBTI - Objectives</FormLabel>
+                  {editing ? (
+                    <FormField
+                      control={form.control}
+                      name="about_us_content"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <CustomEditor
+                              value={data?.about_us_content}
+                              onChange={(value) => {
+                                handleInputChange({
+                                  target: {
+                                    name: "about_us_content",
+                                    value: value,
+                                  },
+                                });
+                                field.onChange(value);
+                              }}
+                            />
+                          </FormControl>
+
+                          <Button
+                            type="button"
+                            disabled={!field.value || loading}
+                            id="about_us_content"
+                            onClick={
+                              data?.id
+                                ? () =>
+                                    handleFormUpdate(
+                                      "about_us_content",
+                                      data.id,
+                                      data.about_us_content,
+                                      `data/${data.id}`,
+                                      "rbti"
+                                    )
+                                : () => handleFormPost()
+                            }
+                          >
+                            {loading && <Loader2 className="animate-spin" />}
+                            {data?.id ? "Update" : "Submit"}
+                          </Button>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  ) : (
+                    <>
+                      <CustomEditorPreview value={data?.about_us_content} />
+                      <Button
+                        type="button"
+                        className="w-fit"
+                        onClick={() => setEditing(!editing)}
                       >
-                        {readOnly ? "Edit Content" : "Save Content"}
-                      </button>
-                    </label>
-                  </div>
+                        Edit Content
+                      </Button>
+                    </>
+                  )}
                 </div>
-                <Button
-                  onClick={handleSubmit}
-                  id="submitBtn"
-                  disabled={loading || !selectedValue || !editorContent}
-                >
-                  {loading && <Loader2 className="animate-spin" />}
-                  {loading ? "Please wait" : "Submit"}
-                </Button>
               </form>
             </Form>
           </div>

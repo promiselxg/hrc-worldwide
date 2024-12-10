@@ -16,19 +16,22 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
+import { __, cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeft, CloudUpload, Loader2, X } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import { ChevronLeft, CloudUpload, X } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
 import { z } from "zod";
-import Editor from "@/components/editor/editor";
 import axios from "axios";
 import SelectedImagesDisplay from "@/components/image-upload/selectedImageDisplay";
 import { useImageContext } from "@/context/imageUpload.context";
-import { useEditorContext } from "@/context/editor.context";
 import host from "@/utils/host";
+import { CustomEditorPreview } from "@/components/wysiwyg/preview";
+import { CustomEditor } from "@/components/wysiwyg/editor";
+import { handleFormUpdate } from "@/utils/handleFormUpdate";
+import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
+import { config } from "@/utils/headerConfig";
 
 const formSchema = z.object({
   blog_title: z
@@ -38,36 +41,65 @@ const formSchema = z.object({
 });
 
 const EditBlogPost = () => {
-  const [loading, setLoading] = useState(false);
-  const [blogContent, setBlogContent] = useState("initializing...");
-
-  const [formData, setFormData] = useState({
-    blog_title: "",
-    blog_tag: "",
-  });
+  const params = useParams();
   const { files, selectedImages, handleImageChange, removeSelectedImage } =
     useImageContext();
-
-  const { quillRef, readOnly, editorContent, setEditorContent } =
-    useEditorContext();
-
-  const [content, setContent] = useState("");
-
-  const [data, setData] = useState([]);
-  const params = useParams();
-
   const { toast } = useToast();
+  const [editing, setEditing] = useState(false);
+  const [data, setData] = useState({
+    blog_tag: "",
+    blog_content: "",
+    blog_title: "",
+    image_url: "",
+  });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
 
-  const handleFormUpdate = async (field, value) => {};
-  const handleImageUpload = async (field, value) => {};
+  const handleImageUpload = async (field) => {
+    try {
+      __(field).innerHTML = "Updating...";
+      __(field).disabled = true;
+      let photos = [];
+      if (selectedImages.length > 0 && files) {
+        photos = await uploadFilesToCloudinary(files, "hrcImages");
+      }
+      if (photos) {
+        const { data } = await axios.put(
+          `${host.url}/blog/${params.id}`,
+          {
+            id: params.id,
+            field: "blog_post_image_url",
+            photos,
+            model: "blogPost",
+          },
+          config
+        );
+        if (data.status === "success") {
+          toast({
+            description: `Updated successfully.`,
+            className: "bg-green-500 text-white",
+          });
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      __(field).innerHTML = "Update";
+      __(field).disabled = false;
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
 
   async function onSubmit(values) {}
-
-  const handleSubmit = async () => {};
 
   useEffect(() => {
     const getRecord = async () => {
@@ -81,8 +113,7 @@ const EditBlogPost = () => {
         if (data?.message === "No Record found with the ID Provided") {
           window.location = "/admin/blog";
         }
-        setData(data);
-        setBlogContent(data?.data?.blog_content);
+        setData(data?.data);
       } catch (error) {
         console.log(error);
       }
@@ -90,14 +121,6 @@ const EditBlogPost = () => {
     getRecord();
   }, [params.id]);
 
-  useEffect(() => {
-    if (quillRef.current) {
-      quillRef.current.clipboard.dangerouslyPasteHTML(editorContent);
-    }
-  }, [blogContent, quillRef, editorContent]);
-
-  console.log(blogContent);
-  console.log(editorContent);
   return (
     <>
       <div className="h-screen w-full flex flex-col pb-[100px] md:pb-20 overflow-y-scroll">
@@ -131,6 +154,11 @@ const EditBlogPost = () => {
                         <Input
                           placeholder="Post's title"
                           {...field}
+                          value={data?.blog_title}
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            field.onChange(e);
+                          }}
                           className="form-input"
                         />
                       </FormControl>
@@ -139,9 +167,17 @@ const EditBlogPost = () => {
                       </FormDescription>
                       <Button
                         type="button"
-                        disabled={!content}
+                        disabled={!field.value}
                         id="blog_title"
-                        onClick={() => handleFormUpdate("blog_title", content)}
+                        onClick={() =>
+                          handleFormUpdate(
+                            "blog_title",
+                            params.id,
+                            data.blog_title,
+                            `blog/${params.id}`,
+                            "blogPost"
+                          )
+                        }
                       >
                         Update
                       </Button>
@@ -151,7 +187,7 @@ const EditBlogPost = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="tag"
+                  name="blog_tag"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
@@ -162,8 +198,11 @@ const EditBlogPost = () => {
                           placeholder="Tag"
                           {...field}
                           className="form-input"
-                          id="tag"
-                          onKeyUp={() => {}}
+                          value={data?.blog_tag}
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            field.onChange(e);
+                          }}
                         />
                       </FormControl>
                       <FormDescription className="text-[12px] text-[#333]">
@@ -172,8 +211,16 @@ const EditBlogPost = () => {
                       <Button
                         type="button"
                         disabled={!field.value}
-                        id="tag"
-                        onClick={() => handleFormUpdate("tag", field?.value)}
+                        id="blog_tag"
+                        onClick={() =>
+                          handleFormUpdate(
+                            "blog_tag",
+                            params.id,
+                            data.blog_tag,
+                            `blog/${params.id}`,
+                            "blogPost"
+                          )
+                        }
                       >
                         Update
                       </Button>
@@ -181,24 +228,64 @@ const EditBlogPost = () => {
                     </FormItem>
                   )}
                 />
-                <div className="flex flex-col space-y-5 h-[400px]">
-                  <FormLabel>Blog Content</FormLabel>
-                  <Editor
-                    ref={quillRef}
-                    readOnly={readOnly}
-                    className="h-[300px]"
-                    defaultValue={editorContent || blogContent}
-                    onTextChange={(delta, oldDelta, source) => {
-                      // Update editor content state on change
-                      if (quillRef.current) {
-                        setEditorContent(quillRef.current.root.innerHTML);
-                      }
-                    }}
-                  />
-                </div>
-
                 <div className="flex flex-col space-y-5">
-                  <span>Add cover Photo</span>
+                  <FormLabel>Blog Content</FormLabel>
+                  {editing ? (
+                    <FormField
+                      control={form.control}
+                      name="blog_content"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <CustomEditor
+                              value={data?.blog_content}
+                              onChange={(value) => {
+                                handleInputChange({
+                                  target: {
+                                    name: "blog_content",
+                                    value: value,
+                                  },
+                                });
+                                field.onChange(value);
+                              }}
+                            />
+                          </FormControl>
+
+                          <Button
+                            type="button"
+                            disabled={!field.value}
+                            id="blog_content"
+                            onClick={() =>
+                              handleFormUpdate(
+                                "blog_content",
+                                params.id,
+                                data.blog_content,
+                                `blog/${params.id}`,
+                                "blogPost"
+                              )
+                            }
+                          >
+                            Update
+                          </Button>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  ) : (
+                    <>
+                      <CustomEditorPreview value={data?.blog_content} />
+                      <Button
+                        type="button"
+                        className="w-fit"
+                        onClick={() => setEditing(!editing)}
+                      >
+                        Edit Content
+                      </Button>
+                    </>
+                  )}
+                </div>
+                <div className="flex flex-col space-y-5">
+                  <span>Edit Photo</span>
                   <label htmlFor="files" className="w-fit ">
                     <CloudUpload
                       size={60}
@@ -217,22 +304,22 @@ const EditBlogPost = () => {
 
                   <div className="w-fit grid md:grid-cols-10 grid-cols-3 gap-3">
                     <SelectedImagesDisplay
-                      images={selectedImages}
+                      images={
+                        selectedImages.length > 0
+                          ? selectedImages
+                          : data?.image_url
+                      }
                       onRemoveImage={removeSelectedImage}
                     />
                   </div>
                 </div>
                 <Button
-                  onClick={handleSubmit}
+                  type="button"
                   id="submitBtn"
-                  disabled={
-                    loading ||
-                    !formData.blog_title ||
-                    selectedImages.length === 0
-                  }
+                  onClick={() => handleImageUpload("submitBtn")}
+                  disabled={selectedImages.length < 1 || !files}
                 >
-                  {loading && <Loader2 className="animate-spin" />}
-                  {loading ? "Please wait" : "Submit"}
+                  Update
                 </Button>
               </form>
             </Form>

@@ -215,3 +215,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+.ql-container {
+  font-size: 16px !important;
+  font-family: "lato";
+}
+.ql-ol li {
+  line-height: 2em !important;
+  font-size: 16px !important;
+}

@@ -36,6 +36,7 @@ import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 import axios from "axios";
 import host from "@/utils/host";
 import { config } from "@/utils/headerConfig";
+import { CustomEditor } from "@/components/wysiwyg/editor";
 
 const formSchema = z.object({
   about_category: z.string({
@@ -49,14 +50,9 @@ const AboutUs = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const { files, selectedImages, handleImageChange, removeSelectedImage } =
     useImageContext();
-
-  const {
-    quillRef,
-    readOnly,
-    toggleEditorReadOnly,
-    editorContent,
-    setEditorContent,
-  } = useEditorContext();
+  const [data, setData] = useState({
+    about_us_content: "",
+  });
 
   const { toast } = useToast();
 
@@ -64,53 +60,53 @@ const AboutUs = () => {
     resolver: zodResolver(formSchema),
   });
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
+
   async function onSubmit(values) {}
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
       let photos = [];
-      if (quillRef.current) {
-        // Get HTML content
-        const htmlContent = quillRef?.current?.root?.innerHTML;
+      // Check if the content length is less than 8
+      if (!selectedValue || data?.about_us_content?.length < 50) {
+        toast({
+          variant: "destructive",
+          description: "The content must be at least 50 characters long.",
+        });
+      }
+      if (selectedImages.length > 0 && files) {
+        photos = await uploadFilesToCloudinary(files, "hrcImages");
+      }
 
-        // Check if the content length is less than 8
-        if (!selectedValue || (htmlContent && htmlContent.length < 50)) {
-          toast({
-            variant: "destructive",
-            description: "The content must be at least 50 characters long.",
-          });
-        }
-        if (selectedImages.length > 0 && files) {
-          photos = await uploadFilesToCloudinary(files, "hrcImages");
-        }
+      const formData = {
+        category: selectedValue,
+        about_us_content: data?.about_us_content,
+        image_url: photos[0]?.secure_url || null,
+        image_id: photos[0]?.public_id || null,
+        model: "aboutUs",
+      };
 
-        const data = {
-          category: selectedValue,
-          about_us_content: htmlContent,
-          image_url: photos[0]?.secure_url || null,
-          image_id: photos[0]?.public_id || null,
-          model: "aboutUs",
-        };
-
-        const response = await axios.post(
-          `${host.url}/data/aboutUs`,
-          data,
-          config
-        );
-        // Success Toast
-        if (response) {
-          toast({
-            description: `Created successfully.`,
-            className: "bg-green-500 text-white",
-          });
-          setTimeout(() => {
-            window.location.reload();
-          }, 3000);
-        }
+      const response = await axios.post(
+        `${host.url}/data/aboutUs`,
+        formData,
+        config
+      );
+      // Success Toast
+      if (response) {
+        toast({
+          description: `Created successfully.`,
+          className: "bg-green-500 text-white",
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast({
         variant: "destructive",
         description:
@@ -120,6 +116,7 @@ const AboutUs = () => {
       setLoading(false);
     }
   };
+
   return (
     <>
       <div className="h-fit w-full flex flex-col pb-[100px] md:pb-20">
@@ -172,30 +169,31 @@ const AboutUs = () => {
                 />
                 <div className="flex flex-col relative h-[400px]">
                   <FormLabel className="mb-5">About Us</FormLabel>
-                  <Editor
-                    ref={quillRef}
-                    readOnly={readOnly}
-                    className="h-[250px]"
-                    defaultValue={
-                      editorContent || "<p>Start editing here...</p>"
-                    }
-                    onTextChange={(delta, oldDelta, source) => {
-                      // Update editor content state on change
-                      if (quillRef.current) {
-                        setEditorContent(quillRef.current.root.innerHTML);
-                      }
-                    }}
+                  <FormField
+                    control={form.control}
+                    name="about_us_content"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <CustomEditor
+                            value={field.value}
+                            className="h-[300px]"
+                            onChange={(value) => {
+                              handleInputChange({
+                                target: {
+                                  name: "about_us_content",
+                                  value: value,
+                                },
+                              });
+
+                              field.onChange(value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                  <div className="flex absolute bottom-0 p-4 w-full border border-[#ccc]">
-                    <label htmlFor="checkbox">
-                      <button
-                        onClick={() => toggleEditorReadOnly()}
-                        className="bg-[--primary-bg] text-[white] px-5 py-2 rounded-[8px] text-sm transition-all duration-100 delay-100 hover:bg-[--text-black]"
-                      >
-                        {readOnly ? "Edit Content" : "Save Content"}
-                      </button>
-                    </label>
-                  </div>
                 </div>
 
                 <div className="flex flex-col space-y-5">
@@ -229,7 +227,7 @@ const AboutUs = () => {
                 <Button
                   onClick={handleSubmit}
                   id="submitBtn"
-                  disabled={loading || !selectedValue || !editorContent}
+                  disabled={loading || !selectedValue}
                 >
                   {loading && <Loader2 className="animate-spin" />}
                   {loading ? "Please wait" : "Submit"}
