@@ -57,5 +57,5 @@ export default {
       gothic: ["League Gothic", "sans-serif"],
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [import("tailwindcss-animate")],
 };
