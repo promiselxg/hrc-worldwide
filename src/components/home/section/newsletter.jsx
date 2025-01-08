@@ -112,9 +112,10 @@ const NewsletterSection = () => {
                     <div className="text-black">
                       <p>
                         Looking for inspiration, community updates, and ways to
-                        grow in faith? Subscribe to our weekly newsletter!
-                        Here&apos;s what you&apos;ll get:
+                        grow in faith?
                       </p>
+                      <p>Subscribe to our weekly newsletter!</p>
+                      <p>Here&apos;s what you&apos;ll get:</p>
                       <ul className="flex flex-col gap-1 my-2">
                         <li>✨ Uplifting messages to encourage you.</li>
                         <li>📅 Updates on upcoming events and services.</li>
