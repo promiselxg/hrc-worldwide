@@ -4,10 +4,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 import useFetch from "@/hooks/useFetch";
 import SEO from "@/lib/seo";
 import { formatDateWithoutTime } from "@/utils/getDateDifference";
+import { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 
 const Blog = () => {
   const { loading, data } = useFetch("/blog");
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  const filteredBlog = data?.filter((blog) =>
+    blog?.blog_title?.toLowerCase()?.includes(searchKeyword?.toLowerCase())
+  );
+
   return (
     <>
       <SEO
@@ -34,9 +41,9 @@ const Blog = () => {
             <div className="flex flex-col justify-center items-center gap-5">
               <div className="w-full shadow-md flex  items-center p-5 rounded-[30px] border border-[rgba(0,0,0,0.1)]">
                 <input
-                  type="text"
-                  name=""
-                  id=""
+                  type="search"
+                  value={searchKeyword}
+                  onChange={(e) => setSearchKeyword(e.target.value)}
                   placeholder="Enter keyword to search."
                   className="w-full outline-none border-0 bg-transparent text-[14px] text-[--text-black] font-lato font[400]"
                 />
@@ -57,7 +64,7 @@ const Blog = () => {
                   </div>
                 ) : (
                   <div className="grid md:w-full w-[90%] mx-auto md:grid-cols-4 gap-4 text-[--text-black]">
-                    {data.map((post) => (
+                    {filteredBlog.map((post) => (
                       <div
                         className="shadow-md rounded-sm overflow-hidden"
                         key={post.id}

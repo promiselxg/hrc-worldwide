@@ -7,9 +7,17 @@ import useFetch from "@/hooks/useFetch";
 import { formatDateWithoutTime } from "@/utils/getDateDifference";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 const Resources = () => {
   const { loading, data } = useFetch("/resource");
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  const filteredEvents = data?.filter((resource) =>
+    resource?.resource_title
+      ?.toLowerCase()
+      ?.includes(searchKeyword?.toLowerCase())
+  );
 
   return (
     <>
@@ -40,9 +48,11 @@ const Resources = () => {
               </h1>
               <div className="w-full shadow-md flex  items-center p-5 rounded-[30px] border border-[rgba(0,0,0,0.1)]">
                 <input
-                  type="text"
-                  name=""
-                  id=""
+                  type="search"
+                  name="search"
+                  id="search"
+                  value={searchKeyword}
+                  onChange={(e) => setSearchKeyword(e.target.value)}
                   placeholder="Enter message title to search."
                   className="w-full outline-none border-0 bg-transparent text-[14px] text-[--text-black] font-lato font[400]"
                 />
@@ -67,7 +77,7 @@ const Resources = () => {
                   <Skeleton className="h-2 w-1/3 bg-[#0d0d16] rounded-full" />
                 </div>
               ) : (
-                data?.map((resource) => (
+                filteredEvents?.map((resource) => (
                   <div
                     className="bg-[whitesmoke] shadow-md rounded-[5px] overflow-hidden"
                     key={resource.id}
