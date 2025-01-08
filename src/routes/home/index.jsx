@@ -29,9 +29,11 @@ const Home = () => {
               </h2>
             </div>
             <div className="md:w-[40%] justify-end items-end flex">
-              <Button className="bg-[rgba(0,0,0,0.8)] text-[#ccc] rounded-full w-fit text-[12px] font-[400] font-lato">
-                Book for counselling
-              </Button>
+              <a href="mailto:contact@hrccintl.org">
+                <Button className="bg-[rgba(0,0,0,0.8)] text-[#ccc] rounded-full w-fit text-[12px] font-[400] font-lato">
+                  Book for counselling
+                </Button>
+              </a>
             </div>
           </div>
         </div>

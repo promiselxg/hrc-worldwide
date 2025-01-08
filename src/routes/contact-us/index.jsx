@@ -33,64 +33,73 @@ const ContactUs = () => {
           </div>
         </BgWrapper>
         <div className="w-full flex">
-          <div className="container w-[90%] md:w-[1000px] mx-auto border  border-[rgba(0,0,0,0.1)]  p-2 rounded-[8px] my-10 shadow-sm">
+          <div className="container w-[90%] md:w-[1000px] mx-auto rounded-[8px] my-10 shadow-sm">
             <div className="flex flex-col-reverse md:flex-row justify-center gap-5 my-10">
-              <div className="w-full md:w-1/2 bg-[--primary-bg] px-10 py-20 rounded-[8px]">
-                <div className="flex h-[50px] items-center  gap-4 mb-5">
-                  <div>
-                    <FiPhoneCall className="text-[30px] text-[#ccc]" />
+              <div className="w-full bg-[--primary-bg] px-10 py-20 rounded-[8px] flex">
+                <div className="w-full">
+                  <div className="flex h-[50px] items-center  gap-4 mb-5">
+                    <div>
+                      <FiPhoneCall className="text-[30px] text-[#ccc]" />
+                    </div>
+                    <div className="flex flex-col  leading-tight">
+                      <span className="text-[16px] font-lato font-[400]">
+                        +23480 000 000
+                      </span>
+                      <span className="text-[16px] font-lato font-[400]">
+                        +23480 000 000
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex flex-col  leading-tight">
-                    <span className="text-[16px] font-lato font-[400]">
-                      +23480 000 000
-                    </span>
-                    <span className="text-[16px] font-lato font-[400]">
-                      +23480 000 000
-                    </span>
+                  <div className="flex h-[50px] items-center  gap-4 mb-5">
+                    <div>
+                      <FiMail className="text-[30px] text-[#ccc]" />
+                    </div>
+                    <div className="flex flex-col  leading-tight">
+                      <span className="text-[16px] font-lato font-[400]">
+                        email@company.com
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex h-[50px] items-center  gap-4 mb-5">
+                    <div>
+                      <FiMapPin className="text-[30px] text-[#ccc]" />
+                    </div>
+                    <div className="flex flex-col  leading-tight">
+                      <span className="text-[16px] font-lato font-[400]">
+                        Ilorin church address will appear here.
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex gap-3 items-center">
+                    <a
+                      href=""
+                      className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
+                    >
+                      <FiFacebook size={30} />
+                    </a>
+                    <a
+                      href=""
+                      className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
+                    >
+                      <FiSend size={30} className=" rotate-45" />
+                    </a>
+                    <a
+                      href=""
+                      className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
+                    >
+                      <FiYoutube size={30} />
+                    </a>
                   </div>
                 </div>
-                <div className="flex h-[50px] items-center  gap-4 mb-5">
-                  <div>
-                    <FiMail className="text-[30px] text-[#ccc]" />
-                  </div>
-                  <div className="flex flex-col  leading-tight">
-                    <span className="text-[16px] font-lato font-[400]">
-                      email@company.com
-                    </span>
-                  </div>
-                </div>
-                <div className="flex h-[50px] items-center  gap-4 mb-5">
-                  <div>
-                    <FiMapPin className="text-[30px] text-[#ccc]" />
-                  </div>
-                  <div className="flex flex-col  leading-tight">
-                    <span className="text-[16px] font-lato font-[400]">
-                      Ilorin church address will appear here.
-                    </span>
-                  </div>
-                </div>
-                <div className="flex gap-3 items-center">
-                  <a
-                    href=""
-                    className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
-                  >
-                    <FiFacebook size={30} />
-                  </a>
-                  <a
-                    href=""
-                    className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
-                  >
-                    <FiSend size={30} className=" rotate-45" />
-                  </a>
-                  <a
-                    href=""
-                    className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
-                  >
-                    <FiYoutube size={30} />
+                <div className="w-1/2 flex justify-center items-center">
+                  <a href="mailto:contact@hrccintl.org">
+                    <Button className="px-10 py-6 rounded-[8px] bg-[--admin-primary-bg] hover:bg-[--admin-primary-bg] flex items-center gap-4">
+                      <FiMail /> Send us an Email
+                    </Button>
                   </a>
                 </div>
               </div>
-              <div className="w-full md:w-1/2">
+              {/* <div className="w-full md:w-1/2">
                 <div className="flex gap-3 mb-3 w-full flex-col md:flex-row">
                   <div className="flex  flex-col text-[--primary-bg] w-full">
                     <span className="text-sm">
@@ -143,7 +152,7 @@ const ContactUs = () => {
                 <Button className="w-full rounded-[5px] border-none outline-none">
                   Send Message
                 </Button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
