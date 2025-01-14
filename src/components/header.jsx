@@ -160,7 +160,7 @@ const Header = () => {
                   }`
                 )}
               >
-                live stream
+                Live Stream
               </Button>
             </Link>
           </div>
@@ -315,7 +315,7 @@ const Header = () => {
                     }`
                   )}
                 >
-                  live stream
+                  Live Stream
                 </Button>
               </Link>
             </div>
