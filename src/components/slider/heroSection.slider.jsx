@@ -1,11 +1,6 @@
 import { Autoplay, Navigation, Parallax } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import Banner1 from "../../assets/images/banner/banner-1.png";
-import Banner2 from "../../assets/images/banner/banner-2.png";
-import Banner3 from "../../assets/images/banner/banner-3.png";
-import Banner4 from "../../assets/images/banner/banner-4.png";
-import Banner5 from "../../assets/images/banner/banner-5.png";
 import useFetch from "@/hooks/useFetch";
 import { truncateText } from "@/utils/trucateText";
 

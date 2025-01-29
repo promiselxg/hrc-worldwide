@@ -36,13 +36,32 @@ const AboutUs = () => {
         <div className="container w-[90%] md:w-[1200px] mx-auto my-10">
           <div className="flex bg-[rgba(0,0,0,0.08)] p-5 rounded-sm leading-tight flex-col gap-3">
             <p className="text-[16px] md:text-sm font-lato font-[400] text-[--text-black] leading-[1.7] md:leading-[1.25]">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque
-              non facere asperiores quasi vitae, doloremque, placeat eligendi
-              deleniti reprehenderit alias ullam dignissimos temporibus
-              praesentium libero quas culpa autem saepe perferendis sequi
-              adipisci architecto perspiciatis. Veritatis iste accusamus eos
-              molestiae dolor praesentium quos sequi autem. Consequatur porro
-              modi dicta cupiditate blanditiis!
+              Welcome to House of Restoration Church Worldwide (HRC), a vibrant
+              Christian community dedicated to spreading the love and teachings
+              of Jesus Christ. Our mission is to create a warm and inclusive
+              environment where people from all walks of life can come together
+              to worship, learn, and grow.
+            </p>
+            <p className="text-[16px] md:text-sm font-lato font-[400] text-[--text-black] leading-[1.7] md:leading-[1.25]">
+              Founded on the principles of faith, hope, and love, HRC strives to
+              make a positive impact in the lives of our members and the wider
+              community. Through inspiring sermons, engaging programs, and
+              community outreach initiatives, we aim to inspire spiritual
+              growth, foster meaningful connections, and serve those in need.
+            </p>
+            <p className="text-[16px] md:text-sm font-lato font-[400] text-[--text-black] leading-[1.7] md:leading-[1.25]">
+              At HRC, we believe in the transformative power of God&apos;s love
+              and restoration. We&apos;re committed to helping people from all
+              backgrounds discover their purpose, cultivate their faith, and
+              live a life that honors God. Our church is a place where you can
+              find comfort, guidance, and support as you navigate life&apos;s
+              challenges.
+            </p>
+            <p className="text-[16px] md:text-sm font-lato font-[400] text-[--text-black] leading-[1.7] md:leading-[1.25]">
+              Whether you&apos;re seeking a deeper connection with God, looking
+              for a community to belong to, or simply wanting to learn more
+              about the Christian faith, we invite you to join us on this
+              journey of faith, growth, and community.
             </p>
           </div>
         </div>
@@ -98,7 +117,7 @@ const AboutUs = () => {
       <div className="flex w-full text-[--primary-bg]">
         <div className="container mx-auto w-[90%] md:w-[1200px] my-5 md:my-10">
           <div className="flex gap-5 md:gap-2 flex-col md:flex-row">
-            <div className="w-full md:w-1/2 flex flex-col justify-center">
+            <div className="w-full md:w-full flex flex-col justify-center leading-relaxed gap-y-3">
               <h1 className="text-[30px] font-gothic font-[400] leading-tight">
                 Pastor Yinka Olatunji
               </h1>
@@ -106,18 +125,38 @@ const AboutUs = () => {
                 Senior pastor
               </p>
               <p className="text-[16px] font-lato">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. At ut,
-                hic eum beatae recusandae vitae sit omnis dolore quod
-                necessitatibus officia quos. Ut consectetur natus, minima illo
-                fugit porro veniam.
+                Pastor Olayinka Adedayo Olatunji is the visionary founder and
+                president of House of Restoration Church Worldwide (HRC). He
+                received a divine call into ministry in 2008, with a strong
+                burden to help those who were troubled, frustrated, afflicted,
+                wounded, and oppressed.
               </p>
-            </div>
-            <div className="w-full md:w-1/2 flex justify-center overflow-hidden">
-              <img
-                src={Banner2}
-                alt="pastor"
-                className="w-[400px] h-[200px] object-cover rounded-[5px]"
-              />
+              <p className="text-[16px] font-lato">
+                Ordained as a pastor in 2011, Pastor Olatunji served under
+                Apostle Blessing Salami, the founder of Kingdom Harvest Gospel
+                Ministries, for seven years. In 2016, he was commissioned to
+                pioneer House of Restoration Church Worldwide, with a vision to
+                &quot;Restore destinies, build lives according to divine
+                pattern.&quot;
+              </p>
+              <p>
+                As a prolific author, Pastor Olatunji has written over 10 books,
+                which circulate globally. He is also the president of The
+                Restorer Publications and the founder/director of Restorer Bible
+                Training Institute (RBTI).
+              </p>
+              <p className="text-[16px] font-lato">
+                Pastor Olatunji&apos;s ministry spans over two decades, building
+                and strengthening believers, and helping them grow in grace and
+                knowledge of Christ. He is a teaching-prophet, motivational
+                speaker, and worshiper, with a strong passion for discipleship,
+                leadership development, and kingdom advancement.
+              </p>
+              <p className="text-[16px] font-lato">
+                With a heart for restoring lives and empowering individuals,
+                Pastor Olatunji continues to spread the message of hope, love,
+                and restoration to nations around the world.
+              </p>
             </div>
           </div>
         </div>

@@ -30,10 +30,25 @@ const Ministries = () => {
           <div className="container md:w-[1200px] mx-auto md:pb-[40px] w-[90%]">
             <div className="w-full text-[--primary-bg] blogParagraph">
               <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad
-                tempora magni quis illum nisi amet adipisci beatae maxime ipsum
-                nesciunt aliquam esse assumenda quos, repellendus recusandae
-                dolorem nobis veniam officia?
+                At House of Restoration Church Worldwide, we&apos;re passionate
+                about empowering individuals to grow in their faith and fulfill
+                their purpose. To achieve this, we&apos;ve established various
+                ministries designed to cater to different age groups, interests,
+                and needs.
+              </p>
+              <p>
+                Our ministries include the Directorate of Young Church, which
+                comprises
+                <ol className="list-decimal list-inside my-2">
+                  <li>The Children&apos;s Ministry and Teenagers Ministry</li>
+                  <li>The Youth Ministry and </li>
+                  <li>The Worship and Music Ministry.</li>
+                </ol>
+                Each ministry is dedicated to providing a supportive and
+                nurturing environment where individuals can deepen their
+                relationship with God and connect with others. Through our
+                ministries, we aim to raise a generation of leaders and
+                disciples who will impact the world for Christ.
               </p>
             </div>
           </div>

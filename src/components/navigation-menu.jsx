@@ -45,21 +45,23 @@ export function NavigationMenuDemo() {
                       MINISTRIES
                     </div>
                     <p className="text-[12px] leading-tight text-[--primary-bg] capitalize">
-                      Beautifully designed components that you can copy and
-                      paste into your apps. Accessible. Customizable. Open
-                      Source.
+                      we&apos;re passionate about empowering individuals to grow
+                      in their faith and fulfill their purpose.
                     </p>
                   </a>
                 </NavigationMenuLink>
               </li>
               <ListItem href="/ministry" title="Children Ministry">
-                Re-usable components built using Radix UI and Tailwind CSS.
+                we&apos;re passionate about raising purpose-driven adults.
               </ListItem>
               <ListItem href="/ministry" title="Youth Ministry">
-                How to install dependencies and structure your app.
+                The HRC Youth Ministry operates through two main streams:
+                Fellowship and Ministry.
               </ListItem>
               <ListItem href="/ministry" title="Music Ministry">
-                Styles for headings, paragraphs, lists...etc
+                Our Music Ministry is dedicated to creating an atmosphere that
+                invites the presence of God, inspires spiritual growth, and
+                fosters a sense of community.
               </ListItem>
             </ul>
           </NavigationMenuContent>

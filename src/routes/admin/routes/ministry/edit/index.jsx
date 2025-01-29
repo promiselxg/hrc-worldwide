@@ -34,6 +34,8 @@ import axios from "axios";
 import host from "@/utils/host";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 import { handleFormUpdate } from "@/utils/handleFormUpdate";
+import { CustomEditor } from "@/components/wysiwyg/editor";
+import { CustomEditorPreview } from "@/components/wysiwyg/preview";
 
 const formSchema = z.object({
   minsitry_description: z
@@ -46,6 +48,7 @@ const EditMinistyPage = () => {
   const params = useParams();
   const { files, selectedImages, handleImageChange, removeSelectedImage } =
     useImageContext();
+  const [editing, setEditing] = useState(false);
   const [data, setData] = useState({
     ministry_description: "",
     ministry_category: "",
@@ -205,48 +208,62 @@ const EditMinistyPage = () => {
                   }}
                 />
 
-                <FormField
-                  control={form.control}
-                  name="ministry_description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Description</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Description"
-                          {...field}
-                          className="form-input"
-                          value={data.ministry_description}
-                          onChange={(e) => {
-                            handleInputChange(e);
-                            field.onChange(e);
-                          }}
-                        ></Textarea>
-                      </FormControl>
-                      <FormDescription className="text-[12px] text-[#333]">
-                        brief description.
-                      </FormDescription>
+                <div className="flex flex-col space-y-5">
+                  <FormLabel>Description</FormLabel>
+                  {editing ? (
+                    <FormField
+                      control={form.control}
+                      name="ministry_description"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <CustomEditor
+                              value={data.ministry_description}
+                              onChange={(value) => {
+                                handleInputChange({
+                                  target: {
+                                    name: "ministry_description",
+                                    value: value,
+                                  },
+                                });
+                                field.onChange(value);
+                              }}
+                            />
+                          </FormControl>
+
+                          <Button
+                            type="button"
+                            disabled={!field.value}
+                            id="ministry_description"
+                            onClick={() =>
+                              handleFormUpdate(
+                                "ministry_description",
+                                params.id,
+                                data?.ministry_description,
+                                `ministry/${params.id}`,
+                                "ministry"
+                              )
+                            }
+                          >
+                            Update
+                          </Button>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  ) : (
+                    <>
+                      <CustomEditorPreview value={data?.ministry_description} />
                       <Button
                         type="button"
-                        disabled={!field.value}
-                        id="ministry_description"
-                        onClick={() =>
-                          handleFormUpdate(
-                            "ministry_description",
-                            params.id,
-                            data.ministry_description,
-                            `ministry/${params.id}`,
-                            "ministry"
-                          )
-                        }
+                        className="w-fit"
+                        onClick={() => setEditing(!editing)}
                       >
-                        Update
+                        Edit Content
                       </Button>
-                      <FormMessage />
-                    </FormItem>
+                    </>
                   )}
-                />
-
+                </div>
                 <div className="flex flex-col space-y-5">
                   <span>Edit Photo</span>
                   <label htmlFor="files" className="w-fit ">

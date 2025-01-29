@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { handleDeleteBtn } from "@/utils/deleteItemFromDb";
+import { truncateText } from "@/utils/trucateText";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,20 +37,24 @@ export const columns = [
       );
     },
   },
+
   {
     accessorKey: "ministry_description",
-    header: "Ministry Description",
+    header: "Content",
     cell: ({ row }) => {
       const { ministry_description } = row.original;
+      const newData = truncateText(ministry_description, 200);
       return (
         <>
-          <div>
-            <p className={cn(`text-sm font-lato`)}>{ministry_description}</p>
-          </div>
+          <div
+            className="text-sm font-lato"
+            dangerouslySetInnerHTML={{ __html: newData }}
+          ></div>
         </>
       );
     },
   },
+
   {
     accessorKey: "ministry_image_url",
     header: "Thumbnail",
