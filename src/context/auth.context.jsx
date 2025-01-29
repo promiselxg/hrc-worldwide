@@ -44,6 +44,16 @@ const AuthReducer = (state, action) => {
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
+  const handleLogOut = async () => {
+    try {
+      localStorage.removeItem("userInfo");
+      dispatch({ type: "LOGOUT" });
+      window.location = "/login";
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem("userInfo", JSON.stringify(state.user));
   }, [state.user]);
@@ -55,6 +65,7 @@ export const AuthContextProvider = ({ children }) => {
         loading: state.loading,
         error: state.error,
         dispatch,
+        handleLogOut,
       }}
     >
       {children}

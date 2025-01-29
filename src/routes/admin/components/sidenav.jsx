@@ -3,20 +3,22 @@ import {
   BookAIcon,
   File,
   LayoutDashboard,
+  Power,
   SettingsIcon,
   Users,
 } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import AdminFooter from "./footer";
 import { FaQuestion } from "react-icons/fa";
 import { HiOutlineFilm } from "react-icons/hi";
 import { FiBookOpen, FiMic } from "react-icons/fi";
+import { Button } from "@/components/ui/button";
+import { AuthContext } from "@/context/auth.context";
 
 const SideNav = () => {
   const currentRoute = useLocation();
   const [openNavBar, setOpenNavBar] = useState(true);
-  console.log(currentRoute);
+  const { handleLogOut } = useContext(AuthContext);
   return (
     <>
       <div
@@ -206,7 +208,15 @@ const SideNav = () => {
               </li>
             </ul>
           </div>
-          <AdminFooter />
+          <div className="w-full">
+            <Button
+              className="bg-[#474747] w-full  justify-start flex items-center gap-2 rounded-[8px] text-white font-[600] p-2 hover:bg-[rgb(71,71,71,.8)]"
+              onClick={() => handleLogOut()}
+            >
+              <Power size={18} />
+              Logout
+            </Button>
+          </div>
         </div>
       </div>
     </>
