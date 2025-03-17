@@ -1,10 +1,14 @@
 import BgWrapper from "@/components/bg-wrapper";
-import Banner from "../../assets/images/banner/banner-1.png";
-import Banner2 from "../../assets/images/banner/banner-2.png";
-import Banner3 from "../../assets/images/banner/banner-3.png";
-import Banner4 from "../../assets/images/banner/banner-4.png";
-import Banner5 from "../../assets/images/banner/banner-5.png";
-import Music from "../../assets/images/banner/music.jpeg";
+import Banner from "../../assets/images/about-us/abt-hrc-section1.jpg";
+import Banner2 from "../../assets/images/about-us/abt-hrc-section2.jpg";
+import Banner3 from "../../assets/images/about-us/abt-hrc-section3.jpg";
+import Banner4 from "../../assets/images/about-us/abt-hrc-section4.jpg";
+import Banner5 from "../../assets/images/about-us/abt-hrc-section5.jpg";
+
+import PastorYinka from "../../assets/images/pastors/pastor-section-1.jpg";
+import Pastor2 from "../../assets/images/pastors/pastor-section-2.jpg";
+import Pastor3 from "../../assets/images/pastors/pastor-section-3.jpg";
+import Pastor4 from "../../assets/images/pastors/pastor-section-4.jpg";
 
 import ServiceBanner from "@/components/service-banner";
 import MinistryCard from "../ministries/ministry-card";
@@ -74,17 +78,17 @@ const AboutUs = () => {
                 <img
                   src={Banner}
                   alt="about us"
-                  className="w-full object-cover h-[400px]"
+                  className="w-full object-contain"
                 />
               </div>
             </div>
-            <div className="md:w-1/2 hidden md:flex">
+            <div className="md:w-1/2 ">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="h-[194px] overflow-hidden rounded-[8px]">
                   <img
                     src={Banner2}
                     alt="about us"
-                    className="w-full object-cover h-[194px]"
+                    className="w-full object-cover "
                   />
                 </div>
                 <div className="h-[194px] overflow-hidden rounded-[8px]">
@@ -166,7 +170,7 @@ const AboutUs = () => {
           <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-5">
             <div className="relative h-[250px] rounded-sm  overflow-hidden">
               <img
-                src={Banner3}
+                src={PastorYinka}
                 alt="pastor"
                 className="w-full h-[250px] object-cover"
               />
@@ -181,7 +185,7 @@ const AboutUs = () => {
             </div>
             <div className="relative h-[250px] rounded-sm  overflow-hidden">
               <img
-                src={Banner2}
+                src={Pastor2}
                 alt="pastor"
                 className="w-full h-[250px] object-cover"
               />
@@ -196,7 +200,7 @@ const AboutUs = () => {
             </div>
             <div className="relative h-[250px] rounded-sm  overflow-hidden">
               <img
-                src={Banner5}
+                src={Pastor3}
                 alt="pastor"
                 className="w-full h-[250px] object-cover"
               />
@@ -211,7 +215,7 @@ const AboutUs = () => {
             </div>
             <div className="relative h-[250px] rounded-sm  overflow-hidden">
               <img
-                src={Music}
+                src={Pastor4}
                 alt="pastor"
                 className="w-full h-[250px] object-cover"
               />

@@ -30,18 +30,20 @@ const MinistryCard = ({ title, data, loading }) => {
                       }}
                       key={ministy.id}
                     >
-                      <h1 className="text-[30px] font-gothic font-[400] leading-tight uppercase">
-                        {ministy?.ministry_category} Ministry
-                      </h1>
-                      <p
-                        className="text-[18px] md:text-sm mb-3"
-                        dangerouslySetInnerHTML={{
-                          __html: truncateText(
-                            ministy?.ministry_description,
-                            50
-                          ),
-                        }}
-                      ></p>
+                      <div className="bg-[rgba(0,0,0,0.5)] mb-2 p-2 rounded-sm">
+                        <h1 className="text-[30px] font-gothic font-[400] leading-tight uppercase">
+                          {ministy?.ministry_category} Ministry
+                        </h1>
+                        <p
+                          className="text-[18px] md:text-sm mb-3"
+                          dangerouslySetInnerHTML={{
+                            __html: truncateText(
+                              ministy?.ministry_description,
+                              50
+                            ),
+                          }}
+                        ></p>
+                      </div>
                       <Link to={`/ministry/${ministy?.id}`}>
                         <Button className="rounded-full text-sm font-lato font-[400] w-fit">
                           learn more

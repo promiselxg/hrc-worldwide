@@ -35,9 +35,7 @@ import { config } from "@/utils/headerConfig";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 
 const formSchema = z.object({
-  description: z
-    .string({ required_error: "Give this banner a description." })
-    .min(5, { message: "the description must be at least 5 characters long." }),
+  description: z.string().optional(),
   banner_position: z.string({ required_error: "This field is required" }),
 });
 
@@ -59,7 +57,7 @@ const AddBanner = () => {
     setLoading(true);
 
     // Validate required fields
-    const requiredFields = ["description", "banner_position"];
+    const requiredFields = ["banner_position"];
     const missingFields = requiredFields.filter((field) => !values[field]);
 
     if (missingFields.length > 0) {
