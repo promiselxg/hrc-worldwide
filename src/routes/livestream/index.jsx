@@ -9,10 +9,10 @@ const Livestream = () => {
   return (
     <>
       <SEO
-        title="House of Restoration Church of Christ Int'l | Join our Live stream"
+        title="House of Restoration Church of Christ | Join our Live stream"
         description="Join our live stream"
-        name="House of Restoration Church of Christ Int'l"
-        type="error page"
+        name="House of Restoration Church of Christ"
+        type="livestream"
       />
       <div className="w-full flex flex-col">
         <div className="relative" style={{ backgroundImage: `${Bg}` }}>

@@ -156,10 +156,8 @@ const Ministry = () => {
                         </FormControl>
                         <SelectContent>
                           <SelectItem value="youth">Youth Ministry</SelectItem>
-                          <SelectItem value="children">
-                            Children Ministry
-                          </SelectItem>
-                          <SelectItem value="music">Music Ministry</SelectItem>
+                          <SelectItem value="children">Smart Kids</SelectItem>
+                          <SelectItem value="music">One Sound</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormDescription className="text-[12px] text-[#333]">

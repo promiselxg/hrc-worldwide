@@ -10,10 +10,10 @@ const Home = () => {
   return (
     <>
       <SEO
-        title="House of Restoration Church of Christ Int'l"
-        description="Welcome to House of Restoration Church of Christ Int'l"
-        name="House of Restoration Church of Christ Int'l"
-        type="error page"
+        title="House of Restoration Church of Christ"
+        description="Welcome to House of Restoration Church of Christ"
+        name="House of Restoration Church of Christ"
+        type="home page"
       />
       <SectionAbout />
       {/* <EventSection /> */}

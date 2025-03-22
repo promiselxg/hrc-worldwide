@@ -38,10 +38,10 @@ const BlogDetails = () => {
   return (
     <>
       <SEO
-        title="House of Restoration Church of Christ Int'l | Our Blog"
-        description="About House of Restoration Church of Christ Int'l"
-        name="House of Restoration Church of Christ Int'l"
-        type="error page"
+        title="House of Restoration Church of Christ | Our Blog"
+        description="About House of Restoration Church of Christ"
+        name="House of Restoration Church of Christ"
+        type="blog details page"
       />
       <div className="flex w-full flex-col">
         <BgWrapper>

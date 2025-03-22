@@ -22,9 +22,9 @@ const Resources = () => {
   return (
     <>
       <SEO
-        title="House of Restoration Church of Christ Int'l | Resources"
-        description="House of Restoration Church of Christ Int'l"
-        name="House of Restoration Church of Christ Int'l"
+        title="House of Restoration Church of Christ | Resources"
+        description="House of Restoration Church of Christ"
+        name="House of Restoration Church of Christ"
         type="resources"
       />
       <div className="flex w-full flex-col">

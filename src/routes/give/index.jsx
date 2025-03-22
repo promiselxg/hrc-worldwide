@@ -7,9 +7,9 @@ const Give = () => {
   return (
     <>
       <SEO
-        title="House of Restoration Church of Christ Int'l | Give"
-        description="About House of Restoration Church of Christ Int'l"
-        name="House of Restoration Church of Christ Int'l"
+        title="House of Restoration Church of Christ | Give"
+        description="About House of Restoration Church of Christ"
+        name="House of Restoration Church of Christ"
         type="give"
       />
       <div className="w-full flex flex-col">

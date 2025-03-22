@@ -38,7 +38,7 @@ const Events = () => {
   return (
     <>
       <SEO
-        title="House of Restoration Church of Christ Int'l | Events"
+        title="House of Restoration Church of Christ | Events"
         description="About House of Restoration Church of Christ Int'l"
         name="House of Restoration Church of Christ Int'l"
         type="events"

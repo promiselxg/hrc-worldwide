@@ -14,9 +14,9 @@ const ContactUs = () => {
   return (
     <>
       <SEO
-        title="House of Restoration Church of Christ Int'l | Contact Us"
-        description="About House of Restoration Church of Christ Int'l"
-        name="House of Restoration Church of Christ Int'l"
+        title="House of Restoration Church of Christ | Contact Us"
+        description="About House of Restoration Church of Christ"
+        name="House of Restoration Church of Christ"
         type="contact us"
       />
       <div className="flex w-full flex-col">

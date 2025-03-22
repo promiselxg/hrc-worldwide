@@ -20,10 +20,10 @@ const AboutUs = () => {
   return (
     <>
       <SEO
-        title="About House of Restoration Church of Christ Int'l "
-        description="About House of Restoration Church of Christ Int'l"
-        name="House of Restoration Church of Christ Int'l"
-        type="error page"
+        title="House of Restoration Church of Christ | About Us"
+        description="House of Restoration Church of Christ | About Us"
+        name="House of Restoration Church of Christ"
+        type="About us page"
       />
       <div className="flex w-full flex-col">
         <BgWrapper>

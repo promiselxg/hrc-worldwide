@@ -43,12 +43,21 @@ const Header = () => {
       >
         <div className="container mx-[30px] flex items-center justify-between">
           <div className="flex items-center">
-            <Link to="/">
+            <Link to="/" className="flex items-center gap-2">
               <img
                 src={Logo}
                 alt="website logo"
                 className="w-[80px] h-[60px] object-contain"
               />
+              <h1
+                className={cn(
+                  `text-white font-gothic text-[20px] hidden md:flex ${
+                    scrolled && "text-black"
+                  } ${location.pathname !== "/" && scrolled && "text-white"}`
+                )}
+              >
+                House of Restoration Church of Christ
+              </h1>
             </Link>
           </div>
           {location.pathname !== "/livestream" && (
