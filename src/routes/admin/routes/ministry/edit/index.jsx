@@ -164,23 +164,20 @@ const EditMinistyPage = () => {
                               <SelectValue
                                 placeholder={
                                   data?.ministry_category
-                                    ? data.ministry_category.toUpperCase() +
-                                      " MINISTRY"
+                                    ? data.ministry_category.toUpperCase()
                                     : "Select an option"
                                 }
                               />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="youth">
+                            <SelectItem value="youth ministry">
                               Youth Ministry
                             </SelectItem>
-                            <SelectItem value="children">
-                              Children Ministry
+                            <SelectItem value="smark kids">
+                              Smart Kids
                             </SelectItem>
-                            <SelectItem value="music">
-                              Music Ministry
-                            </SelectItem>
+                            <SelectItem value="one sound">One Sound</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormDescription className="text-[12px] text-[#333]">

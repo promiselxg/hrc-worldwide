@@ -32,7 +32,7 @@ const MinistryCard = ({ title, data, loading }) => {
                     >
                       <div className="bg-[rgba(0,0,0,0.5)] mb-2 p-2 rounded-sm">
                         <h1 className="text-[30px] font-gothic font-[400] leading-tight uppercase">
-                          {ministy?.ministry_category} Ministry
+                          {ministy?.ministry_category}
                         </h1>
                         <p
                           className="text-[18px] md:text-sm mb-3"

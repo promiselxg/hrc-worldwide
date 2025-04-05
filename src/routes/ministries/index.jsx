@@ -40,9 +40,9 @@ const Ministries = () => {
                 Our ministries include the Directorate of Young Church, which
                 comprises
                 <ol className="list-decimal list-inside my-2">
-                  <li>The Children&apos;s Ministry and Teenagers Ministry</li>
+                  <li>The Smart Kid&apos;s</li>
                   <li>The Youth Ministry and </li>
-                  <li>The Worship and Music Ministry.</li>
+                  <li>The One Sound.</li>
                 </ol>
                 Each ministry is dedicated to providing a supportive and
                 nurturing environment where individuals can deepen their

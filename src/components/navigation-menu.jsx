@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -51,15 +49,15 @@ export function NavigationMenuDemo() {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/ministry" title="Children Ministry">
+              <ListItem href="/ministry" title="Smart Kids">
                 we&apos;re passionate about raising purpose-driven adults.
               </ListItem>
               <ListItem href="/ministry" title="Youth Ministry">
                 The HRC Youth Ministry operates through two main streams:
                 Fellowship and Ministry.
               </ListItem>
-              <ListItem href="/ministry" title="Music Ministry">
-                Our Music Ministry is dedicated to creating an atmosphere that
+              <ListItem href="/ministry" title="One Sound">
+                Our One Sound is dedicated to creating an atmosphere that
                 invites the presence of God, inspires spiritual growth, and
                 fosters a sense of community.
               </ListItem>

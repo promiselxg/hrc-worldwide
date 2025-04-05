@@ -40,6 +40,8 @@ import TeamPage from "./routes/admin/routes/team";
 import EditTeam from "./routes/admin/routes/team/edit";
 import ResourcesPage from "./routes/admin/routes/resource";
 import EditResouce from "./routes/admin/routes/resource/edit";
+import Youtube from "./routes/livestream/yt";
+import LiveStreamLayout from "./layouts/livestream.layout";
 
 const routes = createBrowserRouter([
   {
@@ -86,12 +88,18 @@ const routes = createBrowserRouter([
         path: "/give",
         element: <Give />,
       },
+    ],
+    errorElement: <PageNotFound />,
+  },
+  {
+    path: "/livestream",
+    element: <LiveStreamLayout />,
+    children: [
       {
-        path: "/livestream",
-        element: <Livestream />,
+        path: "/livestream/yt",
+        element: <Youtube />,
       },
     ],
-    errorElement: <PageNotFound />, // Global error handler for the root routes
   },
   {
     path: "/rbti",

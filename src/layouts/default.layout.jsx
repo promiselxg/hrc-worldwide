@@ -10,11 +10,7 @@ const Layout = () => {
   return (
     <>
       <div className="flex w-full flex-col text-white">
-        {location.pathname === "/" || location.pathname === "/livestream" ? (
-          <HeroWithHeader />
-        ) : (
-          <Header />
-        )}
+        {location.pathname === "/" ? <HeroWithHeader /> : <Header />}
         <main>
           <Outlet />
           <Toaster />

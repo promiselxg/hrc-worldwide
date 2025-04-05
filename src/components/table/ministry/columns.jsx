@@ -29,11 +29,11 @@ export const columns = [
     cell: ({ row }) => {
       const { ministry_category } = row.original;
       return (
-        <>
+        <div className="flex items-center gap-2 w-1/2">
           <div>
             <h1 className={cn(`font-bold capitalize`)}>{ministry_category}</h1>
           </div>
-        </>
+        </div>
       );
     },
   },
@@ -43,7 +43,7 @@ export const columns = [
     header: "Content",
     cell: ({ row }) => {
       const { ministry_description } = row.original;
-      const newData = truncateText(ministry_description, 200);
+      const newData = truncateText(ministry_description, 100);
       return (
         <>
           <div

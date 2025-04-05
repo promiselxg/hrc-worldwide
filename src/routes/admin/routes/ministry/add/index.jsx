@@ -155,9 +155,11 @@ const Ministry = () => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="youth">Youth Ministry</SelectItem>
-                          <SelectItem value="children">Smart Kids</SelectItem>
-                          <SelectItem value="music">One Sound</SelectItem>
+                          <SelectItem value="youth ministry">
+                            Youth Ministry
+                          </SelectItem>
+                          <SelectItem value="smark kids">Smart Kids</SelectItem>
+                          <SelectItem value="one sound">One Sound</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormDescription className="text-[12px] text-[#333]">
