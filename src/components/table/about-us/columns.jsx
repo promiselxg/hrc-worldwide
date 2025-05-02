@@ -28,10 +28,11 @@ export const columns = [
     },
     cell: ({ row }) => {
       const { category } = row.original;
+      let formatted = category?.replace("_", " ");
       return (
         <>
           <div>
-            <h1 className={cn(`font-bold capitalize`)}>{category}</h1>
+            <h1 className={cn(`font-lato uppercase`)}>{formatted}</h1>
           </div>
         </>
       );

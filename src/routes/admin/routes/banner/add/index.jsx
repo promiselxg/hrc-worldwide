@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import SelectedImagesDisplay from "@/components/image-upload/selectedImageDisplay";
 import "../../admin.css";
 import { Button } from "@/components/ui/button";
@@ -23,15 +21,15 @@ import {
 import { useImageContext } from "@/context/imageUpload.context";
 
 import { useToast } from "@/hooks/use-toast";
-import { __, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CloudUpload, Loader2, X } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "axios";
 import host from "@/utils/host";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 
 const formSchema = z.object({
@@ -88,7 +86,11 @@ const AddBanner = () => {
       };
 
       // Submit data to the backend
-      const response = await axios.post(`${host.url}/banner`, data, config);
+      const response = await axios.post(
+        `${host.url}/banner`,
+        data,
+        getAuthConfig()
+      );
       // Success Toast
       if (response) {
         toast({

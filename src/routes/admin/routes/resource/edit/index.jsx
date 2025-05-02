@@ -11,23 +11,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import CloudinaryUploadWidget from "@/utils/CloudinaryUploadWidget ";
 import { handleFormUpdate } from "@/utils/handleFormUpdate";
 import host from "@/utils/host";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { ChevronLeft, Loader2 } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
@@ -76,7 +67,6 @@ const EditResouce = () => {
     getResourceData();
   }, [params.id]);
 
-  console.log(data);
   return (
     <>
       <div className="h-screen w-full flex flex-col  overflow-y-scroll pb-[100px] md:pb-20">

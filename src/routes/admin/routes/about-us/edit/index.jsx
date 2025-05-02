@@ -36,11 +36,11 @@ import { CustomEditorPreview } from "@/components/wysiwyg/preview";
 import { CustomEditor } from "@/components/wysiwyg/editor";
 import { handleFormUpdate } from "@/utils/handleFormUpdate";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 
 const formSchema = z.object({
   category: z.string({
-    required_error: "Choose the about us section you wish to update.",
+    required_error: "Select the section",
   }),
   about_us_content: z.string({ required_error: "This field is required" }),
 });
@@ -82,7 +82,7 @@ const EditAboutUs = () => {
             photos,
             model: "aboutUs",
           },
-          config
+          getAuthConfig()
         );
         if (data.status === "success") {
           toast({
@@ -117,6 +117,7 @@ const EditAboutUs = () => {
   }, [params.id]);
 
   async function onSubmit(values) {}
+
   return (
     <>
       <div className="w-full flex flex-col pb-[100px] md:pb-20 h-screen overflow-y-scroll">
@@ -160,26 +161,22 @@ const EditAboutUs = () => {
                         >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue
-                                placeholder={
-                                  data?.category
-                                    ? "ABOUT " +
-                                      data.category.toUpperCase() +
-                                      " WORLDWIDE"
-                                    : "Choose the about us section you wish to update."
-                                }
-                              />
+                              <SelectValue placeholder="Select the section" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="hrc">
-                              About HRC Worldwide
-                            </SelectItem>
+                            <SelectItem value="hrc">HRC Worldwide</SelectItem>
                             <SelectItem value="rbti">About RBTI</SelectItem>
+                            <SelectItem value="our_vision">
+                              Our Vision
+                            </SelectItem>
+                            <SelectItem value="our_mission">
+                              Our Mission
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                         <FormDescription className="text-[12px] text-[#333]">
-                          Choose the about us section you wish to update.
+                          Select the section
                         </FormDescription>
                         <Button
                           type="button"
@@ -258,44 +255,48 @@ const EditAboutUs = () => {
                     </>
                   )}
                 </div>
+                {data.category !== "our_vision" &&
+                  data.category !== "our_mission" && (
+                    <>
+                      <div className="flex flex-col space-y-5">
+                        <span>Edit Photo</span>
+                        <label htmlFor="files" className="w-fit ">
+                          <CloudUpload
+                            size={60}
+                            color="#171726"
+                            className="cursor-pointer"
+                          />
+                        </label>
+                        <input
+                          type="file"
+                          name="files"
+                          id="files"
+                          accept="image/png, image/gif, image/jpeg"
+                          onChange={handleImageChange}
+                          className="hidden"
+                        />
 
-                <div className="flex flex-col space-y-5">
-                  <span>Edit Photo</span>
-                  <label htmlFor="files" className="w-fit ">
-                    <CloudUpload
-                      size={60}
-                      color="#171726"
-                      className="cursor-pointer"
-                    />
-                  </label>
-                  <input
-                    type="file"
-                    name="files"
-                    id="files"
-                    accept="image/png, image/gif, image/jpeg"
-                    onChange={handleImageChange}
-                    className="hidden"
-                  />
-
-                  <div className="w-fit grid md:grid-cols-10 grid-cols-3 gap-3">
-                    <SelectedImagesDisplay
-                      images={
-                        selectedImages.length > 0
-                          ? selectedImages
-                          : data?.image_url || ""
-                      }
-                      onRemoveImage={removeSelectedImage}
-                    />
-                  </div>
-                </div>
-                <Button
-                  type="button"
-                  id="submitBtn"
-                  onClick={() => handleImageUpload("submitBtn")}
-                  disabled={selectedImages.length < 1 || !files}
-                >
-                  Update
-                </Button>
+                        <div className="w-fit grid md:grid-cols-10 grid-cols-3 gap-3">
+                          <SelectedImagesDisplay
+                            images={
+                              selectedImages.length > 0
+                                ? selectedImages
+                                : data?.image_url || ""
+                            }
+                            onRemoveImage={removeSelectedImage}
+                          />
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        id="submitBtn"
+                        onClick={() => handleImageUpload("submitBtn")}
+                        disabled={selectedImages.length < 1 || !files}
+                      >
+                        Update
+                      </Button>
+                    </>
+                  )}
               </form>
             </Form>
           </div>

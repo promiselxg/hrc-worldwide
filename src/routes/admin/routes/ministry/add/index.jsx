@@ -32,7 +32,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 import { useEditorContext } from "@/context/editor.context";
 import Editor from "@/components/editor/editor";
 
@@ -101,7 +101,7 @@ const Ministry = () => {
           const response = await axios.post(
             `${host.url}/ministry`,
             data,
-            config
+            getAuthConfig()
           );
           // Success Toast
           if (response) {

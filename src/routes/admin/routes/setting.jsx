@@ -5,7 +5,7 @@ import AboutUs from "./about-us/add";
 import Ministry from "./ministry/add";
 import AddEventPage from "./event/add";
 import { cn } from "@/lib/utils";
-import { Settings2, Users2 } from "lucide-react";
+import { Settings2, User, Users2 } from "lucide-react";
 import AddTeamMember from "./team/add";
 import AddResource from "./resource/add";
 import { Separator } from "@/components/ui/separator";
@@ -17,14 +17,19 @@ import RBTISpiritualFormation from "./rbti/add/rbti_spiritual_formation";
 import RBTICandidateResponsibility from "./rbti/add/rbti_candidate_responsibility";
 import RBTIEntryRequirement from "./rbti/add/rbti_entry_requirement";
 import RBTITraining_requirement from "./rbti/add/rbti_training_requirement";
+import Profile from "./profile";
 
 const Setting = () => {
-  const [pageView, setPageView] = useState(<AddBanner />);
-  const [active, setActive] = useState("banner");
+  const [pageView, setPageView] = useState(<Profile />);
+  const [active, setActive] = useState("profile");
   const { user } = useContext(AuthContext);
 
   const setPage = (currentView) => {
     switch (currentView) {
+      case "profile":
+        setPageView(<Profile />);
+        setActive("profile");
+        break;
       case "banner":
         setPageView(<AddBanner />);
         setActive("banner");
@@ -90,6 +95,20 @@ const Setting = () => {
                   General Page Setting
                 </h2>
                 <Separator className="w-[70%]" />
+                <li>
+                  <Link
+                    to=""
+                    onClick={() => setPage("profile")}
+                    className={cn(
+                      `${
+                        active === "profile" && "text-[purple]"
+                      } flex items-center gap-2`
+                    )}
+                  >
+                    <User size={20} />
+                    Profile
+                  </Link>
+                </li>
                 <li>
                   <Link
                     to=""

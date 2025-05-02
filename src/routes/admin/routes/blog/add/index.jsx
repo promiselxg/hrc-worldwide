@@ -28,7 +28,7 @@ import { useEditorContext } from "@/context/editor.context";
 import { generateSlug } from "@/utils/generateSlug";
 import axios from "axios";
 import host from "@/utils/host";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 
 const formSchema = z.object({
@@ -103,7 +103,11 @@ const AddBlogPage = () => {
           image_id: photos[0]?.public_id || null,
         };
 
-        const response = await axios.post(`${host.url}/blog`, data, config);
+        const response = await axios.post(
+          `${host.url}/blog`,
+          data,
+          getAuthConfig()
+        );
         // Success Toast
         if (response) {
           toast({

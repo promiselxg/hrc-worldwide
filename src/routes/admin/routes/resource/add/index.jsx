@@ -23,6 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import CloudinaryUploadWidget from "@/utils/CloudinaryUploadWidget ";
+import { getAuthConfig } from "@/utils/headerConfig";
 import host from "@/utils/host";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -59,12 +60,6 @@ const AddResource = () => {
   });
 
   const { toast } = useToast();
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem("userInfo"))}`,
-    },
-  };
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -113,7 +108,11 @@ const AddResource = () => {
         resource_file_type: fileType,
       };
 
-      const response = await axios.post(`${host.url}/resource`, data, config);
+      const response = await axios.post(
+        `${host.url}/resource`,
+        data,
+        getAuthConfig()
+      );
       // Success Toast
       if (response) {
         toast({

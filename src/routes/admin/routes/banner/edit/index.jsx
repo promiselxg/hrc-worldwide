@@ -23,7 +23,7 @@ import { useImageContext } from "@/context/imageUpload.context";
 import { useToast } from "@/hooks/use-toast";
 import { __, cn } from "@/lib/utils";
 import { handleFormUpdate } from "@/utils/handleFormUpdate";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 import host from "@/utils/host";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -73,7 +73,7 @@ const EditBannerPage = () => {
             photos,
             model: "banner",
           },
-          config
+          getAuthConfig()
         );
         if (data.status === "success") {
           toast({

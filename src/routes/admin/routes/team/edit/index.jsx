@@ -33,7 +33,7 @@ import axios from "axios";
 import host from "@/utils/host";
 import { handleFormUpdate } from "@/utils/handleFormUpdate";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 
 const formSchema = z.object({
   full_name: z.string({ required_error: "This field is required" }),
@@ -74,7 +74,7 @@ const EditTeam = () => {
             image_id: photos[0]?.public_id,
             model: "team",
           },
-          config
+          getAuthConfig()
         );
         if (data?.data.status === "success") {
           toast({

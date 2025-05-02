@@ -25,7 +25,7 @@ import { CloudUpload, Loader2, X } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 import {
   Select,
   SelectContent,
@@ -85,7 +85,11 @@ const AddTeamMember = () => {
           image_id: photos[0]?.public_id,
         };
         // Submit data to the backend
-        const response = await axios.post(`${host.url}/team`, data, config);
+        const response = await axios.post(
+          `${host.url}/team`,
+          data,
+          getAuthConfig()
+        );
         // Success Toast
         if (response) {
           toast({

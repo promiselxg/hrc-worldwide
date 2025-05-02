@@ -28,7 +28,7 @@ import { z } from "zod";
 
 import axios from "axios";
 import host from "@/utils/host";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 import { CustomEditorPreview } from "@/components/wysiwyg/preview";
 import { CustomEditor } from "@/components/wysiwyg/editor";
 import { handleFormUpdate } from "@/utils/handleFormUpdate";
@@ -72,7 +72,7 @@ const RBTITrainingRequirement = () => {
       const response = await axios.post(
         `${host.url}/data/rbti`,
         formData,
-        config
+        getAuthConfig()
       );
       if (response) {
         toast({
@@ -100,7 +100,7 @@ const RBTITrainingRequirement = () => {
       try {
         const response = await axios.get(
           `${host.url}/data/rbti/rbti_training_requirement`,
-          config
+          getAuthConfig()
         );
         setData(response.data?.data || {});
       } catch (error) {

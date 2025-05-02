@@ -31,7 +31,7 @@ const Login = () => {
     try {
       const res = await axios.post(`${host.url}/auth/login`, formData);
       if (res.data.success) {
-        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.token });
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
         window.location = "/admin";
       } else {
         dispatch({

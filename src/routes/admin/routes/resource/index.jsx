@@ -8,6 +8,15 @@ import { FileAudio, FileVideo } from "lucide-react";
 
 const ResourcesPage = () => {
   const { loading, data } = useFetch("/resource");
+  const count = data?.reduce(
+    (acc, item) => {
+      if (item.resource_file_type === "audio") acc.audio += 1;
+      if (item.resource_file_type === "video") acc.video += 1;
+      return acc;
+    },
+    { audio: 0, video: 0 }
+  );
+
   return (
     <>
       <section className="w-full flex h-screen flex-col gap-y-5 p-5 overflow-y-scroll bg-[whitesmoke]">
@@ -15,7 +24,7 @@ const ResourcesPage = () => {
           <div className="w-full grid md:grid-cols-4  grid-cols-1 gap-3">
             <DashboardCard
               title="Video"
-              value={2}
+              value={count?.video}
               bg="green"
               loading={loading}
               bgColor="darkblue"
@@ -23,7 +32,7 @@ const ResourcesPage = () => {
             />
             <DashboardCard
               title="Audio"
-              value={2}
+              value={count?.audio}
               bg="red"
               loading={loading}
               bgColor="darkred"

@@ -31,7 +31,7 @@ import { CustomEditorPreview } from "@/components/wysiwyg/preview";
 import { CustomEditor } from "@/components/wysiwyg/editor";
 import { handleFormUpdate } from "@/utils/handleFormUpdate";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 
 const formSchema = z.object({
   blog_title: z
@@ -74,7 +74,7 @@ const EditBlogPost = () => {
             photos,
             model: "blogPost",
           },
-          config
+          getAuthConfig()
         );
         if (data.status === "success") {
           toast({

@@ -1,7 +1,7 @@
 import { __ } from "@/lib/utils";
 import axios from "axios";
 import host from "./host";
-import { config } from "./headerConfig";
+import { getAuthConfig } from "./headerConfig";
 import { toast } from "@/hooks/use-toast";
 
 export const handleFormUpdate = async (field, id, value, url, model) => {
@@ -18,7 +18,7 @@ export const handleFormUpdate = async (field, id, value, url, model) => {
         field,
         model: model || "team",
       },
-      config
+      getAuthConfig()
     );
 
     if (response.data.status !== "success") {
@@ -37,7 +37,6 @@ export const handleFormUpdate = async (field, id, value, url, model) => {
       }, 3000);
     }
   } catch (error) {
-    console.error(error.response.data.message || error);
     toast({
       variant: "destructive",
       title: "Uh oh! Something went wrong.",

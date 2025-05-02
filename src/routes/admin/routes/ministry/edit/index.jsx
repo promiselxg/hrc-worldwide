@@ -29,7 +29,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
 import { z } from "zod";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 import axios from "axios";
 import host from "@/utils/host";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
@@ -78,7 +78,7 @@ const EditMinistyPage = () => {
             ministry_image_id: photos[0]?.public_id,
             model: "ministry",
           },
-          config
+          getAuthConfig()
         );
         if (data?.status === "success") {
           toast({

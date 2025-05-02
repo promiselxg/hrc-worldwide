@@ -32,7 +32,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 
 const formSchema = z.object({
   event_title: z
@@ -81,15 +81,19 @@ const AddEventPage = () => {
         if (selectedImages.length > 0 && files) {
           photos = await uploadFilesToCloudinary(files, "hrcImages");
         }
-        // Prepare data for submission
+
         const data = {
           ...values,
           event_image_url: photos[0].secure_url,
           event_image_id: photos[0].public_id,
         };
-        // Submit data to the backend
-        const response = await axios.post(`${host.url}/event`, data, config);
-        // Success Toast
+
+        const response = await axios.post(
+          `${host.url}/event`,
+          data,
+          getAuthConfig()
+        );
+
         if (response) {
           toast({
             description: `Created successfully.`,
@@ -100,7 +104,6 @@ const AddEventPage = () => {
           }, 3000);
         }
       } catch (error) {
-        console.error("Error during submission:", error);
         toast({
           variant: "destructive",
           description:

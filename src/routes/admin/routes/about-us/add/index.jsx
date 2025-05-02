@@ -27,15 +27,13 @@ import { CloudUpload, Loader2, X } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Editor from "@/components/editor/editor";
-import { useEditorContext } from "@/context/editor.context";
 
 import SelectedImagesDisplay from "@/components/image-upload/selectedImageDisplay";
 import { useImageContext } from "@/context/imageUpload.context";
 import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 import axios from "axios";
 import host from "@/utils/host";
-import { config } from "@/utils/headerConfig";
+import { getAuthConfig } from "@/utils/headerConfig";
 import { CustomEditor } from "@/components/wysiwyg/editor";
 
 const formSchema = z.object({
@@ -93,7 +91,7 @@ const AboutUs = () => {
       const response = await axios.post(
         `${host.url}/data/aboutUs`,
         formData,
-        config
+        getAuthConfig()
       );
       // Success Toast
       if (response) {
@@ -149,18 +147,22 @@ const AboutUs = () => {
                         >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Choose the about us section you wish to update." />
+                              <SelectValue placeholder="Select the section" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="hrc">
-                              About HRC Worldwide
-                            </SelectItem>
+                            <SelectItem value="hrc">HRC Worldwide</SelectItem>
                             <SelectItem value="rbti">About RBTI</SelectItem>
+                            <SelectItem value="our_vision">
+                              Our Vision
+                            </SelectItem>
+                            <SelectItem value="our_mission">
+                              Our Mission
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                         <FormDescription className="text-[12px] text-[#333]">
-                          Choose the about us section you wish to update.
+                          Select the section
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -195,35 +197,38 @@ const AboutUs = () => {
                     )}
                   />
                 </div>
+                {selectedValue !== "our_vision" &&
+                  selectedValue !== "our_mission" && (
+                    <div className="flex flex-col space-y-5">
+                      <span>
+                        Add Photo <i className="italic text-sm">(optional)</i>
+                      </span>
+                      <label htmlFor="files" className="w-fit ">
+                        <CloudUpload
+                          size={60}
+                          color="#171726"
+                          className="cursor-pointer"
+                        />
+                      </label>
+                      <input
+                        type="file"
+                        name="files"
+                        id="files"
+                        accept="image/png, image/gif, image/jpeg"
+                        multiple
+                        onChange={handleImageChange}
+                        className="hidden"
+                      />
 
-                <div className="flex flex-col space-y-5">
-                  <span>
-                    Add Photo <i className="italic text-sm">(optional)</i>
-                  </span>
-                  <label htmlFor="files" className="w-fit ">
-                    <CloudUpload
-                      size={60}
-                      color="#171726"
-                      className="cursor-pointer"
-                    />
-                  </label>
-                  <input
-                    type="file"
-                    name="files"
-                    id="files"
-                    accept="image/png, image/gif, image/jpeg"
-                    multiple
-                    onChange={handleImageChange}
-                    className="hidden"
-                  />
+                      <div className="w-full grid md:grid-cols-10 grid-cols-3 gap-3">
+                        <SelectedImagesDisplay
+                          images={selectedImages}
+                          onRemoveImage={removeSelectedImage}
+                        />
+                      </div>
+                    </div>
+                  )}
 
-                  <div className="w-full grid md:grid-cols-10 grid-cols-3 gap-3">
-                    <SelectedImagesDisplay
-                      images={selectedImages}
-                      onRemoveImage={removeSelectedImage}
-                    />
-                  </div>
-                </div>
                 <Button
                   onClick={handleSubmit}
                   id="submitBtn"

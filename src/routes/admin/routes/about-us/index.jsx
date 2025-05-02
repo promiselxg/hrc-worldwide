@@ -5,6 +5,7 @@ import useFetch from "@/hooks/useFetch";
 
 const AboutUsPage = () => {
   const { loading, data } = useFetch("/data/aboutUs");
+
   return (
     <>
       <section className="w-full flex h-screen flex-col gap-y-5 p-5 overflow-y-scroll bg-[whitesmoke]">
