@@ -53,7 +53,7 @@ const Footer = () => {
           <div className="md:border-t-[1px] md:border-[rgba(255,255,255,.3)] flex justify-between md:w-[1000px] mx-auto mt-5 py-5 flex-col md:flex-row  items-center md:items-start gap-4 md:gap-0">
             <div>
               <p className="text-sm font font-[400]">
-                &copy; Copyright HRC Worldwide. All Right Reserved 2024
+                &copy; Copyright HRCC Worldwide. All Right Reserved 2024
               </p>
             </div>
             <div className="flex items-center gap-2">
