@@ -174,7 +174,7 @@ const EditMinistyPage = () => {
                             <SelectItem value="youth ministry">
                               Youth Ministry
                             </SelectItem>
-                            <SelectItem value="smark kids">
+                            <SelectItem value="Smart kids">
                               Smart Kids
                             </SelectItem>
                             <SelectItem value="one sound">One Sound</SelectItem>
