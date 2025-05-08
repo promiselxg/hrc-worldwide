@@ -158,7 +158,7 @@ const Ministry = () => {
                           <SelectItem value="youth ministry">
                             Youth Ministry
                           </SelectItem>
-                          <SelectItem value="smark kids">Smart Kids</SelectItem>
+                          <SelectItem value="smart kids">Smart Kids</SelectItem>
                           <SelectItem value="one sound">One Sound</SelectItem>
                         </SelectContent>
                       </Select>
