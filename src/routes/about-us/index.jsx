@@ -30,7 +30,7 @@ const AboutUs = () => {
           <div className="container md:w-[1200px] mx-auto  w-[90%]">
             <div>
               <h1 className="text-[--primary-bg] font-gothic font-[400] text-[50px] leading-tight">
-                About HRC Worldwide.
+                About HRCC INTERNATIONAL.
               </h1>
             </div>
           </div>
@@ -40,7 +40,7 @@ const AboutUs = () => {
         <div className="container w-[90%] md:w-[1200px] mx-auto my-10">
           <div className="flex bg-[rgba(0,0,0,0.08)] p-5 rounded-sm leading-tight flex-col gap-3">
             <p className="text-[16px] md:text-sm font-lato font-[400] text-[--text-black] leading-[1.7] md:leading-[1.25]">
-              Welcome to House of Restoration Church Worldwide (HRC), a vibrant
+              Welcome to House of Restoration Church of christ International (HRCC), a vibrant
               Christian community dedicated to spreading the love and teachings
               of Jesus Christ. Our mission is to create a warm and inclusive
               environment where people from all walks of life can come together
@@ -130,7 +130,7 @@ const AboutUs = () => {
               </p>
               <p className="text-[16px] font-lato">
                 Pastor Olayinka Adedayo Olatunji is the visionary founder and
-                president of House of Restoration Church Worldwide (HRC). He
+                Senior pastor of House of Restoration Church of Christ (HRCC). He
                 received a divine call into ministry in 2008, with a strong
                 burden to help those who were troubled, frustrated, afflicted,
                 wounded, and oppressed.
