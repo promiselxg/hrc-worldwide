@@ -176,10 +176,10 @@ const AboutUs = () => {
               />
               <div className="absolute bottom-5 left-5 bg-[rgba(0,0,0,0.5)] w-fit rounded-[5px] px-5 py-2">
                 <h1 className="text-[25px] md:text-[20px] font-gothic font-[400] leading-tight">
-                  Pastor Yinka
+                  Pastor Yinka Olatunji
                 </h1>
                 <p className="text-[16px] md:text-sm font-lato font-[400] leading-tight">
-                  Associate pastor
+                  Senior pastor
                 </p>
               </div>
             </div>
@@ -191,7 +191,7 @@ const AboutUs = () => {
               />
               <div className="absolute bottom-5 left-5 bg-[rgba(0,0,0,0.5)] w-fit rounded-[5px] px-5 py-2">
                 <h1 className="text-[25px] md:text-[20px] font-gothic font-[400] leading-tight">
-                  Pastor Yinka
+                  Pastor Nike Olatunji
                 </h1>
                 <p className="text-[16px] md:text-sm font-lato font-[400] leading-tight">
                   Associate pastor
@@ -206,10 +206,10 @@ const AboutUs = () => {
               />
               <div className="absolute bottom-5 left-5 bg-[rgba(0,0,0,0.5)] w-fit rounded-[5px] px-5 py-2">
                 <h1 className="text-[25px] md:text-[20px] font-gothic font-[400] leading-tight">
-                  Pastor Yinka
+                  Pastor Emmanuel Adeyemi
                 </h1>
                 <p className="text-[16px] md:text-sm font-lato font-[400] leading-tight">
-                  Associate pastor
+                  Residential pastor
                 </p>
               </div>
             </div>
@@ -221,7 +221,7 @@ const AboutUs = () => {
               />
               <div className="absolute bottom-5 left-5 bg-[rgba(0,0,0,0.5)] w-fit rounded-[5px] px-5 py-2">
                 <h1 className="text-[25px] md:text-[20px] font-gothic font-[400] leading-tight">
-                  Pastor Yinka
+                  Pastor Tomilola 
                 </h1>
                 <p className="text-[16px] md:text-sm font-lato font-[400] leading-tight">
                   Associate pastor
