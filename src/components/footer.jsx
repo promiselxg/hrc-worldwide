@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import { SendIcon } from "lucide-react";
-import { FiFacebook, FiYoutube, FiTiktok } from "react-icons/fi";
+import { FiFacebook, FiYoutube, } from "react-icons/fi";
 
 const Footer = () => {
   return (
@@ -79,14 +79,6 @@ const Footer = () => {
                   className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
                 >
                   <FiYoutube size={25} />
-                </a>
-              </span>
-              <span>
-                <a
-                  href="https://www.facebook.com/share/1C4NNtTSdw/"
-                  className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
-                >
-                  <FiTiktok size={25} />
                 </a>
               </span>
             </div>
