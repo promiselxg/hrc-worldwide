@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
             <div className="md:border-r-[1px] md:border-[rgba(255,255,255,.3)] flex justify-center items-center flex-col">
               <img src={Logo} alt="logo" className="w-[120px] h-[80px]" />
-              <h1 className="text-[50px] font-gothic">hrcc worldwide</h1>
+              <h1 className="text-[50px] font-gothic">hrcc international</h1>
             </div>
 
             <div className="md:border-r-[1px] md:border-[rgba(255,255,255,.3)] flex  flex-col justify-center text-center items-center">
@@ -53,13 +53,13 @@ const Footer = () => {
           <div className="md:border-t-[1px] md:border-[rgba(255,255,255,.3)] flex justify-between md:w-[1000px] mx-auto mt-5 py-5 flex-col md:flex-row  items-center md:items-start gap-4 md:gap-0">
             <div>
               <p className="text-sm font font-[400]">
-                &copy; Copyright HRCC Worldwide. All Right Reserved 2024
+                &copy; Copyright HRCC international. All Right Reserved 2024
               </p>
             </div>
             <div className="flex items-center gap-2">
               <span>
                 <a
-                  href="/"
+                  href="https://www.facebook.com/share/1C4NNtTSdw/"
                   className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
                 >
                   <FiFacebook size={25} />
@@ -67,7 +67,7 @@ const Footer = () => {
               </span>
               <span>
                 <a
-                  href="/"
+                  href=""
                   className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
                 >
                   <SendIcon size={25} />
@@ -79,6 +79,14 @@ const Footer = () => {
                   className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
                 >
                   <FiYoutube size={25} />
+                </a>
+              </span>
+              <span>
+                <a
+                  href="https://www.facebook.com/share/1C4NNtTSdw/"
+                  className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
+                >
+                  <FiTiktok size={25} />
                 </a>
               </span>
             </div>
