@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import { SendIcon } from "lucide-react";
-import { FiFacebook, FiYoutube } from "react-icons/fi";
+import { FiFacebook, FiYoutube, FiTiktok } from "react-icons/fi";
 
 const Footer = () => {
   return (
