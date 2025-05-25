@@ -23,16 +23,16 @@ const Footer = () => {
               </h1>
               <ul className="text-[#d9d9d9] flex flex-col gap-2 mt-2">
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
-                  <Link to="src/routes/resources/index.jsx">Download MP3</Link>
+                  <Link to="https://www.hrccintl.org/resources">Download MP3</Link>
                 </li>
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
-                  <Link to="src/routes/blog/index.jsx">Blog</Link>
+                  <Link to="https://www.hrccintl.org/blog">Blog</Link>
                 </li>
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
                   <Link to="mailto:contact@hrccintl.org">First timers</Link>
                 </li>
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
-                  <Link to="src/routes/rbti/index.jsx">RBTI</Link>
+                  <Link to="https://www.hrccintl.org/rbti">RBTI</Link>
                 </li>
               </ul>
             </div>
@@ -40,7 +40,7 @@ const Footer = () => {
             <div className="flex flex-col items-center ">
               <div className="w-full max-w-[70%] flex flex-col md:items-start items-center">
                 <h1 className="font-lato text-[18px] md:text-[20px] font-[600] text-left uppercase">
-                  Join our mailing list
+                  Join our mailing list to receive latest updates on recent Development
                 </h1>
                 <div className="w-full flex px-3 py-1 border border-[rgba(255,255,255,.3)] rounded-[5px] items-center my-3">
                   <input
