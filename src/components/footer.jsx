@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import { SendIcon } from "lucide-react";
 import { FiFacebook, FiYoutube, } from "react-icons/fi";
+import { FaInstagram } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa6";
+
 
 const Footer = () => {
   return (
@@ -59,7 +62,7 @@ const Footer = () => {
             <div className="flex items-center gap-2">
               <span>
                 <a
-                  href="https://www.facebook.com/share/1C4NNtTSdw/"
+                  href="https://www.facebook.com/wodrem55"
                   className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
                 >
                   <FiFacebook size={25} />
@@ -67,7 +70,7 @@ const Footer = () => {
               </span>
               <span>
                 <a
-                  href=""
+                  href="https://www.t.me/Pastoryinkaolatunji"
                   className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
                 >
                   <SendIcon size={25} />
@@ -75,10 +78,26 @@ const Footer = () => {
               </span>
               <span>
                 <a
-                  href="/"
+                  href="https://www.youtube.com/@pastoryinkaa.olatunji7637"
                   className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
                 >
                   <FiYoutube size={25} />
+                </a>
+              </span>
+               <span>
+                <a
+                  href="https://www.instagram.com/yinkaolatunjidayo"
+                  className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
+                >
+                  <FaInstagram size={25} />
+                </a>
+              </span>
+               <span>
+                <a
+                  href="https://www.tiktok.com/@pastor_yinka"
+                  className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
+                >
+                  <FaTiktok size={25} />
                 </a>
               </span>
             </div>
