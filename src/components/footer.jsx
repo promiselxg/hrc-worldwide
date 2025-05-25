@@ -23,16 +23,16 @@ const Footer = () => {
               </h1>
               <ul className="text-[#d9d9d9] flex flex-col gap-2 mt-2">
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
-                  <Link to="/">Download MP3</Link>
+                  <Link to="src/routes/resources/index.jsx">Download MP3</Link>
                 </li>
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
-                  <Link to="/">Blog</Link>
+                  <Link to="src/routes/blog/index.jsx">Blog</Link>
                 </li>
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
-                  <Link to="/">First timers</Link>
+                  <Link to="mailto:contact@hrccintl.org">First timers</Link>
                 </li>
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
-                  <Link to="/">RBTI</Link>
+                  <Link to="src/routes/rbti/index.jsx">RBTI</Link>
                 </li>
               </ul>
             </div>
