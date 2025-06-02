@@ -35,7 +35,7 @@ const ServiceBanner = () => {
                Whatsapp (msg only)- +234 803 075 8415
               </p>
               <p className="text-[16px] font-lato leading-tight">
-                Call- Pastor Emmanuel - +234 810 729 4072
+                Call- Pastor Emmanuel- +234 810 729 4072
               </p>
               <p className="text-[16px] font-lato leading-tight">
                 Call- Pastor Tomilola – +234 803 071 1527
