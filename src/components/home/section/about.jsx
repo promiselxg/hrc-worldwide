@@ -15,7 +15,7 @@ const SectionAbout = () => {
           <div className="px-[25px] md:px-[50px] flex gap-2 flex-col-reverse md:flex-row">
             <div className="w-full md:w-full  md:h-fit leading-[1.8] text-sm text-[--text-black]  flex flex-col justify-center">
               <h1 className="text-[30px] md:text-[50px] leading-[1.1] uppercase font-gothic font-[400] text-[--text-black]">
-                A SHORT EXCERPT ABOUT hrcc int'l.
+                ABOUT hrcc int'l.
               </h1>
               <div className="leading-[1.8] flex flex-col gap-2 my-4">
                 <p>Restoring destiny and building lives to divine pattern.</p>
