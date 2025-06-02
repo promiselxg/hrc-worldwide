@@ -47,14 +47,14 @@ const AboutUs = () => {
               to worship, learn, and grow.
             </p>
             <p className="text-[16px] md:text-sm font-lato font-[400] text-[--text-black] leading-[1.7] md:leading-[1.25]">
-              Founded on the principles of faith, hope, and love, HRC strives to
+              Founded on the principles of faith, hope, and love, HRCC INT'L strives to
               make a positive impact in the lives of our members and the wider
               community. Through inspiring sermons, engaging programs, and
               community outreach initiatives, we aim to inspire spiritual
               growth, foster meaningful connections, and serve those in need.
             </p>
             <p className="text-[16px] md:text-sm font-lato font-[400] text-[--text-black] leading-[1.7] md:leading-[1.25]">
-              At HRC, we believe in the transformative power of God&apos;s love
+              At HRCC, we believe in the transformative power of God&apos;s love
               and restoration. We&apos;re committed to helping people from all
               backgrounds discover their purpose, cultivate their faith, and
               live a life that honors God. Our church is a place where you can
@@ -139,7 +139,7 @@ const AboutUs = () => {
                 Ordained as a pastor in 2011, Pastor Olatunji served under
                 Apostle Blessing Salami, the founder of Kingdom Harvest Gospel
                 Ministries, for seven years. In 2016, he was commissioned to
-                pioneer House of Restoration Church Worldwide, with a vision to
+                pioneer House of Restoration Church of Christ International, with a vision to
                 &quot;Restore destinies, build lives according to divine
                 pattern.&quot;
               </p>
@@ -155,6 +155,14 @@ const AboutUs = () => {
                 knowledge of Christ. He is a teaching-prophet, motivational
                 speaker, and worshiper, with a strong passion for discipleship,
                 leadership development, and kingdom advancement.
+              </p>
+              <p className="text-[16px] font-lato">
+               He’s an Economist turned a Kingdom Minister, with a passionate commitment to discipleship and leadership development in the Body of Christ. 
+                He has spent the last two decades training, 
+                raising and mentoring youths and young Ministers. 
+                He’s a Teaching – Prophet whose Ministry brings total deliverance and restoration to those oppressed by the enemy. 
+                He’s the President of Word of Deliverance and Revival Evangelical Mission, 
+                a.k.a.WODREM INT’L (INC.) an Outreach Arm of his Ministry.
               </p>
               <p className="text-[16px] font-lato">
                 With a heart for restoring lives and empowering individuals,
