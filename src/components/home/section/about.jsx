@@ -20,7 +20,7 @@ const SectionAbout = () => {
               <div className="leading-[1.8] flex flex-col gap-2 my-4">
                 <p>Restoring destiny and building lives to divine pattern.</p>
                 <p>
-                  HRCC International (House of Restoration Church of Christ) is a dynamic ministry committed to soul winning,
+                  HRCC Int'l (House of Restoration Church of Christ) is a dynamic ministry committed to soul winning,
                   church health, discipleship, and pastoral care. The church focuses on discovering new members,
                   detoxifying the church environment,
                   and deepening people’s relationship with Christ. Through compassionate pastoral care, 
