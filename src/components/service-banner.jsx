@@ -36,7 +36,7 @@ const ServiceBanner = () => {
               </p>
               
               <p className="text-[16px] font-lato leading-tight">
-                Call- Pastor Emmanuel - +234 810 729 4072
+                Call- Pastor Adeyemi - +234 810 729 4072
               </p>
               
               <p className="text-[16px] font-lato leading-tight">
