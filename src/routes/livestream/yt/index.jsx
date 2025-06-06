@@ -5,7 +5,7 @@ const Youtube = () => {
     <div className="w-full flex justify-center h-full">
       <ReactPlayer
         controls
-        url="https://www.youtube.com/embed/zTW20UFOVbo?autoplay=1"
+        url="https://youtu.be/wxrnUgnl_90?si=hX5bnWT34flwSAih"
         width="100%"
         height="500px"
       />
