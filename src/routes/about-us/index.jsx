@@ -126,7 +126,7 @@ const AboutUs = () => {
                 Pastor Yinka Olatunji
               </h1>
               <p className="text-[14px] font-lato font-[400] uppercase">
-                Senior pastor
+                Lead pastor
               </p>
               <p className="text-[16px] font-lato">
                 Pastor Olayinka Adedayo Olatunji is the visionary founder and
@@ -187,7 +187,7 @@ const AboutUs = () => {
                   Pastor Yinka Olatunji
                 </h1>
                 <p className="text-[16px] md:text-sm font-lato font-[400] leading-tight">
-                  Senior pastor
+                  Lead pastor
                 </p>
               </div>
             </div>
@@ -217,7 +217,7 @@ const AboutUs = () => {
                   Pastor Emmanuel Adeyemi
                 </h1>
                 <p className="text-[16px] md:text-sm font-lato font-[400] leading-tight">
-                  Residential pastor
+                  Resident pastor
                 </p>
               </div>
             </div>
