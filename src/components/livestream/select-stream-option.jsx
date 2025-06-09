@@ -1,5 +1,5 @@
 import { File } from "lucide-react";
-import { FaFacebook, FaTwitch } from "react-icons/fa";
+import { FaFacebook, FaTelegram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
@@ -33,20 +33,25 @@ const SelectStreamOption = () => {
             </div>
           </Link>
         </div>
+
         <div className="p-4 bg-[white] text-black text-left rounded-md cursor-pointer transition shadow border-[rgba(0,0,0,0.1)] border-[1px]">
-          <div className="flex items-center gap-4">
-            <span>
-              <FaFacebook className="w-8 h-8 text-blue-400" />
-            </span>
-            <span className="leading-4">
-              <h1 className="text-2xl font-gothic font-[400]">
-                Facebook stream
-              </h1>
-              <p className="text-sm font-lato">Stream directly from Facebook</p>
-            </span>
-          </div>
+          <Link to="/livestream/fb">
+            <div className="flex items-center gap-4">
+              <span>
+                <FaFacebook className="w-8 h-8 text-blue-400" />
+              </span>
+              <span className="leading-4">
+                <h1 className="text-2xl font-gothic font-[400]">
+                  Facebook stream
+                </h1>
+                <p className="text-sm font-lato">
+                  Stream directly from Facebook
+                </p>
+              </span>
+            </div>
+          </Link>
         </div>
-        <div className="p-4 bg-[white] text-black text-left rounded-md cursor-pointer transition shadow border-[rgba(0,0,0,0.1)] border-[1px]">
+        {/* <div className="p-4 bg-[white] text-black text-left rounded-md cursor-pointer transition shadow border-[rgba(0,0,0,0.1)] border-[1px]">
           <div className="flex items-center gap-4">
             <span>
               <FaTwitch className="w-8 h-8 text-sky-600" />
@@ -56,19 +61,36 @@ const SelectStreamOption = () => {
               <p className="text-sm font-lato">Stream directly from Twitch.</p>
             </span>
           </div>
-        </div>
+        </div> */}
         <div className="p-4 bg-[white] text-black text-left rounded-md cursor-pointer transition shadow border-[rgba(0,0,0,0.1)] border-[1px]">
           <div className="flex items-center gap-4">
             <span>
-              <File className="w-8 h-8 text-slate-600" />
+              <FaTelegram className="w-8 h-8 text-sky-600" />
             </span>
             <span className="leading-4">
-              <h1 className="text-2xl font-gothic font-[400]">Resources</h1>
+              <h1 className="text-2xl font-gothic font-[400]">
+                Telegram stream
+              </h1>
               <p className="text-sm font-lato">
-                Browse through our media files &amp; resources.
+                Stream directly from Telegram.
               </p>
             </span>
           </div>
+        </div>
+        <div className="p-4 bg-[white] text-black text-left rounded-md cursor-pointer transition shadow border-[rgba(0,0,0,0.1)] border-[1px]">
+          <Link to="/resources">
+            <div className="flex items-center gap-4">
+              <span>
+                <File className="w-8 h-8 text-slate-600" />
+              </span>
+              <span className="leading-4">
+                <h1 className="text-2xl font-gothic font-[400]">Resources</h1>
+                <p className="text-sm font-lato">
+                  Browse through our media files &amp; resources.
+                </p>
+              </span>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

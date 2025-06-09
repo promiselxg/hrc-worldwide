@@ -18,6 +18,7 @@ import RBTICandidateResponsibility from "./rbti/add/rbti_candidate_responsibilit
 import RBTIEntryRequirement from "./rbti/add/rbti_entry_requirement";
 import RBTITraining_requirement from "./rbti/add/rbti_training_requirement";
 import Profile from "./profile";
+import AddLiveStream from "./livestream";
 
 const Setting = () => {
   const [pageView, setPageView] = useState(<Profile />);
@@ -54,6 +55,11 @@ const Setting = () => {
         setPageView(<AddResource />);
         setActive("resource");
         break;
+      case "livestream":
+        setPageView(<AddLiveStream />);
+        setActive("livestream");
+        break;
+
       case "rbti_objective":
         setPageView(<RBTIObjective />);
         setActive("rbti_objective");
@@ -194,6 +200,24 @@ const Setting = () => {
                   >
                     <Settings2 size={20} />
                     Resources
+                  </Link>
+                </li>
+                <li
+                  className={cn(
+                    `${active === "livestream" && "text-[purple]"}`
+                  )}
+                >
+                  <Link
+                    to=""
+                    onClick={() => setPage("livestream")}
+                    className={cn(
+                      `${
+                        pageView === "livestream" && "text-[purple]"
+                      } flex items-center gap-2`
+                    )}
+                  >
+                    <Settings2 size={20} />
+                    Livestream
                   </Link>
                 </li>
                 <h2 className="text-[16px] font-[600] font-lato">

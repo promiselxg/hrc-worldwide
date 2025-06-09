@@ -48,7 +48,7 @@ export const AuthContextProvider = ({ children }) => {
     try {
       localStorage.removeItem("userInfo");
       dispatch({ type: "LOGOUT" });
-      window.location = "/login";
+      window.location = "/admin/login";
     } catch (error) {
       console.log(error);
     }

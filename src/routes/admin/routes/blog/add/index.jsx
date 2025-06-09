@@ -88,6 +88,7 @@ const AddBlogPage = () => {
             variant: "destructive",
             description: "The content must be at least 50 characters long.",
           });
+          return false;
         }
         if (selectedImages.length > 0 && files) {
           photos = await uploadFilesToCloudinary(files, "hrcImages");
@@ -120,7 +121,6 @@ const AddBlogPage = () => {
         }
       }
     } catch (error) {
-      console.log(error);
       toast({
         variant: "destructive",
         description:

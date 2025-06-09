@@ -6,7 +6,6 @@ import {
   Power,
   SettingsIcon,
   Users,
-  Video,
 } from "lucide-react";
 import { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -134,25 +133,7 @@ const SideNav = () => {
                   Events
                 </Link>
               </li>
-              <li
-                className={cn(
-                  `${
-                    currentRoute.pathname === "/admin/livestream" ||
-                    currentRoute.pathname.startsWith("/admin/livestream")
-                      ? "active"
-                      : ""
-                  } my-[2px] h-10 nav`
-                )}
-              >
-                <Link
-                  to="/admin/livestream"
-                  className="flex gap-2 items-center py-2  h-8 leading-tight relative"
-                >
-                  <span className="w-[1px] h-8 rounded-r-[5px] border-r-4 border-transparent"></span>
-                  <Video size={18} />
-                  Livestream
-                </Link>
-              </li>
+
               <li
                 className={cn(
                   `${

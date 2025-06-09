@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 import host from "./host";
-import { config } from "./headerConfig";
+import { getAuthConfig } from "./headerConfig";
 
 export const handleDeleteBtn = (id, route, model) => {
   Swal.fire({
@@ -15,7 +15,7 @@ export const handleDeleteBtn = (id, route, model) => {
       try {
         const { data } = await axios.delete(
           `${host.url}/${route}/${id}/${model}`,
-          config
+          getAuthConfig()
         );
         if (data?.message !== "Record successfully deleted") {
           Swal.showValidationMessage(`${data?.message}`);

@@ -87,10 +87,7 @@ export const columns = [
       );
     },
   },
-  {
-    accessorKey: "blog_author",
-    header: "Published By",
-  },
+
   {
     id: "actions",
     cell: ({ row }) => {

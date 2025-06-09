@@ -42,6 +42,7 @@ import ResourcesPage from "./routes/admin/routes/resource";
 import EditResouce from "./routes/admin/routes/resource/edit";
 import Youtube from "./routes/livestream/yt";
 import LiveStreamLayout from "./layouts/livestream.layout";
+import Facebook from "./routes/livestream/fb";
 
 const routes = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ const routes = createBrowserRouter([
       {
         path: "/livestream/yt",
         element: <Youtube />,
+      },
+      {
+        path: "/livestream/fb",
+        element: <Facebook />,
       },
     ],
   },
@@ -222,12 +227,12 @@ const routes = createBrowserRouter([
         element: <Login />,
       },
     ],
-    errorElement: <PageNotFound />, // Error handler for admin dashboard
+    errorElement: <PageNotFound />,
   },
   {
     path: "",
     element: <Login />,
-    errorElement: <PageNotFound />, // Error handler for admin login
+    errorElement: <PageNotFound />,
   },
 ]);
 
