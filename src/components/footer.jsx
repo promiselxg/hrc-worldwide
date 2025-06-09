@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 import { SendIcon } from "lucide-react";
 import { FiFacebook, FiYoutube } from "react-icons/fi";
+import { FaInstagram } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -11,7 +13,7 @@ const Footer = () => {
           <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
             <div className="md:border-r-[1px] md:border-[rgba(255,255,255,.3)] flex justify-center items-center flex-col">
               <img src={Logo} alt="logo" className="w-[120px] h-[80px]" />
-              <h1 className="text-[50px] font-gothic">hrcc worldwide</h1>
+              <h1 className="text-[50px] font-gothic">Hrcc Int&apos;l</h1>
             </div>
 
             <div className="md:border-r-[1px] md:border-[rgba(255,255,255,.3)] flex  flex-col justify-center text-center items-center">
@@ -20,16 +22,18 @@ const Footer = () => {
               </h1>
               <ul className="text-[#d9d9d9] flex flex-col gap-2 mt-2">
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
-                  <Link to="/">Download MP3</Link>
+                  <Link to="https://www.hrccintl.org/resources">
+                    Download MP3
+                  </Link>
                 </li>
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
-                  <Link to="/">Blog</Link>
+                  <Link to="https://www.hrccintl.org/blog">Blog</Link>
                 </li>
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
-                  <Link to="/">First timers</Link>
+                  <Link to="mailto:contact@hrccintl.org">First timers</Link>
                 </li>
                 <li className="hover:text-[#FFE5E5] hover:underline transition-all duration-100 delay-300">
-                  <Link to="/">RBTI</Link>
+                  <Link to="https://www.hrccintl.org/rbti">RBTI</Link>
                 </li>
               </ul>
             </div>
@@ -53,13 +57,13 @@ const Footer = () => {
           <div className="md:border-t-[1px] md:border-[rgba(255,255,255,.3)] flex justify-between md:w-[1000px] mx-auto mt-5 py-5 flex-col md:flex-row  items-center md:items-start gap-4 md:gap-0">
             <div>
               <p className="text-sm font font-[400]">
-                &copy; Copyright HRCC Worldwide. All Right Reserved 2024
+                &copy; Copyright HRCC INTERNATIONAL. All Right Reserved 2024
               </p>
             </div>
             <div className="flex items-center gap-2">
               <span>
                 <a
-                  href="/"
+                  href="https://www.facebook.com/wodrem55"
                   className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
                 >
                   <FiFacebook size={25} />
@@ -67,7 +71,7 @@ const Footer = () => {
               </span>
               <span>
                 <a
-                  href="/"
+                  href="https://www.t.me/Pastoryinkaolatunji"
                   className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
                 >
                   <SendIcon size={25} />
@@ -75,10 +79,26 @@ const Footer = () => {
               </span>
               <span>
                 <a
-                  href="/"
+                  href="https://www.youtube.com/@pastoryinkaa.olatunji7637"
                   className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
                 >
                   <FiYoutube size={25} />
+                </a>
+              </span>
+              <span>
+                <a
+                  href="https://www.instagram.com/yinkaolatunjidayo"
+                  className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
+                >
+                  <FaInstagram size={25} />
+                </a>
+              </span>
+              <span>
+                <a
+                  href="https://www.tiktok.com/@pastor_yinka"
+                  className="hover:text-[#FFE5E5] transition-all delay-300 duration-300"
+                >
+                  <FaTiktok size={25} />
                 </a>
               </span>
             </div>

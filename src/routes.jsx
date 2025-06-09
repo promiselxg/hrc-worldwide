@@ -10,7 +10,6 @@ import BlogDetails from "./routes/blog/details";
 import Ministries from "./routes/ministries";
 import MinistryDetails from "./routes/ministries/details";
 import Give from "./routes/give";
-import Livestream from "./routes/livestream";
 import RBTI_Layout from "./layouts/rbti.layout";
 import RBTI_Home from "./routes/rbti";
 import PageNotFound from "./routes/404";

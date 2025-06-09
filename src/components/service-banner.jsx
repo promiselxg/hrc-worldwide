@@ -10,32 +10,40 @@ const ServiceBanner = () => {
               </h1>
               <span className="flex items-center gap-4 leading-tight">
                 <h1 className="text-[16px] font-lato">1st Service :</h1>
-                <p className="text-[16px] font-lato">9am</p>
+                <p className="text-[16px] font-lato">7am</p>
               </span>
               <span className="flex items-center gap-4 leading-tight">
                 <h1 className="text-[16px] font-lato">2nd Service :</h1>
-                <p className="text-[16px] font-lato">11am</p>
+                <p className="text-[16px] font-lato">9am</p>
               </span>
               <span className="flex items-center gap-4 leading-tight">
                 <h1 className="text-[16px] font-lato">Midweek Service :</h1>
-                <p className="text-[16px] font-lato">5pm</p>
+                <p className="text-[16px] font-lato">6pm</p>
               </span>
             </div>
             <div className="py-2 md:p-10 flex flex-col items-center">
               <h1 className="text-[30px] font-gothic font-[400] leading-tight">
                 Our service Location
               </h1>
-              <p>Ilorin Address will be entered here</p>
+              <p>
+                {" "}
+                4, Ejiba Street Off stadium Road Ilorin Kwara State, Nigeria.
+              </p>
             </div>
             <div className="py-5 md:p-10 flex flex-col items-center">
               <h1 className="text-[30px] font-gothic font-[400] leading-tight">
                 Contact Us
               </h1>
               <p className="text-[16px] font-lato leading-tight">
-                +23480 000 000 00
+                Whatsapp (msg only)- +234 803 075 8415
               </p>
+
               <p className="text-[16px] font-lato leading-tight">
-                +23480 000 000 00
+                Call- Pastor Adeyemi - +234 810 729 4072
+              </p>
+
+              <p className="text-[16px] font-lato leading-tight">
+                Call- Pastor Tomilola – +234 803 071 1527
               </p>
             </div>
           </div>

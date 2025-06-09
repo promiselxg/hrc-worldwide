@@ -15,28 +15,30 @@ const SectionAbout = () => {
           <div className="px-[25px] md:px-[50px] flex gap-2 flex-col-reverse md:flex-row">
             <div className="w-full md:w-full  md:h-fit leading-[1.8] text-sm text-[--text-black]  flex flex-col justify-center">
               <h1 className="text-[30px] md:text-[50px] leading-[1.1] uppercase font-gothic font-[400] text-[--text-black]">
-                A SHORT EXCERPT ABOUT hrc worldwide.
+                ABOUT hrcc int&apos;l.
               </h1>
               <div className="leading-[1.8] flex flex-col gap-2 my-4">
-                <p>Empowering Lives, Restoring Hope</p>
+                <p>Restoring destiny and building lives to divine pattern.</p>
                 <p>
-                  House of Restoration Church Worldwide (HRC) is a vibrant
-                  Christian community dedicated to spreading the love and
-                  teachings of Jesus Christ. With a passion for restoring lives
-                  and empowering individuals, we strive to create a warm and
-                  inclusive environment where people from all walks of life can
-                  come together to worship, learn, and grow.
+                  HRCC Int&apos;l (House of Restoration Church of Christ) is a
+                  dynamic ministry committed to soul winning, church health,
+                  discipleship, and pastoral care. The church focuses on
+                  discovering new members, detoxifying the church environment,
+                  and deepening people&apos;s relationship with Christ. Through
+                  compassionate pastoral care, HRCC ensures the consistent
+                  distribution of God&apos;s love to individuals and families.
                 </p>
                 <p>
-                  Through inspiring sermons, engaging programs, and community
-                  outreach initiatives, we aim to inspire spiritual growth,
-                  foster meaningful connections, and serve those in need. Our
-                  mission is to help people from all backgrounds discover their
-                  purpose, cultivate their faith, and live a life that honors
-                  God.
+                  With a strong emphasis on stewardship, the ministry is
+                  dedicated to developing effective leaders, ministers, and
+                  workers. HRCC also encourages financial inflow by drawing
+                  resources for and from the people, creating a self-sustaining
+                  structure. Committed to growth, the church continues to expand
+                  by duplicating its impact in new locations while remaining
+                  grounded in sound doctrine and community transformation.
                 </p>
                 <p>
-                  At HRC, we believe in the transformative power of God&apos;s
+                  At HRCC, we believe in the transformative power of God&apos;s
                   love and restoration. Our church is a place where you can find
                   comfort, guidance, and support as you navigate life&apos;s
                   challenges. We invite you to join us on this journey of faith,
