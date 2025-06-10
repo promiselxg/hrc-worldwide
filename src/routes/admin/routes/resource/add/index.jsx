@@ -286,9 +286,7 @@ const AddResource = () => {
                         {selectedValue === "audio" &&
                           (!uploadedAudio || uploadedAudio === "") && (
                             <CloudinaryUploadWidget
-                              cloudName={`${
-                                import.meta.env.VITE_CLOUDINARY_NAME
-                              }`}
+                              cloudName="promiselxg"
                               uploadPreset="hrcAudio"
                               onUploadSuccess={handleUploadSuccess}
                               buttonLabel="Upload Audio"
