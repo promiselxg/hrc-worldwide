@@ -8,7 +8,7 @@ const CloudinaryUploadWidget = ({
   uploadPreset,
   resourceType = "video",
   allowedFormats = ["mp3", "wav", "ogg"],
-  maxFileSize = 10 * 1024 * 1024,
+  maxFileSize = 90 * 1024 * 1024,
   multiple = false,
   onUploadSuccess = () => {},
   buttonLabel = "Upload Audio",
