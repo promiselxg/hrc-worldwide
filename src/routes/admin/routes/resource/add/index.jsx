@@ -260,7 +260,7 @@ const AddResource = () => {
                               </FormLabel>
                               <FormControl>
                                 <Input
-                                  placeholder="Enter video description"
+                                  placeholder="Enter youtube video URL"
                                   value={videoUrl}
                                   onChange={(e) => setVideUrl(e.target.value)}
                                 />

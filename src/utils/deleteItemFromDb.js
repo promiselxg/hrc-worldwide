@@ -4,6 +4,7 @@ import host from "./host";
 import { getAuthConfig } from "./headerConfig";
 
 export const handleDeleteBtn = (id, route, model) => {
+  console.log(`${host.url}/${route}/${id}/${model}`);
   Swal.fire({
     title: "Please confirm action.",
     text: "Do you want to delete this item?",

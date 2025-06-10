@@ -50,10 +50,10 @@ const Events = () => {
               <h1 className="text-[--primary-bg] font-gothic font-[400] text-[50px] leading-tight">
                 Upcoming Events.
               </h1>
-              <p className="text-[--primary-bg] font-[400] font-lato text-sm">
+              {/* <p className="text-[--primary-bg] font-[400] font-lato text-sm">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id,
                 quas?
-              </p>
+              </p> */}
             </div>
           </div>
         </BgWrapper>
@@ -67,11 +67,11 @@ const Events = () => {
               </div>
             ) : (
               <>
-                <div className="w-full h-[400px] md:min-h-[500px] md:h-[500px] overflow-hidden relative">
+                <div className="w-full h-full relative">
                   <img
                     src={data[0]?.event_image_url}
                     alt={data[0]?.event_title}
-                    className="w-full object-cover md:h-[500px] h-[400px]"
+                    className="w-full object-cover"
                   />
                   <div className="absolute bottom-5 md:bottom-10 left-5 bg-[rgba(0,0,0,0.8)] w-[90%] md:w-fit md:max-w-[400px] p-5 rounded-[5px]">
                     <h1 className="text-[20px] md:text-[30px] font-gothic font-[400] leading-tight">

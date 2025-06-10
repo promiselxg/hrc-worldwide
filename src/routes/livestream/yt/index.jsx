@@ -24,7 +24,7 @@ const Youtube = () => {
   }, []);
 
   return (
-    <div className="w-full h-[60vh] flex justify-center items-center bg-gray-100">
+    <div className="w-full flex justify-center items-center bg-gray-100">
       {loading ? (
         <p className="text-gray-600 text-lg font-medium">Loading stream...</p>
       ) : data?.url ? (
@@ -32,8 +32,8 @@ const Youtube = () => {
           controls
           url={data.url}
           width="100%"
-          height="100%"
-          className="max-w-[960px] aspect-video"
+          height="500px"
+          className="aspect-video"
         />
       ) : (
         <div className="text-center">

@@ -14,6 +14,7 @@ import ServiceBanner from "@/components/service-banner";
 import MinistryCard from "../ministries/ministry-card";
 import SEO from "@/lib/seo";
 import useFetch from "@/hooks/useFetch";
+
 const AboutUs = () => {
   const { loading, data } = useFetch("/ministry");
 
@@ -40,17 +41,17 @@ const AboutUs = () => {
         <div className="container w-[90%] md:w-[1200px] mx-auto my-10">
           <div className="flex bg-[rgba(0,0,0,0.08)] p-5 rounded-sm leading-tight flex-col gap-3">
             <p className="text-[16px] md:text-sm font-lato font-[400] text-[--text-black] leading-[1.7] md:leading-[1.25]">
-              Welcome to House of Restoration Church of christ International (HRCC), a vibrant
-              Christian community dedicated to spreading the love and teachings
-              of Jesus Christ. Our mission is to create a warm and inclusive
-              environment where people from all walks of life can come together
-              to worship, learn, and grow.
+              Welcome to House of Restoration Church of christ International
+              (HRCC), a vibrant Christian community dedicated to spreading the
+              love and teachings of Jesus Christ. Our mission is to create a
+              warm and inclusive environment where people from all walks of life
+              can come together to worship, learn, and grow.
             </p>
             <p className="text-[16px] md:text-sm font-lato font-[400] text-[--text-black] leading-[1.7] md:leading-[1.25]">
-              Founded on the principles of faith, hope, and love, HRCC INT'L strives to
-              make a positive impact in the lives of our members and the wider
-              community. Through inspiring sermons, engaging programs, and
-              community outreach initiatives, we aim to inspire spiritual
+              Founded on the principles of faith, hope, and love, HRCC INT'L
+              strives to make a positive impact in the lives of our members and
+              the wider community. Through inspiring sermons, engaging programs,
+              and community outreach initiatives, we aim to inspire spiritual
               growth, foster meaningful connections, and serve those in need.
             </p>
             <p className="text-[16px] md:text-sm font-lato font-[400] text-[--text-black] leading-[1.7] md:leading-[1.25]">
@@ -130,8 +131,8 @@ const AboutUs = () => {
               </p>
               <p className="text-[16px] font-lato">
                 Pastor Olayinka Adedayo Olatunji is the visionary founder and
-                Senior pastor of House of Restoration Church of Christ (HRCC). He
-                received a divine call into ministry in 2008, with a strong
+                Senior pastor of House of Restoration Church of Christ (HRCC).
+                He received a divine call into ministry in 2008, with a strong
                 burden to help those who were troubled, frustrated, afflicted,
                 wounded, and oppressed.
               </p>
@@ -139,9 +140,9 @@ const AboutUs = () => {
                 Ordained as a pastor in 2011, Pastor Olatunji served under
                 Apostle Blessing Salami, the founder of Kingdom Harvest Gospel
                 Ministries, for seven years. In 2016, he was commissioned to
-                pioneer House of Restoration Church of Christ International, with a vision to
-                &quot;Restore destinies, build lives according to divine
-                pattern.&quot;
+                pioneer House of Restoration Church of Christ International,
+                with a vision to &quot;Restore destinies, build lives according
+                to divine pattern.&quot;
               </p>
               <p>
                 As a prolific author, Pastor Olatunji has written over 10 books,
@@ -157,11 +158,13 @@ const AboutUs = () => {
                 leadership development, and kingdom advancement.
               </p>
               <p className="text-[16px] font-lato">
-               He’s an Economist turned a Kingdom Minister, with a passionate commitment to discipleship and leadership development in the Body of Christ. 
-                He has spent the last two decades training, 
-                raising and mentoring youths and young Ministers. 
-                He’s a Teaching – Prophet whose Ministry brings total deliverance and restoration to those oppressed by the enemy. 
-                He’s the President of Word of Deliverance and Revival Evangelical Mission, 
+                He’s an Economist turned a Kingdom Minister, with a passionate
+                commitment to discipleship and leadership development in the
+                Body of Christ. He has spent the last two decades training,
+                raising and mentoring youths and young Ministers. He’s a
+                Teaching – Prophet whose Ministry brings total deliverance and
+                restoration to those oppressed by the enemy. He’s the President
+                of Word of Deliverance and Revival Evangelical Mission,
                 a.k.a.WODREM INT’L (INC.) an Outreach Arm of his Ministry.
               </p>
               <p className="text-[16px] font-lato">
@@ -229,7 +232,7 @@ const AboutUs = () => {
               />
               <div className="absolute bottom-5 left-5 bg-[rgba(0,0,0,0.5)] w-fit rounded-[5px] px-5 py-2">
                 <h1 className="text-[25px] md:text-[20px] font-gothic font-[400] leading-tight">
-                  Pastor Tomilola 
+                  Pastor Tomilola
                 </h1>
                 <p className="text-[16px] md:text-sm font-lato font-[400] leading-tight">
                   Associate pastor

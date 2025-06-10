@@ -23,16 +23,15 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CloudUpload, Loader2, X } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-import { uploadFilesToCloudinary } from "@/utils/uploadFilesToCloudinary";
 import axios from "axios";
 import host from "@/utils/host";
 import { getAuthConfig } from "@/utils/headerConfig";
 import { Input } from "@/components/ui/input";
+import { LivestreamTable } from "./table";
 
 const formSchema = z.object({
   platform: z.string({
@@ -75,7 +74,7 @@ const AddLiveStream = () => {
       try {
         const response = await axios.post(
           `${host.url}/livestream`,
-          ...values,
+          values,
           getAuthConfig()
         );
 
@@ -89,6 +88,7 @@ const AddLiveStream = () => {
           }, 3000);
         }
       } catch (error) {
+        console.log(error);
         toast({
           variant: "destructive",
           description:
@@ -104,10 +104,10 @@ const AddLiveStream = () => {
     <>
       <div className="h-fit w-full flex flex-col">
         <div className="w-full my-5 bg-[whitesmoke] px-5 flex flex-col">
-          <div className="p-5">
-            <h1 className={cn(`font-bold`)}>Add Livestream URL</h1>
-          </div>
           <div className="p-5 bg-white container w-full">
+            <h1 className={cn(`font-bold`)}>Existing Livestream URL</h1>
+            <LivestreamTable />
+            <h1 className={cn(`font-bold`)}>Add Livestream URL</h1>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
