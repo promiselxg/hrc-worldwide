@@ -10,7 +10,7 @@ export const uploadFilesToCloudinary = async (files, preset) => {
       formData.append("timestamp", Math.round(new Date().getTime() / 1000));
 
       const { data } = await axios.post(
-        `https://api.cloudinary.com/v1_1/promiselxg/image/upload`,
+        `https://api.cloudinary.com/v1_1/hrcc2026/image/upload`,
         formData
       );
 

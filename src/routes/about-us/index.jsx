@@ -243,6 +243,15 @@ const AboutUs = () => {
         </div>
       </div>
       <ServiceBanner />
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3946.218333925298!2d4.5462108!3d8.478138999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103652be6dda2089%3A0x8b39497ff82b5822!2s4%20Ejiba%20St%2C%20Ilorin%20240101%2C%20Kwara!5e0!3m2!1sen!2sng!4v1749816018948!5m2!1sen!2sng"
+        width="100%"
+        height="550"
+        style={{ border: 0 }}
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      />
     </>
   );
 };
