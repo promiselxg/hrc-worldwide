@@ -21,7 +21,6 @@ const Blog = () => {
         title="House of Restoration Church of Christ | Our Blog"
         description="About House of Restoration Church of Christ"
         name="House of Restoration Church of Christ"
-        type="error page"
       />
       <div className="flex w-full flex-col">
         <BgWrapper>

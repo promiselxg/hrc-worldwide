@@ -15,10 +15,6 @@ const BlogSection = () => {
             <h1 className="text-[40px] font-gothic font-[400] text-[--text-black]">
               Our Blog
             </h1>
-            <p className="text-sm font-lato font-[400] text-[--text-black]">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Pariatur, reiciendis!
-            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 p-5 gap-5">
             {data?.map((post) => (

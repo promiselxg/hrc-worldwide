@@ -1,9 +1,6 @@
 import BgWrapper from "@/components/bg-wrapper";
 import { BreadCrumb } from "@/components/breadcrumb";
-import { FiCalendar, FiMail, FiUser } from "react-icons/fi";
-import { FaXTwitter } from "react-icons/fa6";
-
-import { FaWhatsapp, FaFacebook, FaLinkedin } from "react-icons/fa";
+import { FiCalendar, FiUser } from "react-icons/fi";
 import { Badge } from "@/components/ui/badge";
 import SEO from "@/lib/seo";
 import { useParams } from "react-router-dom";
@@ -12,6 +9,7 @@ import axios from "axios";
 import host from "@/utils/host";
 import { formatDateWithoutTime } from "@/utils/getDateDifference";
 import { Skeleton } from "@/components/ui/skeleton";
+import ShareButtons from "@/components/share/share";
 
 const BlogDetails = () => {
   const params = useParams();
@@ -47,7 +45,7 @@ const BlogDetails = () => {
         <BgWrapper>
           <div className="container md:w-[1200px] mx-auto w-[90%]">
             <div>
-              <BreadCrumb label="blog title" />
+              <BreadCrumb label={blogData?.data?.blog_title} />
               <h1 className="text-[--primary-bg] font-gothic font-[400] text-[50px] leading-tight mt-1">
                 {blogData?.data?.blog_title}
               </h1>
@@ -63,9 +61,9 @@ const BlogDetails = () => {
             </div>
           ) : (
             <div className="container md:w-[1200px] mx-auto w-[90%]">
-              <h1 className="text-[--primary-bg] font-gothic font-[400] text-[50px] leading-tight my-2">
+              {/* <h1 className="text-[--primary-bg] font-gothic font-[400] text-[50px] leading-tight my-2">
                 {blogData?.data?.blog_title}
-              </h1>
+              </h1> */}
               <div className="w-full h-[400px] md:min-h-[500px] md:h-[500px] overflow-hidden relative">
                 <img
                   src={blogData?.data?.image_url}
@@ -96,22 +94,12 @@ const BlogDetails = () => {
                     </Badge>
                   </div>
                 </div>
-                <div className="flex text-[--text-black] gap-2 mt-2 md:mt-0">
-                  <a href="#">
-                    <FaFacebook className="text-[#3b5998]" size={16} />
-                  </a>
-                  <a href="#">
-                    <FaXTwitter className="text-[#1DA1F2]" size={16} />
-                  </a>
-                  <a href="#">
-                    <FaLinkedin className="text-[#0077B5]" size={16} />
-                  </a>
-                  <a href="#">
-                    <FaWhatsapp className="text-[#25D366]" size={16} />
-                  </a>
-                  <a href="#">
-                    <FiMail className="text-[--primary-bg]" size={16} />
-                  </a>
+                <div className="flex text-[--text-black] gap-2 mt-2 md:mt-0 items-center">
+                  <span className="text-sm text-slate-700">Share on : </span>
+                  <ShareButtons
+                    blogTitle={blogData?.data?.blog_title}
+                    blogUrl={`${host.host_url}/blog/${params.id}`}
+                  />
                 </div>
               </div>
 
@@ -124,21 +112,10 @@ const BlogDetails = () => {
                 ></p>
               </div>
               <div className="w-full flex text-[--text-black] gap-2 mt-3">
-                <a href="#">
-                  <FaFacebook className="text-[#3b5998]" size={16} />
-                </a>
-                <a href="#">
-                  <FaXTwitter className="text-[#1DA1F2]" size={16} />
-                </a>
-                <a href="#">
-                  <FaLinkedin className="text-[#0077B5]" size={16} />
-                </a>
-                <a href="#">
-                  <FaWhatsapp className="text-[#25D366]" size={16} />
-                </a>
-                <a href="#">
-                  <FiMail className="text-[--primary-bg]" size={16} />
-                </a>
+                <ShareButtons
+                  blogTitle={blogData?.data?.blog_title}
+                  blogUrl={`${host.host_url}/blog/${params.id}`}
+                />
               </div>
             </div>
           )}
