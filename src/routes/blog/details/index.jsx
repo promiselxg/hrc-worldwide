@@ -73,25 +73,20 @@ const BlogDetails = () => {
               </div>
               <div className="w-full flex md:items-center text-[--text-black] gap-3 mt-5 md:justify-between flex-col md:flex-row ">
                 <div className="flex md:items-center gap-4 flex-col md:flex-row ">
-                  <div className="flex items-center gap-2">
-                    <FiUser size={20} />
-                    <span className="text-[16px] font-lato ">
-                      {blogData?.data?.blog_author}
-                    </span>
-                  </div>
+                  {blogData?.data?.blog_author && (
+                    <div className="flex items-center gap-2">
+                      <FiUser size={20} />
+                      <span className="text-[16px] font-lato ">
+                        {blogData?.data?.blog_author}
+                      </span>
+                    </div>
+                  )}
+
                   <div className="flex items-center gap-2">
                     <FiCalendar size={20} />
                     <span className="text-[16px] font-lato ">
                       {formatDateWithoutTime(blogData?.data?.createdAt)}
                     </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge
-                      variant="outline"
-                      className="rounded-full text-[16px] md:text-[12px] font-[400] font-lato"
-                    >
-                      Blog category
-                    </Badge>
                   </div>
                 </div>
                 <div className="flex text-[--text-black] gap-2 mt-2 md:mt-0 items-center">
