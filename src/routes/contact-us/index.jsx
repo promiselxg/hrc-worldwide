@@ -79,7 +79,7 @@ const ContactUs = () => {
                       <FiFacebook size={30} />
                     </a>
                     <a
-                      hhref="https://www.t.me/Pastoryinkaolatunji"
+                      href="https://www.t.me/Pastoryinkaolatunji"
                       className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
                     >
                       <FiSend size={30} className=" rotate-75" />
