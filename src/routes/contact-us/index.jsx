@@ -73,22 +73,22 @@ const ContactUs = () => {
                   </div>
                   <div className="flex gap-3 items-center">
                     <a
-                      href=""
+                      href="https://www.facebook.com/wodrem55
                       className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
                     >
                       <FiFacebook size={30} />
                     </a>
                     <a
-                      href="https://www.facebook.com/wodrem55"
+                      hhref="https://www.t.me/Pastoryinkaolatunji"
                       className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
                     >
-                      <FiSend size={30} className=" rotate-45" />
+                      <FiSend size={30} className=" rotate-75" />
                     </a>
                     <a
                       href="https://www.instagram.com/yinkaolatunjidayo"
                       className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
                     >
-                      <FaInstagram size={30} className=" />
+                      <FaInstagram size={30} />
                     </a>
                     <a
                       href="https://www.youtube.com/@pastoryinkaa.olatunji7637"
