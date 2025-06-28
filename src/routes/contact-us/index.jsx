@@ -8,8 +8,8 @@ import {
   FiPhoneCall,
   FiSend,
   FiYoutube,
+  FiInstagram
 } from "react-icons/fi";
-import { FaInstagram } from "react-icons/fa";
 
 const ContactUs = () => {
   return (
@@ -82,15 +82,13 @@ const ContactUs = () => {
                       hhref="https://www.t.me/Pastoryinkaolatunji"
                       className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
                     >
-                      <div className="h-full">
-                        <FiSend size={30} className=" rotate-75" />
-                      </div>
+                      <FiSend size={30} className=" rotate-75" />
                     </a>
                     <a
                       href="https://www.instagram.com/yinkaolatunjidayo"
                       className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
                     >
-                      <FaInstagram size={30} />
+                      <FiInstagram size={30} />
                     </a>
                     <a
                       href="https://www.youtube.com/@pastoryinkaa.olatunji7637"
