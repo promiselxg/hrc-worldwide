@@ -88,7 +88,7 @@ const ContactUs = () => {
                       href="https://www.instagram.com/yinkaolatunjidayo"
                       className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
                     >
-                      <FaInstagram size={25} className="  />
+                      <FaInstagram size={25} className=" />
                     </a>
                     <a
                       href="https://www.youtube.com/@pastoryinkaa.olatunji7637"
