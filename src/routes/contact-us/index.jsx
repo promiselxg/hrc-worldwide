@@ -82,7 +82,9 @@ const ContactUs = () => {
                       hhref="https://www.t.me/Pastoryinkaolatunji"
                       className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
                     >
-                      <FiSend size={30} className=" rotate-75" />
+                      <div className="h-full">
+                        <FiSend size={30} className=" rotate-75" />
+                      </div>
                     </a>
                     <a
                       href="https://www.instagram.com/yinkaolatunjidayo"
