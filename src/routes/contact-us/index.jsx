@@ -73,7 +73,7 @@ const ContactUs = () => {
                   </div>
                   <div className="flex gap-3 items-center">
                     <a
-                      href="https://www.facebook.com/wodrem55
+                      href="https://www.facebook.com/wodrem55"
                       className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
                     >
                       <FiFacebook size={30} />
