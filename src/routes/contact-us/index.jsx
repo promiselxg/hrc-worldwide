@@ -9,6 +9,7 @@ import {
   FiSend,
   FiYoutube,
 } from "react-icons/fi";
+import { FaInstagram } from "react-icons/fa";
 
 const ContactUs = () => {
   return (
@@ -43,10 +44,10 @@ const ContactUs = () => {
                     </div>
                     <div className="flex flex-col  leading-tight">
                       <span className="text-[16px] font-lato font-[400]">
-                        +23480 000 000
+                        Whatsapp (msg only)- +234 803 075 8415
                       </span>
                       <span className="text-[16px] font-lato font-[400]">
-                        +23480 000 000
+                       Call- Pastor Adeyemi - +234 810 729 4072
                       </span>
                     </div>
                   </div>
@@ -56,7 +57,7 @@ const ContactUs = () => {
                     </div>
                     <div className="flex flex-col  leading-tight">
                       <span className="text-[16px] font-lato font-[400]">
-                        email@company.com
+                        contact@hrccintl.org
                       </span>
                     </div>
                   </div>
@@ -66,7 +67,7 @@ const ContactUs = () => {
                     </div>
                     <div className="flex flex-col  leading-tight">
                       <span className="text-[16px] font-lato font-[400]">
-                        Ilorin church address will appear here.
+                        4, Ejiba Street Off stadium Road Ilorin Kwara State, Nigeria.
                       </span>
                     </div>
                   </div>
@@ -78,13 +79,19 @@ const ContactUs = () => {
                       <FiFacebook size={30} />
                     </a>
                     <a
-                      href=""
+                      href="https://www.facebook.com/wodrem55"
                       className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
                     >
                       <FiSend size={30} className=" rotate-45" />
                     </a>
                     <a
-                      href=""
+                      href="https://www.instagram.com/yinkaolatunjidayo"
+                      className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
+                    >
+                      <FaInstagram size={25} className=" rotate-45" />
+                    </a>
+                    <a
+                      href="https://www.youtube.com/@pastoryinkaa.olatunji7637"
                       className="bg-[rgba(255,255,255,0.1)] p-2 flex items-center w-fit rounded-full"
                     >
                       <FiYoutube size={30} />
