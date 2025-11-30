@@ -32,47 +32,51 @@ const Livestream = () => {
                       Join us Live
                     </h1>
                     <div className="w-full flex">
-                      <div className="flex gap-4 items-center flex-col md:flex-row justify-center w-full md:w-fit">
-                        <a href="" className="group showHiddenText">
-                          <div className="w-fit bg-white rounded-[40px]  px-8 py-2 h-[76px]">
-                            <img
-                              src={Fb}
-                              alt="facebook"
-                              className="w-[100px] h-[61px]"
-                            />
-                          </div>
-                          <div className=" mt-2 relative w-[100px] hidden md:flex">
-                            <span className="font-lato font-[400] absolute top-0 left-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                              Facebook
-                            </span>
-                          </div> 
-                          <a href="https://t.me/Pastoryinkaolatunji" target="_blank" rel="noopener noreferrer" className="group">
-                          <div className="w-fit bg-white rounded-[40px]  px-8 py-2">
-                            <img
-                              src={Tg}
-                              alt="Telegram"
-                              className="w-[58px] h-[61px]"
-                            />
-                          </div>
-                          <div className=" mt-2 relative w-[60px] hidden md:flex">
-                            <span className="font-lato font-[400] absolute top-0 left-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                             Telegram 
-                            </span>
-                          </div>
-                        </a>
-                          <div className="w-fit bg-white rounded-[40px]  px-8 py-2">
-                            <img
-                              src={Yt}
-                              alt="Youtube"
-                              className="w-[61px] h-[61px]"
-                            />
-                          </div>
-                          <div className=" mt-2 relative w-[60px] hidden md:flex">
-                            <span className="font-lato font-[400] absolute top-0 left-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                              Youtube
-                            </span>
-                          </div>
-                        </a>
+                      <div className="flex gap-4 items-center flex-col md:flex-row justify-center w-full md:w-fit"
+
+  {/* FACEBOOK */}
+  <a href="" className="group showHiddenText">
+    <div className="w-fit bg-white rounded-[40px] px-8 py-2 h-[76px]">
+      <img src={Fb} alt="facebook" className="w-[100px] h-[61px]" />
+    </div>
+    <div className="mt-2 relative w-[100px] hidden md:flex">
+      <span className="font-lato font-[400] absolute top-0 left-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        Facebook
+      </span>
+    </div>
+  </a>
+
+  {/* TELEGRAM */}
+  <a
+    href="https://t.me/Pastoryinkaolatunji"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group"
+  >
+    <div className="w-fit bg-white rounded-[40px] px-8 py-2">
+      <img src={Tg} alt="Telegram" className="w-[58px] h-[61px]" />
+    </div>
+    <div className="mt-2 relative w-[60px] hidden md:flex">
+      <span className="font-lato font-[400] absolute top-0 left-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        Telegram
+      </span>
+    </div>
+  </a>
+
+  {/* YOUTUBE */}
+  <a href="" className="group">
+    <div className="w-fit bg-white rounded-[40px] px-8 py-2">
+      <img src={Yt} alt="Youtube" className="w-[61px] h-[61px]" />
+    </div>
+    <div className="mt-2 relative w-[60px] hidden md:flex">
+      <span className="font-lato font-[400] absolute top-0 left-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        Youtube
+      </span>
+    </div>
+  </a>
+
+</div>
+
                       </div>
                     </div>
                   </div>
