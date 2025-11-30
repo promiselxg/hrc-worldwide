@@ -15,7 +15,7 @@ const Livestream = () => {
         type="livestream"
       />
       <div className="w-full flex flex-col">
-        <div className="relative" style={{ backgroundImage: `${Bg}` }}>
+        <div className="relative" style={{ backgroundImage: `url(${Bg})` }}>
           <div className="w-full flex h-screen">
             <video autoPlay muted loop className="w-full h-full object-cover">
               <source src={BgVid} type="video/mp4" />
