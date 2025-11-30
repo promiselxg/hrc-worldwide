@@ -46,7 +46,7 @@ const Livestream = () => {
                               Facebook
                             </span>
                           </div> 
-                          <a href="https://www.t.me/Pastoryinkaolatunji" target="_blank" rel="noopener noreferrer" className="group">
+                          <a href="https://t.me/Pastoryinkaolatunji" target="_blank" rel="noopener noreferrer" className="group">
                           <div className="w-fit bg-white rounded-[40px]  px-8 py-2">
                             <img
                               src={Tg}
