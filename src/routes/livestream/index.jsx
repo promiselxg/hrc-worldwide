@@ -47,17 +47,17 @@ const Livestream = () => {
                             </span>
                           </div>
                         </a>
-                        <a href="" className="group ">
+                         <a href="" className="group">
                           <div className="w-fit bg-white rounded-[40px]  px-8 py-2">
                             <img
-                              src={Tg}
+                              src={tg}
                               alt="Telegram"
-                              className="w-[58px] h-[61px]"
+                              className="w-[61px] h-[61px]"
                             />
                           </div>
                           <div className=" mt-2 relative w-[60px] hidden md:flex">
                             <span className="font-lato font-[400] absolute top-0 left-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                             <a href="https://www.t.me/Pastoryinkaolatunji">Telegram</a> 
+                              Youtube
                             </span>
                           </div>
                         </a>
