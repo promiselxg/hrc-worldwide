@@ -32,19 +32,19 @@ const Livestream = () => {
                       Join us Live
                     </h1>
                     <div className="w-full flex">
-                      <div className="flex gap-4 items-center flex-col md:flex-row justify-center w-full md:w-fit"
+                      <div className="flex gap-4 items-center flex-col md:flex-row justify-center w-full md:w-fit">
 
-  {/* FACEBOOK */}
-  <a href="" className="group showHiddenText">
-    <div className="w-fit bg-white rounded-[40px] px-8 py-2 h-[76px]">
-      <img src={Fb} alt="facebook" className="w-[100px] h-[61px]" />
-    </div>
-    <div className="mt-2 relative w-[100px] hidden md:flex">
-      <span className="font-lato font-[400] absolute top-0 left-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        Facebook
-      </span>
-    </div>
-  </a>
+                           {/* FACEBOOK */}
+                           <a href="" className="group showHiddenText">
+                                  <div className="w-fit bg-white rounded-[40px] px-8 py-2 h-[76px]">
+                                    <img src={Fb} alt="facebook" className="w-[100px] h-[61px]" />
+                                    </div>
+                             <div className="mt-2 relative w-[100px] hidden md:flex">
+                            <span className="font-lato font-[400] absolute top-0 left-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                               Facebook
+                             </span>
+                             </div>
+                          </a>
 
   {/* TELEGRAM */}
   <a
@@ -74,9 +74,6 @@ const Livestream = () => {
       </span>
     </div>
   </a>
-
-</div>
-
                       </div>
                     </div>
                   </div>
