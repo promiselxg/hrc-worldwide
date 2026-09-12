@@ -5,7 +5,7 @@ const RBTI_Home = () => {
   return (
     <>
       <SEO
-        title="Welcome to Restorer Bible training Institute."
+        title="Welcome to Restorer Bible Training Int'l Schools."
         description="Our mission is to provide deep spiritual enlightenment, as well as mental empowerment for a lifestyle of dominion and Christ-like exploits in ministry"
         name="House of Restoration Church of Christ Int'l"
         type="Church"
