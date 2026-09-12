@@ -20,7 +20,7 @@ const RBTI_Home = () => {
               </div>
               <div className="w-full md:w-3/5 md:ml-20 text-center md:text-start">
                 <h1 className="text-[45px] md:text-[70px] font-gothic font-[400] leading-[1.1]">
-                  Welcome to Restorer Bible training Institute.
+                  Welcome to Restorer Bible Training Int'l Schools.
                 </h1>
                 <p className="text-[16px] font-lato text-[whitesmoke] mb-2">
                   Ministerial call is vital in every beliver&apos; life.
