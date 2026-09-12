@@ -28,8 +28,8 @@ const ServiceBanner = () => {
                 <p className="text-[16px] font-lato">5:30pm(Every Tuesday)</p>
               </span>
               <span className="flex items-center gap-4 leading-tight">
-                <h1 className="text-[16px] font-lato">Prayer Altar of Answer :</h1>
-                <p className="text-[16px] font-lato">10am (Every Friday)</p>
+                <h1 className="text-[16px] font-lato">Prayer Altar:</h1>
+                <p className="text-[16px] font-lato">10am(Every Friday)</p>
               </span>
             </div>
             <div className="py-2 md:p-10 flex flex-col items-center">
