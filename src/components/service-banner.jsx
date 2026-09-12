@@ -9,16 +9,27 @@ const ServiceBanner = () => {
                 Our service time
               </h1>
               <span className="flex items-center gap-4 leading-tight">
-                <h1 className="text-[16px] font-lato">1st Service :</h1>
+                <h1 className="text-[16px] font-lato">Destiny School</h1>
                 <p className="text-[16px] font-lato">7am</p>
               </span>
               <span className="flex items-center gap-4 leading-tight">
-                <h1 className="text-[16px] font-lato">2nd Service :</h1>
-                <p className="text-[16px] font-lato">9am</p>
+                <h1 className="text-[16px] font-lato">1st Service :</h1>
+                <p className="text-[16px] font-lato">8am</p>
               </span>
               <span className="flex items-center gap-4 leading-tight">
-                <h1 className="text-[16px] font-lato">Midweek Service :</h1>
-                <p className="text-[16px] font-lato">6pm</p>
+                <h1 className="text-[16px] font-lato">2nd Service :</h1>
+                <p className="text-[16px] font-lato">9:30am</p>
+              </span>
+              <h1 className="text-[30px] font-gothic font-[300] leading-tight">
+                Midweek service time
+              </h1>
+              <span className="flex items-center gap-4 leading-tight">
+                <h1 className="text-[16px] font-lato">PHD Global :</h1>
+                <p className="text-[16px] font-lato">5:30pm(Every Tuesday)</p>
+              </span>
+              <span className="flex items-center gap-4 leading-tight">
+                <h1 className="text-[16px] font-lato">Prayer Altar of Answer :</h1>
+                <p className="text-[16px] font-lato">10am (Every Friday)</p>
               </span>
             </div>
             <div className="py-2 md:p-10 flex flex-col items-center">
