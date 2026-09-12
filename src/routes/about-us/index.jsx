@@ -31,7 +31,7 @@ const AboutUs = () => {
           <div className="container md:w-[1200px] mx-auto  w-[90%]">
             <div>
               <h1 className="text-[--primary-bg] font-gothic font-[400] text-[50px] leading-tight">
-                About HRCC INTERNATIONAL.
+                About HRCC INT'L.
               </h1>
             </div>
           </div>
